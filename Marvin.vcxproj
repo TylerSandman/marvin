@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{12C9EF66-2E4E-4006-B438-C31AA4C61FE1}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)$(Configuration)\Build\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)$(Configuration)\Build</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>Include;C:\Users\Tyler\Downloads\Box2D_v2.3.0\Box2D_v2.3.0\Box2D;C:\Users\Tyler\Downloads\json_spirit_v4.06\json_spirit_v4.06\json_spirit;C:\SFML-2.1\include;C:\Users\Tyler\Downloads\boost_1_55_0\boost_1_55_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <AdditionalLibraryDirectories>Lib/Box2D;Lib/SFML;</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-audio-d.lib;sfml-graphics-d.lib;sfml-main-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalIncludeDirectories>Include;../Include;C:\Users\Tyler\Downloads\Box2D_v2.3.0\Box2D_v2.3.0\Box2D;C:\Users\Tyler\Downloads\json_spirit_v4.06\json_spirit_v4.06\json_spirit;C:\SFML-2.1\include;C:\Users\Tyler\Downloads\boost_1_55_0\boost_1_55_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>Lib/Box2D;Lib/SFML;</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-audio.lib;sfml-graphics.lib;sfml-main.lib;sfml-network.lib;sfml-system.lib;sfml-window.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Library Include="lib\box2d\Box2D.lib" />
+    <Library Include="lib\sfml\sfml-audio-d.lib" />
+    <Library Include="lib\sfml\sfml-audio-s-d.lib" />
+    <Library Include="lib\sfml\sfml-audio-s.lib" />
+    <Library Include="lib\sfml\sfml-audio.lib" />
+    <Library Include="lib\sfml\sfml-graphics-d.lib" />
+    <Library Include="lib\sfml\sfml-graphics-s-d.lib" />
+    <Library Include="lib\sfml\sfml-graphics-s.lib" />
+    <Library Include="lib\sfml\sfml-graphics.lib" />
+    <Library Include="lib\sfml\sfml-main-d.lib" />
+    <Library Include="lib\sfml\sfml-main.lib" />
+    <Library Include="lib\sfml\sfml-network-d.lib" />
+    <Library Include="lib\sfml\sfml-network-s-d.lib" />
+    <Library Include="lib\sfml\sfml-network-s.lib" />
+    <Library Include="lib\sfml\sfml-network.lib" />
+    <Library Include="lib\sfml\sfml-system-d.lib" />
+    <Library Include="lib\sfml\sfml-system-s-d.lib" />
+    <Library Include="lib\sfml\sfml-system-s.lib" />
+    <Library Include="lib\sfml\sfml-system.lib" />
+    <Library Include="lib\sfml\sfml-window-d.lib" />
+    <Library Include="lib\sfml\sfml-window-s-d.lib" />
+    <Library Include="lib\sfml\sfml-window-s.lib" />
+    <Library Include="lib\sfml\sfml-window.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Maps\grasslands.json" />
+    <None Include="Resources\Maps\grasslands.tmx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\Textures\Background\grasslands_bg.png" />
+    <Image Include="Resources\Textures\Player\alienGreen.png" />
+    <Image Include="Resources\Textures\Player\alienGreen_climb1.png" />
+    <Image Include="Resources\Textures\Player\alienGreen_climb2.png" />
+    <Image Include="Resources\Textures\Player\alienGreen_duck.png" />
+    <Image Include="Resources\Textures\Player\alienGreen_hurt.png" />
+    <Image Include="Resources\Textures\Player\alienGreen_jump.png" />
+    <Image Include="Resources\Textures\Player\alienGreen_stand.png" />
+    <Image Include="Resources\Textures\Player\alienGreen_swim1.png" />
+    <Image Include="Resources\Textures\Player\alienGreen_swim2.png" />
+    <Image Include="Resources\Textures\Player\alienGreen_walk1.png" />
+    <Image Include="Resources\Textures\Player\alienGreen_walk2.png" />
+    <Image Include="Resources\Textures\Tileset\base_tiles_spritesheet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Include\Box2DTiledLoader.h" />
+    <ClInclude Include="Include\Entity.h" />
+    <ClInclude Include="Include\Game.h" />
+    <ClInclude Include="Include\Marvin.h" />
+    <ClInclude Include="Include\Object.h" />
+    <ClInclude Include="Include\ObjectGroup.h" />
+    <ClInclude Include="Include\ResourceManager.h" />
+    <ClInclude Include="Include\SceneNode.h" />
+    <ClInclude Include="Include\SpriteNode.h" />
+    <ClInclude Include="Include\Tile.h" />
+    <ClInclude Include="Include\TiledJSONLoader.h" />
+    <ClInclude Include="Include\TileLayer.h" />
+    <ClInclude Include="Include\Tileset.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Box2DTiledLoader.cpp" />
+    <ClCompile Include="Source\Entity.cpp" />
+    <ClCompile Include="Source\Game.cpp" />
+    <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\Marvin.cpp" />
+    <ClCompile Include="Source\SceneNode.cpp" />
+    <ClCompile Include="Source\SpriteNode.cpp" />
+    <ClCompile Include="Source\TiledJSONLoader.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

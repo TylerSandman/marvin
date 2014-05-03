@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Resource Files\Audio">
+      <UniqueIdentifier>{a1963f8b-a095-484a-b03e-a005e6ede860}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Maps">
+      <UniqueIdentifier>{4564aaed-4507-4492-b558-37244a20e2da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Textures">
+      <UniqueIdentifier>{9b289f1f-79a5-4cbd-9c3f-2f3747c98213}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Textures\Player">
+      <UniqueIdentifier>{a175f273-f0a0-4d49-a112-b86f22b13b90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Textures\Background">
+      <UniqueIdentifier>{6917777d-e67e-4a3b-96c6-94c7b1c00b53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Textures\Tileset">
+      <UniqueIdentifier>{becaad8b-4f10-427d-afb1-3a8ee6b1b630}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lib">
+      <UniqueIdentifier>{c8f453d1-4fd2-45eb-a4e0-20df02c35e70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lib\SFML">
+      <UniqueIdentifier>{708c4334-c87c-4de7-bac0-91d6d91a5e5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lib\Box2D">
+      <UniqueIdentifier>{08081c9e-df17-42e5-b658-63a4c943a92f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="lib\box2d\Box2D.lib">
+      <Filter>Lib\Box2D</Filter>
+    </Library>
+    <Library Include="lib\sfml\sfml-audio-d.lib">
+      <Filter>Lib\SFML</Filter>
+    </Library>
+    <Library Include="lib\sfml\sfml-audio-s-d.lib">
+      <Filter>Lib\SFML</Filter>
+    </Library>
+    <Library Include="lib\sfml\sfml-audio-s.lib">
+      <Filter>Lib\SFML</Filter>
+    </Library>
+    <Library Include="lib\sfml\sfml-audio.lib">
+      <Filter>Lib\SFML</Filter>
+    </Library>
+    <Library Include="lib\sfml\sfml-graphics-d.lib">
+      <Filter>Lib\SFML</Filter>
+    </Library>
+    <Library Include="lib\sfml\sfml-graphics-s-d.lib">
+      <Filter>Lib\SFML</Filter>
+    </Library>
+    <Library Include="lib\sfml\sfml-graphics-s.lib">
+      <Filter>Lib\SFML</Filter>
+    </Library>
+    <Library Include="lib\sfml\sfml-graphics.lib">
+      <Filter>Lib\SFML</Filter>
+    </Library>
+    <Library Include="lib\sfml\sfml-main-d.lib">
+      <Filter>Lib\SFML</Filter>
+    </Library>
+    <Library Include="lib\sfml\sfml-main.lib">
+      <Filter>Lib\SFML</Filter>
+    </Library>
+    <Library Include="lib\sfml\sfml-network-d.lib">
+      <Filter>Lib\SFML</Filter>
+    </Library>
+    <Library Include="lib\sfml\sfml-network-s-d.lib">
+      <Filter>Lib\SFML</Filter>
+    </Library>
+    <Library Include="lib\sfml\sfml-network-s.lib">
+      <Filter>Lib\SFML</Filter>
+    </Library>
+    <Library Include="lib\sfml\sfml-network.lib">
+      <Filter>Lib\SFML</Filter>
+    </Library>
+    <Library Include="lib\sfml\sfml-system-d.lib">
+      <Filter>Lib\SFML</Filter>
+    </Library>
+    <Library Include="lib\sfml\sfml-system-s-d.lib">
+      <Filter>Lib\SFML</Filter>
+    </Library>
+    <Library Include="lib\sfml\sfml-system-s.lib">
+      <Filter>Lib\SFML</Filter>
+    </Library>
+    <Library Include="lib\sfml\sfml-system.lib">
+      <Filter>Lib\SFML</Filter>
+    </Library>
+    <Library Include="lib\sfml\sfml-window-d.lib">
+      <Filter>Lib\SFML</Filter>
+    </Library>
+    <Library Include="lib\sfml\sfml-window-s-d.lib">
+      <Filter>Lib\SFML</Filter>
+    </Library>
+    <Library Include="lib\sfml\sfml-window-s.lib">
+      <Filter>Lib\SFML</Filter>
+    </Library>
+    <Library Include="lib\sfml\sfml-window.lib">
+      <Filter>Lib\SFML</Filter>
+    </Library>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Maps\grasslands.json">
+      <Filter>Resource Files\Maps</Filter>
+    </None>
+    <None Include="Resources\Maps\grasslands.tmx">
+      <Filter>Resource Files\Maps</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\Textures\Player\alienGreen.png">
+      <Filter>Resource Files\Textures\Player</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Player\alienGreen_climb1.png">
+      <Filter>Resource Files\Textures\Player</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Player\alienGreen_climb2.png">
+      <Filter>Resource Files\Textures\Player</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Player\alienGreen_duck.png">
+      <Filter>Resource Files\Textures\Player</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Player\alienGreen_hurt.png">
+      <Filter>Resource Files\Textures\Player</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Player\alienGreen_jump.png">
+      <Filter>Resource Files\Textures\Player</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Player\alienGreen_stand.png">
+      <Filter>Resource Files\Textures\Player</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Player\alienGreen_swim1.png">
+      <Filter>Resource Files\Textures\Player</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Player\alienGreen_swim2.png">
+      <Filter>Resource Files\Textures\Player</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Player\alienGreen_walk1.png">
+      <Filter>Resource Files\Textures\Player</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Player\alienGreen_walk2.png">
+      <Filter>Resource Files\Textures\Player</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Background\grasslands_bg.png">
+      <Filter>Resource Files\Textures\Background</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Tileset\base_tiles_spritesheet.png">
+      <Filter>Resource Files\Textures\Tileset</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Include\Box2DTiledLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Marvin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Object.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ObjectGroup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ResourceManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\SceneNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\SpriteNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Tile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\TiledJSONLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\TileLayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Tileset.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Box2DTiledLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Marvin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SpriteNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TiledJSONLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
