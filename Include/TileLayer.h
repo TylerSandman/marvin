@@ -6,14 +6,14 @@
 
 namespace tiled{
 
-	struct TileLayer{
+    struct TileLayer{
 
-	public:
-		tiled::TileGrid tiles;
-		std::string name;
-		bool visible;
-		double opacity;
-	};
+    public:
+        tiled::TileGrid tiles;
+        std::string name;
+        bool visible;
+        double opacity;
+    };
 
-	typedef std::vector<TileLayer> TileLayers;
+    typedef std::vector<TileLayer> TileLayers;
 }

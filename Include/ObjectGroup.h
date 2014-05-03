@@ -6,14 +6,14 @@
 
 namespace tiled{
 
-	struct ObjectGroup{
+    struct ObjectGroup{
 
-	public:
-		tiled::Objects objects;
-		std::string name;
-		bool visible;
-		double opacity;
-	};
+    public:
+        tiled::Objects objects;
+        std::string name;
+        bool visible;
+        double opacity;
+    };
 
-	typedef std::vector<ObjectGroup> ObjectGroups;
+    typedef std::vector<ObjectGroup> ObjectGroups;
 };

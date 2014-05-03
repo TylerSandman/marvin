@@ -4,6 +4,6 @@
 int main(){
 
     Game game("grasslands.json");
-	game.run();
+    game.run();
     return 0;
 }

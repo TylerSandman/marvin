@@ -15,33 +15,33 @@ sf::Time FRAME_RATE = sf::seconds(1.f/60.f);
 //float jumpTerminationVelocity = sqrt(powf(jumpVelocity,2) + 2 * gravity * (MAX_JUMP_HEIGHT - MIN_JUMP_HEIGHT));
 
 Game::Game(const std::string &map) : 
-		mMapLoader(TiledJSONLoader("Resources/Maps/", "Resources/Textures/Tileset/")),
+        mMapLoader(TiledJSONLoader("Resources/Maps/", "Resources/Textures/Tileset/")),
         mWorldLoader(Box2DTiledLoader()),
-		mWindow(sf::RenderWindow(sf::VideoMode(1024,768), "Marvin", sf::Style::Close)),
-		mView(mWindow.getDefaultView()){
-		
-	mMapLoader.load(map);
+        mWindow(sf::RenderWindow(sf::VideoMode(1024,768), "Marvin", sf::Style::Close)),
+        mView(mWindow.getDefaultView()){
+        
+    mMapLoader.load(map);
     assert(mMapLoader.isMapLoaded());
     mWorldLoader.load(mMapLoader.getTileLayers()[0].tiles);
     assert(mWorldLoader.isWorldLoaded());
     mBox2DWorld = std::unique_ptr<b2World>(mWorldLoader.getWorld());
 
-	mTileWidth = mMapLoader.getTileSize().x;
-	mTileHeight = mMapLoader.getTileSize().y;
-	mMapWidth = mMapLoader.getMapSize().x;
-	mMapHeight = mMapLoader.getMapSize().y;
-	mTileLayers = mMapLoader.getTileLayers();
-	mObjectGroups = mMapLoader.getObjectGroups();
+    mTileWidth = mMapLoader.getTileSize().x;
+    mTileHeight = mMapLoader.getTileSize().y;
+    mMapWidth = mMapLoader.getMapSize().x;
+    mMapHeight = mMapLoader.getMapSize().y;
+    mTileLayers = mMapLoader.getTileLayers();
+    mObjectGroups = mMapLoader.getObjectGroups();
     mTimeJumpHeld = 0;
     isJumping = false;
 
     loadTextures();
-	buildScene();
+    buildScene();
     spawnEntities();
 
     mView.setCenter(sf::Vector2f(512.f,1400.f));
-	mWindow.setView(mView);
-	mWindow.setVerticalSyncEnabled(true);
+    mWindow.setView(mView);
+    mWindow.setVerticalSyncEnabled(true);
     up = down = left = right = false;
 }
 
@@ -52,7 +52,7 @@ void Game::run(){
 
     sf::Time elapsedTime = sf::Time::Zero;
     sf::Clock clock;
-	while (mWindow.isOpen()){
+    while (mWindow.isOpen()){
         elapsedTime += clock.restart();
         while (elapsedTime > FRAME_RATE){
             elapsedTime -= FRAME_RATE;
@@ -60,14 +60,14 @@ void Game::run(){
             mBox2DWorld->Step(1.f/60.f, velocityIterations, positionIterations);
             update(FRAME_RATE);
         }
-		render();
-	}
+        render();
+    }
 }
 
 void Game::handleInput(){
 
     sf::Event event;
-	while (mWindow.pollEvent(event)){
+    while (mWindow.pollEvent(event)){
         if (event.type == sf::Event::Closed){
             mWindow.close();
         }
@@ -151,68 +151,68 @@ void Game::update(sf::Time deltaTime){
 
 void Game::render(){
 
-	mWindow.clear();
-	renderBackground();
-	renderTileLayers();
-	renderObjectGroups();
+    mWindow.clear();
+    renderBackground();
+    renderTileLayers();
+    renderObjectGroups();
     renderEntities();
     //renderStaticBodyFixtures(); //For debugging
-	mWindow.display();
+    mWindow.display();
 }
 
 void Game::renderBackground(){
-	mWindow.draw(mBackground);
+    mWindow.draw(mBackground);
 }
 
 void Game::renderTileLayers(){
 
-	//Culling logic to only render visible tiles
-	sf::Vector2f center = mView.getCenter();
-	sf::Vector2f size = mView.getSize();
-	int viewStartCullX = static_cast<int>
-		(std::floor((center.x - (size.x/2))/mTileWidth)) - 1;
-	int viewStartCullY = static_cast<int>
-		(std::floor((center.y - (size.y/2))/mTileHeight)) - 1;
-	int viewEndCullX = static_cast<int>
-		(std::ceil((center.x + (size.x/2))/mTileWidth)) + 1;
-	int viewEndCullY = static_cast<int>
-		(std::ceil((center.y + (size.y/2))/mTileHeight)) + 1;
+    //Culling logic to only render visible tiles
+    sf::Vector2f center = mView.getCenter();
+    sf::Vector2f size = mView.getSize();
+    int viewStartCullX = static_cast<int>
+        (std::floor((center.x - (size.x/2))/mTileWidth)) - 1;
+    int viewStartCullY = static_cast<int>
+        (std::floor((center.y - (size.y/2))/mTileHeight)) - 1;
+    int viewEndCullX = static_cast<int>
+        (std::ceil((center.x + (size.x/2))/mTileWidth)) + 1;
+    int viewEndCullY = static_cast<int>
+        (std::ceil((center.y + (size.y/2))/mTileHeight)) + 1;
 
-	if (viewStartCullX < 0) 
-		viewStartCullX = 0;
-	if (viewStartCullX > mMapWidth)
-		viewStartCullX = mMapWidth;
-	if (viewStartCullY < 0)
-		viewStartCullY = 0;
-	if (viewStartCullY > mMapHeight)
-		viewStartCullY = mMapHeight;
-	if (viewEndCullX < 0) 
-		viewEndCullX = 0;
-	if (viewEndCullX > mMapWidth)
-		viewEndCullX = mMapWidth;
-	if (viewEndCullY < 0)
-		viewEndCullY = 0;
-	if (viewEndCullY > mMapHeight)
-		viewEndCullY = mMapHeight;
+    if (viewStartCullX < 0) 
+        viewStartCullX = 0;
+    if (viewStartCullX > mMapWidth)
+        viewStartCullX = mMapWidth;
+    if (viewStartCullY < 0)
+        viewStartCullY = 0;
+    if (viewStartCullY > mMapHeight)
+        viewStartCullY = mMapHeight;
+    if (viewEndCullX < 0) 
+        viewEndCullX = 0;
+    if (viewEndCullX > mMapWidth)
+        viewEndCullX = mMapWidth;
+    if (viewEndCullY < 0)
+        viewEndCullY = 0;
+    if (viewEndCullY > mMapHeight)
+        viewEndCullY = mMapHeight;
 
-	for (int i = viewStartCullY; i < viewEndCullY; ++i){
-		for (int j = viewStartCullX; j < viewEndCullX; ++j){
-			for(auto &layer : mTileLayers){
-				tiled::Tile &tile = layer.tiles[i][j];
-				if (tile.sprite.getTexture()) mWindow.draw(tile.sprite);
-			}
-		}
-	}
+    for (int i = viewStartCullY; i < viewEndCullY; ++i){
+        for (int j = viewStartCullX; j < viewEndCullX; ++j){
+            for(auto &layer : mTileLayers){
+                tiled::Tile &tile = layer.tiles[i][j];
+                if (tile.sprite.getTexture()) mWindow.draw(tile.sprite);
+            }
+        }
+    }
 }
 
 void Game::renderObjectGroups(){
 
-	//Culling logic only needed when we have a large amount of tiled objects
-	for(auto &group : mObjectGroups){
-		for(auto &object : group.objects){
-			mWindow.draw(object.sprite);
-		}
-	}
+    //Culling logic only needed when we have a large amount of tiled objects
+    for(auto &group : mObjectGroups){
+        for(auto &object : group.objects){
+            mWindow.draw(object.sprite);
+        }
+    }
 }
 
 void Game::renderEntities(){
@@ -247,16 +247,16 @@ void Game::renderStaticBodyFixtures(){
 
 void Game::loadTextures(){
 
-	//Load our backgrounds
+    //Load our backgrounds
     mTextureManager.load(TextureID::Background1, "Resources/Textures/Background/grasslands_bg.png");
 
-	//Load our player
-	mTextureManager.load(TextureID::PlayerStanding, "Resources/Textures/Player/alienGreen_stand.png");
+    //Load our player
+    mTextureManager.load(TextureID::PlayerStanding, "Resources/Textures/Player/alienGreen_stand.png");
 }
 
 void Game::buildScene(){
 
-	mBackground.setTexture(mTextureManager.get(TextureID::Background1));
+    mBackground.setTexture(mTextureManager.get(TextureID::Background1));
     mPlayer.setTexture(mTextureManager.get(TextureID::PlayerStanding));
 }
 
