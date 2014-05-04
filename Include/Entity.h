@@ -8,6 +8,7 @@ public:
     void setVelocity(b2Vec2 velocity);
     void setVelocity(float x, float y);
     b2Vec2 getVelocity();
+    virtual void updateCurrent(sf::Time deltaTime);
 
 private:
     b2Vec2 mVelocity;

@@ -41,7 +41,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)$(Configuration)\Build</OutDir>
+    <OutDir>$(SolutionDir)$(Configuration)\Build\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -57,7 +57,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>Lib/Box2D;Lib/SFML;</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-audio-d.lib;sfml-graphics-d.lib;sfml-main-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-audio-d.lib;sfml-graphics-d.lib;sfml-main-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;Box2D-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -126,6 +126,7 @@
     <ClInclude Include="Include\Box2DTiledLoader.h" />
     <ClInclude Include="Include\Entity.h" />
     <ClInclude Include="Include\Game.h" />
+    <ClInclude Include="Include\MapData.h" />
     <ClInclude Include="Include\Marvin.h" />
     <ClInclude Include="Include\Object.h" />
     <ClInclude Include="Include\ObjectGroup.h" />
@@ -135,7 +136,9 @@
     <ClInclude Include="Include\Tile.h" />
     <ClInclude Include="Include\TiledJSONLoader.h" />
     <ClInclude Include="Include\TileLayer.h" />
+    <ClInclude Include="Include\TilemapNode.h" />
     <ClInclude Include="Include\Tileset.h" />
+    <ClInclude Include="Include\World.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Box2DTiledLoader.cpp" />
@@ -146,6 +149,8 @@
     <ClCompile Include="Source\SceneNode.cpp" />
     <ClCompile Include="Source\SpriteNode.cpp" />
     <ClCompile Include="Source\TiledJSONLoader.cpp" />
+    <ClCompile Include="Source\TilemapNode.cpp" />
+    <ClCompile Include="Source\World.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

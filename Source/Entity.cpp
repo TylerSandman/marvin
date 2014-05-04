@@ -12,3 +12,5 @@ void Entity::setVelocity(float x, float y){
 b2Vec2 Entity::getVelocity(){ 
     return mVelocity; 
 }
+
+void Entity::updateCurrent(sf::Time deltaTime){}
