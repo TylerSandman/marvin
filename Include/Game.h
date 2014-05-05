@@ -1,14 +1,14 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <string>
-#include <memory>
-#include "World.h"
+#include "StateStack.h"
 #include "Player.h"
+#include "ResourceManager.h"
 
 class Game{
 
 public:
-    Game(const std::string &map);
+    Game();
     void run();
 
 private:
@@ -18,7 +18,7 @@ private:
 
 private:
     sf::RenderWindow mWindow;
-    sf::View mView;
-    std::unique_ptr<World> mWorld;
     Player mPlayer;
+    TextureManager mTextureManager;
+    StateStack mStateStack;
 };

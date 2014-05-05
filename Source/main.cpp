@@ -3,7 +3,7 @@
 
 int main(){
 
-    Game game("grasslands.json");
+    Game game;
     game.run();
     return 0;
 }

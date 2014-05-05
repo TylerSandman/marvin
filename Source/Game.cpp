@@ -9,15 +9,17 @@
 #include "Box2DTiledLoader.h"
 #include "ResourceManager.h"
 #include "Game.h"
-#include "World.h"
+#include "State.h"
 #include "Constants.h"
 
-Game::Game(const std::string &map) : 
+Game::Game() : 
         mWindow(sf::RenderWindow(sf::VideoMode(1024,768), "Marvin", sf::Style::Close)),
-        mView(mWindow.getDefaultView()){
-        
-    mWorld.reset(new World(mWindow, map));
+        mPlayer(),
+        mTextureManager(),
+        mStateStack(State::Context(mWindow, mTextureManager, mPlayer, "grasslands.json")){
+
     mWindow.setVerticalSyncEnabled(true);
+    mStateStack.pushState(State::ID::Play);
 }
 
 void Game::run(){
@@ -30,6 +32,9 @@ void Game::run(){
             elapsedTime -= FRAME_RATE;
             handleInput();
             update(FRAME_RATE);
+
+            if (mStateStack.isEmpty())
+                mWindow.close();
         }
         draw();
     }
@@ -37,28 +42,25 @@ void Game::run(){
 
 void Game::handleInput(){
 
-    CommandQueue &commands = mWorld->getCommandQueue();
-
     sf::Event event;
     while (mWindow.pollEvent(event)){
 
-        mPlayer.handleEvent(event, commands);
+        mStateStack.handleEvent(event);
 
         if (event.type == sf::Event::Closed){
             mWindow.close();
         }
     }
-
-    mPlayer.handleRealtimeInput(commands);
 }
 
 void Game::update(sf::Time deltaTime){
-    mWorld->update(deltaTime);
+    mStateStack.update(deltaTime);
 }
 
 void Game::draw(){
 
     mWindow.clear();
-    mWorld->draw();
+    mStateStack.draw();
+    mWindow.setView(mWindow.getDefaultView());
     mWindow.display();
 }
