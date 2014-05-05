@@ -14,6 +14,4 @@ namespace phys{
     const float JUMP_TERMINATION_VELOCITY = sqrt(powf(JUMP_VELOCITY,2) + 2 * GRAVITY * (MAX_JUMP_HEIGHT - MIN_JUMP_HEIGHT));
 }
 
-namespace time{
-    const sf::Time FRAME_RATE = sf::seconds(1.f/60.f);
-}
+const sf::Time FRAME_RATE = sf::seconds(1.f/60.f);

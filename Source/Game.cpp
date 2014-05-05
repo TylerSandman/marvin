@@ -26,10 +26,10 @@ void Game::run(){
     sf::Clock clock;
     while (mWindow.isOpen()){
         elapsedTime += clock.restart();
-        while (elapsedTime > time::FRAME_RATE){
-            elapsedTime -= time::FRAME_RATE;
+        while (elapsedTime > FRAME_RATE){
+            elapsedTime -= FRAME_RATE;
             handleInput();
-            update(time::FRAME_RATE);
+            update(FRAME_RATE);
         }
         draw();
     }
