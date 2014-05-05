@@ -10,10 +10,7 @@
 #include "ResourceManager.h"
 #include "Game.h"
 #include "World.h"
-
-sf::Time FRAME_RATE = sf::seconds(1.f/60.f);
-//float jumpVelocity = sqrt(fabs(2 * gravity * MAX_JUMP_HEIGHT));
-//float jumpTerminationVelocity = sqrt(powf(jumpVelocity,2) + 2 * gravity * (MAX_JUMP_HEIGHT - MIN_JUMP_HEIGHT));
+#include "Constants.h"
 
 Game::Game(const std::string &map) : 
         mWindow(sf::RenderWindow(sf::VideoMode(1024,768), "Marvin", sf::Style::Close)),
@@ -29,10 +26,10 @@ void Game::run(){
     sf::Clock clock;
     while (mWindow.isOpen()){
         elapsedTime += clock.restart();
-        while (elapsedTime > FRAME_RATE){
-            elapsedTime -= FRAME_RATE;
+        while (elapsedTime > time::FRAME_RATE){
+            elapsedTime -= time::FRAME_RATE;
             handleInput();
-            update(FRAME_RATE);
+            update(time::FRAME_RATE);
         }
         draw();
     }
@@ -40,14 +37,21 @@ void Game::run(){
 
 void Game::handleInput(){
 
+    CommandQueue &commands = mWorld->getCommandQueue();
+
     sf::Event event;
     while (mWindow.pollEvent(event)){
+
+        mPlayer.handleEvent(event, commands);
+
         if (event.type == sf::Event::Closed){
             mWindow.close();
         }
-        mWorld->handleInput(event);
     }
+
+    mPlayer.handleRealtimeInput(commands);
 }
+
 void Game::update(sf::Time deltaTime){
     mWorld->update(deltaTime);
 }

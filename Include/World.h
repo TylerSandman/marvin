@@ -2,11 +2,13 @@
 #include <SFML\Graphics.hpp>
 #include <Box2D\Box2D.h>
 #include <array>
+#include <queue>
 #include "ResourceManager.h"
 #include "SceneNode.h"
 #include "MapData.h"
 #include "TiledJSONLoader.h"
 #include "Box2DTiledLoader.h"
+#include "Command.h"
 
 class Marvin;
 
@@ -14,7 +16,7 @@ class World{
 
 public:
     World(sf::RenderWindow &window, const std::string &map);
-    void handleInput(sf::Event &event);
+    CommandQueue& getCommandQueue();
     void update(sf::Time deltaTime);
     void draw();
 
@@ -36,14 +38,14 @@ private:
 private:
     sf::RenderWindow& mWindow;
     sf::View mWorldView;
+    CommandQueue mCommandQueue;
     TextureManager mTextureManager;
     TiledJSONLoader mMapLoader;
     Box2DTiledLoader mWorldLoader;
     SceneNode mSceneGraph;
     std::array<SceneNode*, LayerCount> mSceneLayers;
-    Marvin* mPlayer;
+    Marvin* mPlayerCharacter;
     b2Body* mPlayerBody;
     std::unique_ptr<b2World> mBox2DWorld;
     MapData mMapData;
-    bool up, down, left, right, isJumping;
 };

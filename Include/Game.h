@@ -3,6 +3,7 @@
 #include <string>
 #include <memory>
 #include "World.h"
+#include "Player.h"
 
 class Game{
 
@@ -19,4 +20,5 @@ private:
     sf::RenderWindow mWindow;
     sf::View mView;
     std::unique_ptr<World> mWorld;
+    Player mPlayer;
 };

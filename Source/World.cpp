@@ -19,7 +19,7 @@ World::World(sf::RenderWindow &window, const std::string &map) :
         mMapLoader(TiledJSONLoader("Resources/Maps/", "Resources/Textures/Tileset/")),
         mWorldLoader(Box2DTiledLoader()),
         mSceneGraph(SceneNode()),
-        mPlayer(nullptr){
+        mPlayerCharacter(nullptr){
 
     mMapLoader.load(map);
     assert(mMapLoader.isMapLoaded());
@@ -36,61 +36,22 @@ World::World(sf::RenderWindow &window, const std::string &map) :
     spawnEntities();
     buildScene();
 
-
-    up = down = left = right = isJumping = false;
-
     mWorldView.setCenter(sf::Vector2f(512.f,1400.f));
     mWindow.setView(mWorldView);
 }
 
-void World::handleInput(sf::Event &event){
-
-    right = (sf::Keyboard::isKeyPressed(sf::Keyboard::D));
-    left = (sf::Keyboard::isKeyPressed(sf::Keyboard::A));
-    up = (sf::Keyboard::isKeyPressed(sf::Keyboard::W));
-    down = (sf::Keyboard::isKeyPressed(sf::Keyboard::S));
+CommandQueue& World::getCommandQueue(){
+    return mCommandQueue;
 }
 
 void World::update(sf::Time deltaTime){
 
-    mBox2DWorld->Step(deltaTime.asSeconds(), 3, 1);
+    //It's important we advance our physics engine before updating
+    mBox2DWorld->Step(deltaTime.asSeconds(), 6, 2);
 
-    float gravity = mBox2DWorld->GetGravity().y;
-    float jumpVelocity = sqrt(fabs(2 * gravity * MAX_JUMP_HEIGHT));
-    float jumpTerminationVelocity = sqrt(powf(jumpVelocity,2) + 2 * gravity * (MAX_JUMP_HEIGHT - MIN_JUMP_HEIGHT));
-    b2Vec2 curVelocity = mPlayerBody->GetLinearVelocity();
-
-    if (right){
-        b2Vec2 interpolatedVelocity = b2Vec2(
-            ACCELERATION_CONSTANT * MAX_RUN_SPEED + (1 - ACCELERATION_CONSTANT) * curVelocity.x,
-            curVelocity.y);
-        mPlayerBody->SetLinearVelocity(b2Vec2(interpolatedVelocity));
-    }
-    else if (left){
-        b2Vec2 interpolatedVelocity = b2Vec2(
-            ACCELERATION_CONSTANT * -MAX_RUN_SPEED + (1 - ACCELERATION_CONSTANT) * curVelocity.x,
-            curVelocity.y);
-        mPlayerBody->SetLinearVelocity(b2Vec2(interpolatedVelocity));
-    }
-    else{
-        b2Vec2 interpolatedVelocity = b2Vec2(
-            DECELERATION_CONSTANT * curVelocity.x,
-            curVelocity.y);
-        mPlayerBody->SetLinearVelocity(b2Vec2(interpolatedVelocity));
-    }
-
-    curVelocity = mPlayerBody->GetLinearVelocity();
-    isJumping = (curVelocity.y == 0 ? false : true);
-    if (up){
-        if (!isJumping){
-            mPlayerBody->SetLinearVelocity(
-            b2Vec2(curVelocity.x, jumpVelocity));
-            isJumping = true;
-        }
-    }
-    else{
-        mPlayerBody->SetLinearVelocity(
-        b2Vec2(curVelocity.x, std::min(jumpTerminationVelocity, curVelocity.y)));
+    while (!mCommandQueue.empty()){
+        mSceneGraph.onCommand(mCommandQueue.front(), deltaTime);
+        mCommandQueue.pop();  
     }
 
     mSceneGraph.update(deltaTime);
@@ -99,7 +60,7 @@ void World::update(sf::Time deltaTime){
     float viewWidth =  mWorldView.getSize().x;
     float viewHeight = mWorldView.getSize().y;
     sf::Vector2f viewCenter = mWorldView.getCenter();
-    sf::Vector2f playerPos = mPlayer->getRenderPosition();
+    sf::Vector2f playerPos = mPlayerCharacter->getRenderPosition();
     float mMapWidthPixels = mMapData.mapWidth * 70.f;
     float mMapHeightPixels = mMapData.mapHeight * 70.f;
 
@@ -152,7 +113,7 @@ void World::buildScene(){
     mSceneLayers[Tilemap]->attachChild(std::move(tileMap));
 
     //Object layer (players, enemies, etc)
-    mSceneLayers[Object]->attachChild(std::move(std::unique_ptr<Marvin>(mPlayer)));
+    mSceneLayers[Object]->attachChild(std::move(std::unique_ptr<Marvin>(mPlayerCharacter)));
 }
 
 void World::spawnEntities(){
@@ -205,8 +166,8 @@ void World::spawnPlayer(sf::Vector2f position){
     footFixture.shape = &footShape;
     mPlayerBody->CreateFixture(&footFixture);
 
-    mPlayer = new Marvin(mTextureManager, mPlayerBody);
-    mPlayer->setRenderPosition(renderPos);
+    mPlayerCharacter = new Marvin(mTextureManager, mPlayerBody);
+    mPlayerCharacter->setRenderPosition(renderPos);
 }
 
 void World::renderStaticBodyFixtures(){

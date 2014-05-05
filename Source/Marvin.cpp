@@ -2,6 +2,7 @@
 #include <Box2D\Box2D.h>
 #include "Marvin.h"
 #include "ResourceManager.h"
+#include "Command.h"
 
 Marvin::Marvin(TextureManager &textureManager, b2Body *playerBody) : 
     mB2Body(playerBody), mPreviousPosition(playerBody->GetPosition()){
@@ -9,6 +10,10 @@ Marvin::Marvin(TextureManager &textureManager, b2Body *playerBody) :
     mSprite.setTexture(textureManager.get(TextureID::PlayerStanding));
     sf::FloatRect bounds = mSprite.getGlobalBounds();
     mSprite.setOrigin(bounds.width/2, bounds.height/2);
+}
+
+unsigned int Marvin::getCategory(){
+    return Category::Player;
 }
 
 void Marvin::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const{
@@ -35,6 +40,14 @@ void Marvin::setRenderPosition(sf::Vector2f position){
 
 b2Vec2 Marvin::getPosition(){
     return mB2Body->GetPosition();
+}
+
+void Marvin::setVelocity(b2Vec2 velocity){
+    mB2Body->SetLinearVelocity(velocity);
+}
+
+b2Vec2 Marvin::getVelocity(){
+    return mB2Body->GetLinearVelocity();
 }
 
 sf::FloatRect Marvin::getBoundingBox(){

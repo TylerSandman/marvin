@@ -4,8 +4,22 @@
 #include <vector>
 #include <cassert>
 #include "SceneNode.h"
+#include "Command.h"
 
 SceneNode::SceneNode(){}
+
+unsigned int SceneNode::getCategory(){
+    return Category::Scene;
+}
+
+void SceneNode::onCommand(const Command &command, sf::Time deltaTime){
+    if (command.category & getCategory())
+        command.action(*this, deltaTime);
+
+    for(auto &child : mChildren){
+        child.get()->onCommand(command, deltaTime);
+    }
+}
 
 void SceneNode::attachChild(Ptr child){
     child->mParent = this;

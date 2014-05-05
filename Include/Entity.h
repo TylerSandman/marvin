@@ -5,9 +5,9 @@
 class Entity : public SceneNode{
 
 public:
-    void setVelocity(b2Vec2 velocity);
-    void setVelocity(float x, float y);
-    b2Vec2 getVelocity();
+    virtual void setVelocity(b2Vec2 velocity);
+    virtual void setVelocity(float x, float y);
+    virtual b2Vec2 getVelocity();
     virtual void updateCurrent(sf::Time deltaTime);
 
 private:
