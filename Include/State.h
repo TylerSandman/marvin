@@ -10,10 +10,20 @@ class State{
 public:
     typedef std::unique_ptr<State> Ptr;
     struct Context{
-        Context(sf::RenderWindow &window, TextureManager &textureManager, Player &player, const std::string &map="") : 
-            window(&window), textureManager(&textureManager), player(&player), map(map){}
+        Context(
+            sf::RenderWindow &window, 
+            TextureManager &textureManager, 
+            FontManager &fontManager,
+            Player &player, 
+            const std::string &map="") : 
+                window(&window), 
+                textureManager(&textureManager), 
+                fontManager(&fontManager), 
+                player(&player), 
+                map(map){}
         sf::RenderWindow *window;
         TextureManager *textureManager;
+        FontManager *fontManager;
         Player *player;
         std::string map;
     };

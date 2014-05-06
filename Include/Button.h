@@ -14,23 +14,23 @@ public:
     typedef std::function<void()> Callback;
 
 public:
-    Button(TextureManager &textureManager, Component *parent=nullptr);
-    void setCallback(Callback callback);
-    void setText(const std::string &text);
+    Button(TextureManager &textureManager, FontManager &fontManager, Component *parent=nullptr);
+    void setOnClick(Callback callback);
+    void setText(const std::string &text, sf::Color color);
     void setToggle(bool toggle);
     virtual bool isSelectable();
-    virtual void select();
-    virtual void deselect();
     virtual void handleEvent(const sf::Event &event);
 
 private:
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+    sf::FloatRect getRect() const;
 
 private:
-    Callback mCallback;
+    Callback mOnClick;
     sf::Texture &mTexture;
     sf::Sprite mSprite;
     sf::Text mText;
+    sf::Color mDefaultColor;
     bool mIsToggle;
 };
 }

@@ -13,14 +13,14 @@ public:
 
 public:
     Container(Component *parent=nullptr);
-    bool isSelectable();
-    void handleEvent(const sf::Event &event);
-    void add(Component::Ptr component);
+    virtual bool isSelectable();
+    virtual void handleEvent(const sf::Event &event);
+    virtual void add(Component::Ptr component);
 
 private:
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
-private:
+protected:
     std::vector<Component::Ptr> mChildren;
 };
 }

@@ -16,12 +16,16 @@ Game::Game() :
         mWindow(sf::RenderWindow(sf::VideoMode(1024,768), "Marvin", sf::Style::Close)),
         mPlayer(),
         mTextureManager(),
-        mStateStack(State::Context(mWindow, mTextureManager, mPlayer, "grasslands.json")){
+        mFontManager(),
+        mStateStack(State::Context(mWindow, mTextureManager, mFontManager, mPlayer, "grasslands.json")){
 
     mWindow.setVerticalSyncEnabled(true);
 
-    //Load necessary textures
+    //Load necessary textures and fonts
     mTextureManager.load(TextureID::Button, "Resources/Textures/GUI/button.png");
+    mTextureManager.load(TextureID::Panel, "Resources/Textures/GUI/grey_panel.png");
+    mFontManager.load(FontID::Main, "Resources/Fonts/kenvector_future.ttf");
+    mFontManager.load(FontID::Thin, "Resources/Fonts/kenvector_future_thin.ttf");
     mStateStack.pushState(State::ID::Play);
 }
 

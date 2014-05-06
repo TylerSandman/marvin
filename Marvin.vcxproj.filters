@@ -27,6 +27,7 @@
     <ClInclude Include="Include\Component.h" />
     <ClInclude Include="Include\Container.h" />
     <ClInclude Include="Include\Button.h" />
+    <ClInclude Include="Include\Panel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Box2DTiledLoader.cpp" />
@@ -47,5 +48,6 @@
     <ClCompile Include="Source\Component.cpp" />
     <ClCompile Include="Source\Container.cpp" />
     <ClCompile Include="Source\Button.cpp" />
+    <ClCompile Include="Source\Panel.cpp" />
   </ItemGroup>
 </Project>

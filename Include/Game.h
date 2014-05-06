@@ -20,5 +20,6 @@ private:
     sf::RenderWindow mWindow;
     Player mPlayer;
     TextureManager mTextureManager;
+    FontManager mFontManager;
     StateStack mStateStack;
 };

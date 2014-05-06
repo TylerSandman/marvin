@@ -1,22 +1,32 @@
 #include <memory>
 #include "PauseState.h"
 #include "Container.h"
+#include "Panel.h"
 #include "Button.h"
 
 PauseState::PauseState(StateStack &stack, Context context) : 
         State(stack, context),
         mGUIContainer(){
 
+    //Panel where our buttons will be displayed
     sf::Vector2f windowSize(context.window->getSize());
+    auto buttonPanel = std::make_shared<GUI::Panel>(
+        *getContext().textureManager,
+        &mGUIContainer);
+    buttonPanel->setPosition(windowSize * 0.5f);
+    mGUIContainer.add(buttonPanel);
+
+    //Buttons
     auto resumeButton = std::make_shared<GUI::Button>(
-        (*getContext().textureManager), &mGUIContainer);
-    resumeButton->setCallback(
+         *getContext().textureManager,
+         *getContext().fontManager,
+         buttonPanel.get());
+    resumeButton->setOnClick(
         [this]() {
             requestStackPop();
         });
-    resumeButton->setText("Resume");
-    resumeButton->setPosition(0.5f * windowSize.x, 0.5f * windowSize.y);
-    mGUIContainer.add(resumeButton);
+    resumeButton->setText("Resume", sf::Color::White);
+    buttonPanel->add(resumeButton);
 }
 
 void PauseState::draw(){

@@ -8,7 +8,13 @@
 enum TextureID{
     Background1,
     PlayerStanding,
-    Button
+    Button,
+    Panel
+};
+
+enum FontID{
+    Main,
+    Thin
 };
 
 template <typename Identifier, typename Resource>
@@ -24,6 +30,7 @@ private:
 //Typedefs for ease of use
 
 typedef ResourceManager<TextureID, sf::Texture> TextureManager;
+typedef ResourceManager<FontID, sf::Font> FontManager;
 
 //Function Definitions
 
