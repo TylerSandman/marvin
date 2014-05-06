@@ -3,10 +3,12 @@
 #include <map>
 #include <memory>
 #include <string>
+#include <cassert>
 
 enum TextureID{
     Background1,
-    PlayerStanding
+    PlayerStanding,
+    Button
 };
 
 template <typename Identifier, typename Resource>

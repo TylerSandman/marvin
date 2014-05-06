@@ -24,6 +24,9 @@
     <ClInclude Include="Include\StateStack.h" />
     <ClInclude Include="Include\PlayState.h" />
     <ClInclude Include="Include\PauseState.h" />
+    <ClInclude Include="Include\Component.h" />
+    <ClInclude Include="Include\Container.h" />
+    <ClInclude Include="Include\Button.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Box2DTiledLoader.cpp" />
@@ -41,5 +44,8 @@
     <ClCompile Include="Source\State.cpp" />
     <ClCompile Include="Source\PlayState.cpp" />
     <ClCompile Include="Source\PauseState.cpp" />
+    <ClCompile Include="Source\Component.cpp" />
+    <ClCompile Include="Source\Container.cpp" />
+    <ClCompile Include="Source\Button.cpp" />
   </ItemGroup>
 </Project>

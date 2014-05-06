@@ -19,6 +19,9 @@ Game::Game() :
         mStateStack(State::Context(mWindow, mTextureManager, mPlayer, "grasslands.json")){
 
     mWindow.setVerticalSyncEnabled(true);
+
+    //Load necessary textures
+    mTextureManager.load(TextureID::Button, "Resources/Textures/GUI/button.png");
     mStateStack.pushState(State::ID::Play);
 }
 

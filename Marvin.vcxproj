@@ -12,8 +12,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Box2DTiledLoader.h" />
+    <ClInclude Include="Include\Button.h" />
     <ClInclude Include="Include\Command.h" />
+    <ClInclude Include="Include\Component.h" />
     <ClInclude Include="Include\Constants.h" />
+    <ClInclude Include="Include\Container.h" />
     <ClInclude Include="Include\Entity.h" />
     <ClInclude Include="Include\Game.h" />
     <ClInclude Include="Include\PauseState.h" />
@@ -37,6 +40,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Box2DTiledLoader.cpp" />
+    <ClCompile Include="Source\Button.cpp" />
+    <ClCompile Include="Source\Component.cpp" />
+    <ClCompile Include="Source\Container.cpp" />
     <ClCompile Include="Source\Entity.cpp" />
     <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Source\PauseState.cpp" />
