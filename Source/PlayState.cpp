@@ -24,6 +24,10 @@ bool PlayState::handleEvent(const sf::Event &event){
     CommandQueue &commands = mWorld->getCommandQueue();
     mPlayer.handleEvent(event, commands);
 
+    if ((event.type == sf::Event::KeyPressed) && 
+        (event.key.code == sf::Keyboard::P)){
+        requestStackPush(ID::Pause);
+    }
     //TODO HANDLE PAUSE SCREEN
     return true;
 }

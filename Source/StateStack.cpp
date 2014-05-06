@@ -1,5 +1,6 @@
 #include "StateStack.h"
 #include "PlayState.h"
+#include "PauseState.h"
 
 StateStack::StateStack(State::Context context): mContext(context){}
 
@@ -31,6 +32,8 @@ State::Ptr StateStack::createState(State::ID stateID){
     switch(stateID){
     case(State::ID::Play):
         return std::unique_ptr<PlayState>(new PlayState(*this, mContext, mContext.map));
+    case(State::ID::Pause):
+        return std::unique_ptr<PauseState>(new PauseState(*this, mContext));
     }
 }
 

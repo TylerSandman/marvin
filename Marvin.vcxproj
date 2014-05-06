@@ -16,6 +16,7 @@
     <ClInclude Include="Include\Constants.h" />
     <ClInclude Include="Include\Entity.h" />
     <ClInclude Include="Include\Game.h" />
+    <ClInclude Include="Include\PauseState.h" />
     <ClInclude Include="Include\PlayState.h" />
     <ClInclude Include="Include\MapData.h" />
     <ClInclude Include="Include\Marvin.h" />
@@ -38,6 +39,7 @@
     <ClCompile Include="Source\Box2DTiledLoader.cpp" />
     <ClCompile Include="Source\Entity.cpp" />
     <ClCompile Include="Source\Game.cpp" />
+    <ClCompile Include="Source\PauseState.cpp" />
     <ClCompile Include="Source\PlayState.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\Marvin.cpp" />
