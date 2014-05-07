@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <string>
+#include <fstream>
 #include "StateStack.h"
 #include "Player.h"
 #include "ResourceManager.h"

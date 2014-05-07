@@ -3,9 +3,11 @@
 #include "ObjectGroup.h"
 struct MapData{
 
-    //All in pixels
+    //In tiles
     int mapWidth;
     int mapHeight;
+
+    //In Pixels
     int tileWidth;
     int tileHeight;
 

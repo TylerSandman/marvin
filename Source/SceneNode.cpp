@@ -6,7 +6,9 @@
 #include "SceneNode.h"
 #include "Command.h"
 
-SceneNode::SceneNode(){}
+SceneNode::SceneNode(): 
+    mChildren(),
+    mParent(nullptr){}
 
 unsigned int SceneNode::getCategory(){
     return Category::Scene;

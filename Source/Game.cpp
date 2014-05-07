@@ -11,6 +11,7 @@
 #include "Game.h"
 #include "State.h"
 #include "Constants.h"
+#include "Logger.h"
 
 Game::Game() : 
         mWindow(sf::RenderWindow(sf::VideoMode(1024,768), "Marvin", sf::Style::Close)),
@@ -36,24 +37,25 @@ void Game::run(){
     while (mWindow.isOpen()){
         elapsedTime += clock.restart();
         while (elapsedTime > FRAME_RATE){
+
             elapsedTime -= FRAME_RATE;
             handleInput();
             update(FRAME_RATE);
 
-            if (mStateStack.isEmpty())
+            if (mStateStack.isEmpty()){
                 mWindow.close();
+            }
         }
         draw();
     }
+
 }
 
 void Game::handleInput(){
 
     sf::Event event;
     while (mWindow.pollEvent(event)){
-
         mStateStack.handleEvent(event);
-
         if (event.type == sf::Event::Closed){
             mWindow.close();
         }
@@ -65,7 +67,6 @@ void Game::update(sf::Time deltaTime){
 }
 
 void Game::draw(){
-
     mWindow.clear();
     mStateStack.draw();
     mWindow.setView(mWindow.getDefaultView());

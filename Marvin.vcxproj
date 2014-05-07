@@ -19,6 +19,9 @@
     <ClInclude Include="Include\Container.h" />
     <ClInclude Include="Include\Entity.h" />
     <ClInclude Include="Include\Game.h" />
+    <ClInclude Include="Include\GameObject.h" />
+    <ClInclude Include="Include\GameObjectFactory.h" />
+    <ClInclude Include="Include\Logger.h" />
     <ClInclude Include="Include\Panel.h" />
     <ClInclude Include="Include\PauseState.h" />
     <ClInclude Include="Include\PlayState.h" />
@@ -46,6 +49,9 @@
     <ClCompile Include="Source\Container.cpp" />
     <ClCompile Include="Source\Entity.cpp" />
     <ClCompile Include="Source\Game.cpp" />
+    <ClCompile Include="Source\GameObject.cpp" />
+    <ClCompile Include="Source\GameObjectFactory.cpp" />
+    <ClCompile Include="Source\Logger.cpp" />
     <ClCompile Include="Source\Panel.cpp" />
     <ClCompile Include="Source\PauseState.cpp" />
     <ClCompile Include="Source\PlayState.cpp" />

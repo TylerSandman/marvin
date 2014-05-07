@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Constants.h"
+#include "Logger.h"
 
 //Function object to handle jumping
 std::function<void(SceneNode&, sf::Time)> PlayerJumpInitiator(){
@@ -44,6 +45,7 @@ std::function<void(SceneNode&, sf::Time)> PlayerMoveAccelerator(float targetSpee
 }
 
 void Player::handleEvent(const sf::Event &event, CommandQueue &commandQueue){
+
     if (event.type == sf::Event::KeyPressed){
         if (event.key.code == sf::Keyboard::W){
             Command jumpCommand;
@@ -52,6 +54,7 @@ void Player::handleEvent(const sf::Event &event, CommandQueue &commandQueue){
             commandQueue.push(jumpCommand);
         }
     }
+
 }
 
 void Player::handleRealtimeInput(CommandQueue &commandQueue){
@@ -77,4 +80,5 @@ void Player::handleRealtimeInput(CommandQueue &commandQueue){
     }   
     commandQueue.push(moveCommand);
     commandQueue.push(jumpCommand);   
+
 }

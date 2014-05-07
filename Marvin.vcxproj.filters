@@ -28,6 +28,9 @@
     <ClInclude Include="Include\Container.h" />
     <ClInclude Include="Include\Button.h" />
     <ClInclude Include="Include\Panel.h" />
+    <ClInclude Include="Include\GameObject.h" />
+    <ClInclude Include="Include\GameObjectFactory.h" />
+    <ClInclude Include="Include\Logger.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Box2DTiledLoader.cpp" />
@@ -49,5 +52,8 @@
     <ClCompile Include="Source\Container.cpp" />
     <ClCompile Include="Source\Button.cpp" />
     <ClCompile Include="Source\Panel.cpp" />
+    <ClCompile Include="Source\GameObject.cpp" />
+    <ClCompile Include="Source\GameObjectFactory.cpp" />
+    <ClCompile Include="Source\Logger.cpp" />
   </ItemGroup>
 </Project>

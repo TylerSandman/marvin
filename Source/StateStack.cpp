@@ -1,6 +1,7 @@
 #include "StateStack.h"
 #include "PlayState.h"
 #include "PauseState.h"
+#include "Logger.h"
 
 StateStack::StateStack(State::Context context): mContext(context){}
 
@@ -10,6 +11,7 @@ void StateStack::update(sf::Time deltaTime){
         if (!i->get()->update(deltaTime))
             return;
     }
+    applyPendingChanges();
 }
 
 void StateStack::draw(){
@@ -25,10 +27,10 @@ void StateStack::handleEvent(const sf::Event &event){
         if (!i->get()->handleEvent(event))
             break;
     }
-    applyPendingChanges();
 }
 
 State::Ptr StateStack::createState(State::ID stateID){
+
     switch(stateID){
     case(State::ID::Play):
         return std::unique_ptr<PlayState>(new PlayState(*this, mContext, mContext.map));

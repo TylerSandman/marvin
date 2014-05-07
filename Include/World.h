@@ -8,6 +8,7 @@
 #include "MapData.h"
 #include "TiledJSONLoader.h"
 #include "Box2DTiledLoader.h"
+#include "GameObjectFactory.h"
 #include "Command.h"
 
 class Marvin;
@@ -23,7 +24,6 @@ public:
 private:
     void loadTextures();
     void buildScene();
-    void spawnEntities();
     void spawnPlayer(sf::Vector2f position);
     void renderStaticBodyFixtures(); //For debugging
 
@@ -42,6 +42,7 @@ private:
     TextureManager mTextureManager;
     TiledJSONLoader mMapLoader;
     Box2DTiledLoader mWorldLoader;
+    GameObjectFactory mGameObjectFactory;
     SceneNode mSceneGraph;
     std::array<SceneNode*, LayerCount> mSceneLayers;
     Marvin* mPlayerCharacter;

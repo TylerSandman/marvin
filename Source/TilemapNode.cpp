@@ -40,7 +40,8 @@ void TilemapNode::drawCurrent(sf::RenderTarget &target, sf::RenderStates states)
         for (int j = viewStartCullX; j < viewEndCullX; ++j){
             for(auto &layer : mMapData.tileLayers){
                 auto tile = layer.tiles[i][j];
-                if (tile.sprite.getTexture()) target.draw(tile.sprite);
+                if (tile.sprite.getTexture()) 
+                    target.draw(tile.sprite);
             }
         }
     }
@@ -48,7 +49,8 @@ void TilemapNode::drawCurrent(sf::RenderTarget &target, sf::RenderStates states)
     //Culling logic only needed when we have a large amount of tiled objects
     for(auto &group : mMapData.objectGroups){
         for(auto &object : group.objects){
-            target.draw(object.sprite);
+            if (object.sprite.getTexture()) 
+                target.draw(object.sprite);
         }
     }
 }

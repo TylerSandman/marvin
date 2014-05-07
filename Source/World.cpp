@@ -10,7 +10,9 @@
 #include "TiledJSONLoader.h"
 #include "Box2DTiledLoader.h"
 #include "MapData.h"
+#include "GameObjectFactory.h"
 #include "World.h"
+#include "Logger.h"
 
 World::World(sf::RenderWindow &window, const std::string &map) :
         mWindow(window),
@@ -32,12 +34,13 @@ World::World(sf::RenderWindow &window, const std::string &map) :
     mMapData.mapHeight = mMapLoader.getMapSize().y;
     mMapData.tileLayers = mMapLoader.getTileLayers();
     mMapData.objectGroups = mMapLoader.getObjectGroups();
+    mGameObjectFactory = GameObjectFactory(mMapData, mBox2DWorld.get());
     loadTextures();
-    spawnEntities();
     buildScene();
 
     mWorldView.setCenter(sf::Vector2f(512.f,1400.f));
     mWindow.setView(mWorldView);
+
 }
 
 CommandQueue& World::getCommandQueue(){
@@ -113,20 +116,19 @@ void World::buildScene(){
     mSceneLayers[Tilemap]->attachChild(std::move(tileMap));
 
     //Object layer (players, enemies, etc)
-    mSceneLayers[Object]->attachChild(std::move(std::unique_ptr<Marvin>(mPlayerCharacter)));
-}
 
-void World::spawnEntities(){
-
-     for(auto &objectGroup : mMapData.objectGroups){
-        if (objectGroup.name == "Spawns"){
-            for(auto &object : objectGroup.objects){
-                if (object.type == "Player"){
-                    spawnPlayer(object.position);
-                }
+    for(auto &objectGroup : mMapData.objectGroups){
+        for(auto &object : objectGroup.objects){
+            if (object.type == "Player"){
+                spawnPlayer(object.position);
+            }
+            else{
+                mSceneLayers[Object]->attachChild(
+                    GameObject::Ptr(mGameObjectFactory.createGameObject(object)));
             }
         }
-    }      
+    } 
+    mSceneLayers[Object]->attachChild(std::move(std::unique_ptr<Marvin>(mPlayerCharacter)));
 }
 
 void World::spawnPlayer(sf::Vector2f position){
