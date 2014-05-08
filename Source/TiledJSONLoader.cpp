@@ -166,8 +166,8 @@ tiled::Tile TiledJSONLoader::loadTile(json_spirit::mValue &tileVal, tiled::Tiles
         (std::floor(static_cast<float>
             (tileset.imageWidth-tileset.margin) / (mTileWidth + tileset.spacing)));
     int tilesetRow = static_cast<int>
-        (std::ceil(static_cast<float>(GID) / tilesPerRow));
-    int tilesetCol = tilesPerRow * (1 - tilesetRow) + GID;
+        (std::ceil(static_cast<float>(GID-tileset.firstGID) / tilesPerRow));
+    int tilesetCol = tilesPerRow * (1 - tilesetRow) + (GID-tileset.firstGID+1);
     sf::Vector2i spriteSheetPos(
         ((tilesetCol-1) * (mTileWidth + tileset.spacing) + tileset.margin - 1),
         ((tilesetRow-1) * (mTileHeight + tileset.spacing) + tileset.margin- 1));
@@ -225,12 +225,12 @@ tiled::Object TiledJSONLoader::loadObject(json_spirit::mValue &objectVal, tiled:
         (std::ceil(static_cast<float>(GID-tileset.firstGID) / tilesPerRow));
     int tilesetCol = tilesPerRow * (1 - tilesetRow) + (GID-tileset.firstGID+1);
     sf::Vector2i spriteSheetPos(
-        ((tilesetCol-1) * (mTileWidth + tileset.spacing) + tileset.margin),
-        ((tilesetRow-1) * (mTileHeight + tileset.spacing) + tileset.margin));
+        ((tilesetCol-1) * (mTileWidth + tileset.spacing) + tileset.margin - 1),
+        ((tilesetRow-1) * (mTileHeight + tileset.spacing) + tileset.margin) - 1);
     sf::Texture &tilesetTexture = mTilesetTextures[tileset.name];
     sf::Sprite objectSprite;
     objectSprite.setTexture(tilesetTexture);
-    objectSprite.setTextureRect(sf::IntRect(spriteSheetPos, sf::Vector2i(mTileWidth, mTileHeight)));
+    objectSprite.setTextureRect(sf::IntRect(spriteSheetPos, sf::Vector2i(mTileWidth+1, mTileHeight+1)));
     objectSprite.setPosition(currentObject.position);
     currentObject.sprite = objectSprite;
     return currentObject;

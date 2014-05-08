@@ -9,6 +9,7 @@
 #include "TiledJSONLoader.h"
 #include "Box2DTiledLoader.h"
 #include "GameObjectFactory.h"
+#include "CollisionHandler.h"
 #include "Command.h"
 
 class Marvin;
@@ -43,6 +44,7 @@ private:
     TiledJSONLoader mMapLoader;
     Box2DTiledLoader mWorldLoader;
     GameObjectFactory mGameObjectFactory;
+    CollisionHandler mCollisionHandler;
     SceneNode mSceneGraph;
     std::array<SceneNode*, LayerCount> mSceneLayers;
     Marvin* mPlayerCharacter;

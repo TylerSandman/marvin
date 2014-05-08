@@ -11,8 +11,9 @@
 #include "Box2DTiledLoader.h"
 #include "MapData.h"
 #include "GameObjectFactory.h"
+#include "CollisionHandler.h"
 #include "World.h"
-#include "Logger.h"
+
 
 World::World(sf::RenderWindow &window, const std::string &map) :
         mWindow(window),
@@ -20,27 +21,31 @@ World::World(sf::RenderWindow &window, const std::string &map) :
         mTextureManager(TextureManager()),
         mMapLoader(TiledJSONLoader("Resources/Maps/", "Resources/Textures/Tileset/")),
         mWorldLoader(Box2DTiledLoader()),
+        mCollisionHandler(CollisionHandler(*this)),
         mSceneGraph(SceneNode()),
         mPlayerCharacter(nullptr){
 
+    
+    
     mMapLoader.load(map);
     assert(mMapLoader.isMapLoaded());
-    mWorldLoader.load(mMapLoader.getTileLayers()[0].tiles);
-    assert(mWorldLoader.isWorldLoaded());
-    mBox2DWorld = std::unique_ptr<b2World>(mWorldLoader.getWorld());
     mMapData.tileWidth = mMapLoader.getTileSize().x;
     mMapData.tileHeight = mMapLoader.getTileSize().y;
     mMapData.mapWidth = mMapLoader.getMapSize().x;
     mMapData.mapHeight = mMapLoader.getMapSize().y;
     mMapData.tileLayers = mMapLoader.getTileLayers();
     mMapData.objectGroups = mMapLoader.getObjectGroups();
+
+    mWorldLoader.load(mMapLoader.getTileLayers()[0].tiles);
+    assert(mWorldLoader.isWorldLoaded());
+    mBox2DWorld = std::unique_ptr<b2World>(mWorldLoader.getWorld());
+    mBox2DWorld->SetContactListener(&mCollisionHandler);
     mGameObjectFactory = GameObjectFactory(mMapData, mBox2DWorld.get());
     loadTextures();
     buildScene();
 
     mWorldView.setCenter(sf::Vector2f(512.f,1400.f));
     mWindow.setView(mWorldView);
-
 }
 
 CommandQueue& World::getCommandQueue(){
@@ -112,7 +117,8 @@ void World::buildScene(){
     mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
 
     //Tilemap layer
-    std::unique_ptr<TilemapNode> tileMap(new TilemapNode(mMapData));
+    std::unique_ptr<TilemapNode> tileMap(
+        new TilemapNode(mMapData, mWorldLoader.getContours()));
     mSceneLayers[Tilemap]->attachChild(std::move(tileMap));
 
     //Object layer (players, enemies, etc)
@@ -155,7 +161,7 @@ void World::spawnPlayer(sf::Vector2f position){
     playerFixture.shape = &boundingBox;
     mPlayerBody->CreateFixture(&playerFixture);
 
-    //Special foot fixture to simulate friction on the ground
+    //Special foot sensor to manage jumping/movement
     b2PolygonShape footShape; 
     b2Vec2 footVertices[4];
     footVertices[0] = b2Vec2(-bounds.width / 70.f / 2 + 0.15f, -bounds.height / 70.f / 2);
@@ -164,12 +170,14 @@ void World::spawnPlayer(sf::Vector2f position){
     footVertices[3] = b2Vec2(bounds.width / 70.f / 2 - 0.15f, -bounds.height / 70.f / 2);
     footShape.Set(footVertices,4);
     b2FixtureDef footFixture;
+    footFixture.isSensor = true;
     footFixture.friction = 0.25f;
     footFixture.shape = &footShape;
     mPlayerBody->CreateFixture(&footFixture);
 
     mPlayerCharacter = new Marvin(mTextureManager, mPlayerBody);
     mPlayerCharacter->setRenderPosition(renderPos);
+    mPlayerBody->SetUserData(mPlayerCharacter);
 }
 
 void World::renderStaticBodyFixtures(){

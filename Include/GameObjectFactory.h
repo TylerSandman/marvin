@@ -13,6 +13,8 @@ public:
     GameObject* createGameObject(tiled::Object &object);
 
 private:
+    b2Body* createPhysicsBody(tiled::Object &object);
+    b2Vec2 getObjectSize(tiled::Object &object); //Relative to a single tile
     MapData mMapData;
     b2World *mWorld;
 };

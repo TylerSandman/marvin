@@ -11,6 +11,7 @@ public:
     void onCommand(const Command &command, sf::Time deltaTime);
     virtual unsigned int getCategory();
     typedef std::unique_ptr<SceneNode> Ptr;
+    typedef std::pair<SceneNode*, SceneNode*> Pair;
 
 public:
     void attachChild(Ptr child);

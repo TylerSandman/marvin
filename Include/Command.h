@@ -1,4 +1,5 @@
 #pragma once
+#include <SFML\Graphics.hpp>
 #include <functional>
 #include <queue>
 
@@ -7,7 +8,7 @@ class SceneNode;
 namespace Category{
     enum Type{
         None = 0, //Unclassified
-        Scene = 1 << 0, //Background
+        Walkable = 1 << 0, //Platforms, tops of boxes, etc
         Player = 1 << 1, //Player
         Enemy = 1 << 2, //Enemy
         Pickup = 1 << 3, //Coins, powerups, etc

@@ -1,5 +1,4 @@
 #include "PlayState.h"
-#include "Logger.h"
 
 PlayState::PlayState(StateStack &stack, Context context, const std::string &map) : 
         State(stack, context),

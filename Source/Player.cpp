@@ -1,6 +1,6 @@
 #include "Player.h"
 #include "Constants.h"
-#include "Logger.h"
+
 
 //Function object to handle jumping
 std::function<void(SceneNode&, sf::Time)> PlayerJumpInitiator(){

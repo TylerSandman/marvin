@@ -20,7 +20,8 @@ public:
     Box2DTiledLoader();
     void load(const tiled::TileGrid& grid);
     bool isWorldLoaded();
-    b2World* getWorld();
+    b2World* getWorld() const;
+    std::vector<b2Body*> getContours() const;
 
 private:
     bool contourTrace(const tiled::TileGrid &grid, BitGrid &visited);
@@ -32,6 +33,7 @@ private:
 
 private:
     b2World * mWorld;
+    std::vector<b2Body*> mContours;
     bool mWorldLoaded;
     int mMapWidth;
     int mMapHeight;

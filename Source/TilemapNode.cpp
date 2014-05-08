@@ -1,9 +1,20 @@
 #include <SFML/Graphics.hpp>
 #include "World.h"
 #include "TilemapNode.h"
+#include "Command.h"
 
-TilemapNode::TilemapNode(const MapData &mapData) :
-        mMapData(mapData){}
+TilemapNode::TilemapNode(const MapData &mapData, std::vector<b2Body*> contours) :
+        mMapData(mapData){
+
+    //Make the contours aware of the node for collision handling
+    for(auto &contour : contours){
+        contour->SetUserData(this);
+    }
+}
+
+unsigned int TilemapNode::getCategory(){
+    return Category::Type::Walkable;
+}
 
 void TilemapNode::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const{
 

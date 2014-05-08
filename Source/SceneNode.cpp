@@ -11,7 +11,7 @@ SceneNode::SceneNode():
     mParent(nullptr){}
 
 unsigned int SceneNode::getCategory(){
-    return Category::Scene;
+    return Category::None;
 }
 
 void SceneNode::onCommand(const Command &command, sf::Time deltaTime){

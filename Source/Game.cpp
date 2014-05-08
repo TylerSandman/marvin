@@ -11,7 +11,6 @@
 #include "Game.h"
 #include "State.h"
 #include "Constants.h"
-#include "Logger.h"
 
 Game::Game() : 
         mWindow(sf::RenderWindow(sf::VideoMode(1024,768), "Marvin", sf::Style::Close)),

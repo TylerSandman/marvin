@@ -1,7 +1,6 @@
 #include "StateStack.h"
 #include "PlayState.h"
 #include "PauseState.h"
-#include "Logger.h"
 
 StateStack::StateStack(State::Context context): mContext(context){}
 

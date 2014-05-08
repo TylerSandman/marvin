@@ -36,7 +36,9 @@ void Box2DTiledLoader::load(const tiled::TileGrid& grid){
 
 bool Box2DTiledLoader::isWorldLoaded(){ return mWorldLoaded; }
 
-b2World* Box2DTiledLoader::getWorld(){ return mWorld; }
+b2World* Box2DTiledLoader::getWorld() const{ return mWorld; }
+
+std::vector<b2Body*> Box2DTiledLoader::getContours() const{ return mContours; }
 
 bool Box2DTiledLoader::contourTrace(const tiled::TileGrid &grid, BitGrid &visited){
 
@@ -241,6 +243,7 @@ void Box2DTiledLoader::createStaticBody(std::vector<b2Vec2>& chainVertices){
         lastChain.CreateChain(vertices,lastChainLength);
         b2Fixture *lastContourFixture = platform->CreateFixture(&lastChain,0);
     }
+    mContours.push_back(platform);
 }
 
 std::vector<std::pair<int,int>> Box2DTiledLoader::getMooreNeighborhood(int startX, int startY){

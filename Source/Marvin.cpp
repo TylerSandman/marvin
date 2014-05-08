@@ -10,6 +10,7 @@ Marvin::Marvin(TextureManager &textureManager, b2Body *playerBody) :
     mSprite.setTexture(textureManager.get(TextureID::PlayerStanding));
     sf::FloatRect bounds = mSprite.getGlobalBounds();
     mSprite.setOrigin(bounds.width/2, bounds.height/2);
+    mState = State::OnGround;
 }
 
 unsigned int Marvin::getCategory(){
@@ -28,6 +29,8 @@ void Marvin::updateCurrent(sf::Time deltaTime){
     float mapHeight = previousRenderPos.y + mPreviousPosition.y * 70.f;
     mSprite.setPosition(physPos.x * 70.f, mapHeight - physPos.y * 70.f);
     mPreviousPosition = physPos;
+
+    //TODO MANAGE ANIMATIONS/SPRITES BASED ON STATE
 }
 
 sf::Vector2f Marvin::getRenderPosition(){
@@ -52,4 +55,12 @@ b2Vec2 Marvin::getVelocity(){
 
 sf::FloatRect Marvin::getBoundingBox(){
     return mSprite.getGlobalBounds();
+}
+
+Marvin::State Marvin::getState(){
+    return mState;
+}
+
+void Marvin::setState(Marvin::State state){
+    mState = state;
 }

@@ -5,6 +5,12 @@
 #include "ResourceManager.h"
 
 class Marvin : public Entity{
+
+public:
+    enum State{
+        OnGround,
+        InAir
+    };
     
 public:
     Marvin(TextureManager &textureManager, b2Body *playerBody);
@@ -17,9 +23,12 @@ public:
     void setVelocity(b2Vec2 velocity);
     b2Vec2 getVelocity(); 
     sf::FloatRect getBoundingBox();
+    State getState();
+    void setState(State state);
 
 private:
     b2Body *mB2Body;
     sf::Sprite mSprite;
     b2Vec2 mPreviousPosition;
+    State mState;
 };

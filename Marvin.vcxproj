@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClInclude Include="Include\Box2DTiledLoader.h" />
     <ClInclude Include="Include\Button.h" />
+    <ClInclude Include="Include\CollisionHandler.h" />
     <ClInclude Include="Include\Command.h" />
     <ClInclude Include="Include\Component.h" />
     <ClInclude Include="Include\Constants.h" />
@@ -45,6 +46,7 @@
   <ItemGroup>
     <ClCompile Include="Source\Box2DTiledLoader.cpp" />
     <ClCompile Include="Source\Button.cpp" />
+    <ClCompile Include="Source\CollisionHandler.cpp" />
     <ClCompile Include="Source\Component.cpp" />
     <ClCompile Include="Source\Container.cpp" />
     <ClCompile Include="Source\Entity.cpp" />

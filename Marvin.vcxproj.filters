@@ -31,6 +31,7 @@
     <ClInclude Include="Include\GameObject.h" />
     <ClInclude Include="Include\GameObjectFactory.h" />
     <ClInclude Include="Include\Logger.h" />
+    <ClInclude Include="Include\CollisionHandler.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Box2DTiledLoader.cpp" />
@@ -55,5 +56,6 @@
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\GameObjectFactory.cpp" />
     <ClCompile Include="Source\Logger.cpp" />
+    <ClCompile Include="Source\CollisionHandler.cpp" />
   </ItemGroup>
 </Project>
