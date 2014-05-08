@@ -1,15 +1,24 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <Box2D\Box2D.h>
+#include <map>
 #include "Entity.h"
 #include "ResourceManager.h"
+#include "AnimatedSprite.h"
 
 class Marvin : public Entity{
 
 public:
-    enum State{
-        OnGround,
-        InAir
+    enum FacingDirection{
+        Left,
+        Right
+    };
+
+    enum AnimationID{
+        None,
+        Walk,
+        Jump,
+        Hurt
     };
     
 public:
@@ -23,12 +32,23 @@ public:
     void setVelocity(b2Vec2 velocity);
     b2Vec2 getVelocity(); 
     sf::FloatRect getBoundingBox();
-    State getState();
-    void setState(State state);
+    bool isOnGround();
+    void setNumFootContacts(int num);
+    int getNumFootContacts();
+    AnimationID getAnimationID();
+    void setAnimationID(AnimationID);
+    void setFacingDirection(FacingDirection direction);
+    void turn();
+    FacingDirection getFacingDirection();
+
 
 private:
     b2Body *mB2Body;
-    sf::Sprite mSprite;
+    AnimatedSprite mSprite;
+    AnimationID mCurrentAnimationID;
+    FacingDirection mCurrentFacingDirection;
+    std::map<AnimationID, Animation> mAnimationMap;
     b2Vec2 mPreviousPosition;
-    State mState;
+    bool mOnGround;
+    int numFootContacts;
 };

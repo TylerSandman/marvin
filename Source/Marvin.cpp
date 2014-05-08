@@ -7,10 +7,33 @@
 Marvin::Marvin(TextureManager &textureManager, b2Body *playerBody) : 
     mB2Body(playerBody), mPreviousPosition(playerBody->GetPosition()){
 
-    mSprite.setTexture(textureManager.get(TextureID::PlayerStanding));
-    sf::FloatRect bounds = mSprite.getGlobalBounds();
+    sf::Texture &spriteSheet = textureManager.get(TextureID::PlayerSpriteSheet);
+    
+    Animation walkingAnimation;
+    walkingAnimation.setSpriteSheet(spriteSheet);
+    walkingAnimation.addFrame(sf::IntRect(0, 0, 70, 100));
+    walkingAnimation.addFrame(sf::IntRect(70, 0, 70, 100));
+    walkingAnimation.addFrame(sf::IntRect(140, 0, 70, 100));
+    mAnimationMap[AnimationID::Walk] = walkingAnimation;
+
+    Animation jumpingAnimation;
+    jumpingAnimation.setSpriteSheet(spriteSheet);
+    jumpingAnimation.addFrame(sf::IntRect(210, 0, 70, 100));
+    mAnimationMap[AnimationID::Jump] = jumpingAnimation;
+    
+    Animation hurtAnimation;
+    hurtAnimation.setSpriteSheet(spriteSheet);
+    hurtAnimation.addFrame(sf::IntRect(280, 0, 70, 100));
+    mAnimationMap[AnimationID::Hurt] = hurtAnimation;
+
+    mSprite = AnimatedSprite(sf::seconds(0.1f));
+    mSprite.setAnimation(walkingAnimation);
+    mCurrentAnimationID = AnimationID::Walk;
+    sf::FloatRect bounds = mSprite.getLocalBounds();
     mSprite.setOrigin(bounds.width/2, bounds.height/2);
-    mState = State::OnGround;
+    mCurrentFacingDirection = Marvin::FacingDirection::Left;
+    turn();    
+    numFootContacts = 0;
 }
 
 unsigned int Marvin::getCategory(){
@@ -29,8 +52,13 @@ void Marvin::updateCurrent(sf::Time deltaTime){
     float mapHeight = previousRenderPos.y + mPreviousPosition.y * 70.f;
     mSprite.setPosition(physPos.x * 70.f, mapHeight - physPos.y * 70.f);
     mPreviousPosition = physPos;
-
-    //TODO MANAGE ANIMATIONS/SPRITES BASED ON STATE
+    if (isOnGround())
+        mSprite.play(mAnimationMap[Marvin::AnimationID::Walk]);
+    else
+        mSprite.play(mAnimationMap[Marvin::AnimationID::Jump]);
+    if (mCurrentAnimationID == Marvin::AnimationID::None)
+        mSprite.stop();
+    mSprite.update(deltaTime);
 }
 
 sf::Vector2f Marvin::getRenderPosition(){
@@ -57,10 +85,41 @@ sf::FloatRect Marvin::getBoundingBox(){
     return mSprite.getGlobalBounds();
 }
 
-Marvin::State Marvin::getState(){
-    return mState;
+bool Marvin::isOnGround(){
+    return (numFootContacts > 0);
 }
 
-void Marvin::setState(Marvin::State state){
-    mState = state;
+Marvin::AnimationID Marvin::getAnimationID(){
+    return mCurrentAnimationID;
+}
+
+void Marvin::setAnimationID(Marvin::AnimationID id){
+    mCurrentAnimationID = id;
+}
+
+void Marvin::setFacingDirection(Marvin::FacingDirection direction){
+    mCurrentFacingDirection = direction;
+}
+
+Marvin::FacingDirection Marvin::getFacingDirection(){
+    return mCurrentFacingDirection;
+}
+
+void Marvin::turn(){
+    if (mCurrentFacingDirection == Marvin::FacingDirection::Left){
+        mSprite.setScale(-1.f, 1.f);
+        mCurrentFacingDirection = Marvin::FacingDirection::Right;
+    }
+    else{
+        mSprite.setScale(1.f, 1.f);
+        mCurrentFacingDirection = Marvin::FacingDirection::Left;
+    }
+}
+
+void Marvin::setNumFootContacts(int num){
+    numFootContacts = num;
+}
+
+int Marvin::getNumFootContacts(){
+    return numFootContacts;
 }

@@ -28,6 +28,5 @@ bool PlayState::handleEvent(const sf::Event &event){
         (event.key.code == sf::Keyboard::P)){
         requestStackPush(ID::Pause);
     }
-    //TODO HANDLE PAUSE SCREEN
     return true;
 }

@@ -25,8 +25,6 @@ World::World(sf::RenderWindow &window, const std::string &map) :
         mSceneGraph(SceneNode()),
         mPlayerCharacter(nullptr){
 
-    
-    
     mMapLoader.load(map);
     assert(mMapLoader.isMapLoaded());
     mMapData.tileWidth = mMapLoader.getTileSize().x;
@@ -91,6 +89,7 @@ void World::update(sf::Time deltaTime){
 void World::draw(){
     mWindow.setView(mWorldView);
     mWindow.draw(mSceneGraph);
+    renderStaticBodyFixtures();
 }
 
 void World::loadTextures(){
@@ -99,6 +98,7 @@ void World::loadTextures(){
     mTextureManager.load(TextureID::Background1, "Resources/Textures/Background/grasslands_bg.png");
 
     //Load our player
+    mTextureManager.load(TextureID::PlayerSpriteSheet, "Resources/Textures/Player/player_spritesheet.png");
     mTextureManager.load(TextureID::PlayerStanding, "Resources/Textures/Player/alienGreen_stand.png");
 }
 
@@ -164,10 +164,10 @@ void World::spawnPlayer(sf::Vector2f position){
     //Special foot sensor to manage jumping/movement
     b2PolygonShape footShape; 
     b2Vec2 footVertices[4];
-    footVertices[0] = b2Vec2(-bounds.width / 70.f / 2 + 0.15f, -bounds.height / 70.f / 2);
-    footVertices[1] = b2Vec2(-bounds.width / 70.f / 2 + 0.15f, -bounds.height / 70.f / 2 + 0.05f);
-    footVertices[2] = b2Vec2(bounds.width / 70.f / 2 - 0.15f, -bounds.height / 70.f / 2 + 0.05f);
-    footVertices[3] = b2Vec2(bounds.width / 70.f / 2 - 0.15f, -bounds.height / 70.f / 2);
+    footVertices[0] = b2Vec2(-bounds.width / 70.f / 2 + 0.2f, -bounds.height / 70.f / 2 - 0.04f);
+    footVertices[1] = b2Vec2(-bounds.width / 70.f / 2 + 0.2f, -bounds.height / 70.f / 2 + 0.05f);
+    footVertices[2] = b2Vec2(bounds.width / 70.f / 2 - 0.2f, -bounds.height / 70.f / 2 + 0.05f);
+    footVertices[3] = b2Vec2(bounds.width / 70.f / 2 - 0.2f, -bounds.height / 70.f / 2 - 0.04f);
     footShape.Set(footVertices,4);
     b2FixtureDef footFixture;
     footFixture.isSensor = true;

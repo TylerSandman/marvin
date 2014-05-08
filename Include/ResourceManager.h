@@ -7,6 +7,7 @@
 
 enum TextureID{
     Background1,
+    PlayerSpriteSheet,
     PlayerStanding,
     Button,
     Panel

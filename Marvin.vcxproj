@@ -11,6 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\AnimatedSprite.h" />
+    <ClInclude Include="Include\Animation.h" />
     <ClInclude Include="Include\Box2DTiledLoader.h" />
     <ClInclude Include="Include\Button.h" />
     <ClInclude Include="Include\CollisionHandler.h" />
@@ -44,6 +46,8 @@
     <ClInclude Include="Include\World.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\AnimatedSprite.cpp" />
+    <ClCompile Include="Source\Animation.cpp" />
     <ClCompile Include="Source\Box2DTiledLoader.cpp" />
     <ClCompile Include="Source\Button.cpp" />
     <ClCompile Include="Source\CollisionHandler.cpp" />

@@ -31,11 +31,39 @@ void CollisionHandler::BeginContact(b2Contact *contact){
         //Is our foot sensor touching walkable terrain?
         if (contact->GetFixtureA()->IsSensor()){
             Marvin &player = static_cast<Marvin&>(*firstNode);
-            player.setState(Marvin::State::OnGround);
+            player.setNumFootContacts(player.getNumFootContacts() + 1);
         }           
         else if (contact->GetFixtureB()->IsSensor()){
             Marvin &player = static_cast<Marvin&>(*secondNode);
-            player.setState(Marvin::State::OnGround);
+            player.setNumFootContacts(player.getNumFootContacts() + 1);
+        }
+    }
+}
+
+void CollisionHandler::EndContact(b2Contact *contact){
+
+    //User data is defined as a scene node
+    auto firstNode = static_cast<SceneNode*>(
+        contact->GetFixtureA()->GetBody()->GetUserData());
+    auto secondNode = static_cast<SceneNode*>(
+        contact->GetFixtureB()->GetBody()->GetUserData());
+
+    //No user data means the nodes don't require further collision handling
+    if (!firstNode || !secondNode) return;
+
+    SceneNode::Pair collisionPair(firstNode, secondNode);
+    CommandQueue& commandQueue = mWorld.getCommandQueue();
+
+    //Terrain collisions. Assumes no terrains have sensors (may need to reimplement)
+    if (matchesCategories(collisionPair, Category::Type::Player, Category::Type::Walkable)){
+        //Has our foot sensor left walkable terrain?
+        if (contact->GetFixtureA()->IsSensor()){
+            Marvin &player = static_cast<Marvin&>(*firstNode);
+            player.setNumFootContacts(player.getNumFootContacts() - 1);
+        }           
+        else if (contact->GetFixtureB()->IsSensor()){
+            Marvin &player = static_cast<Marvin&>(*secondNode);
+            player.setNumFootContacts(player.getNumFootContacts() - 1);
         }
     }
 }
