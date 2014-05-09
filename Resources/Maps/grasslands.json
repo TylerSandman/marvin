@@ -38,7 +38,63 @@
         {
          "height":30,
          "name":"Objects",
-         "objects":[],
+         "objects":[
+                {
+                 "gid":160,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "type":"Spikes",
+                 "visible":true,
+                 "width":0,
+                 "x":1120,
+                 "y":1680
+                }, 
+                {
+                 "gid":160,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "type":"Spikes",
+                 "visible":true,
+                 "width":0,
+                 "x":1050,
+                 "y":1680
+                }, 
+                {
+                 "gid":160,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "type":"Spikes",
+                 "visible":true,
+                 "width":0,
+                 "x":1540,
+                 "y":1680
+                }, 
+                {
+                 "gid":160,
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "type":"Spikes",
+                 "visible":true,
+                 "width":0,
+                 "x":1610,
+                 "y":1680
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,

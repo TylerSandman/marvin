@@ -28,11 +28,10 @@ Marvin::Marvin(TextureManager &textureManager, b2Body *playerBody) :
 
     mSprite = AnimatedSprite(sf::seconds(0.1f));
     mSprite.setAnimation(walkingAnimation);
-    mCurrentAnimationID = AnimationID::Walk;
     sf::FloatRect bounds = mSprite.getLocalBounds();
     mSprite.setOrigin(bounds.width/2, bounds.height/2);
     mCurrentFacingDirection = Marvin::FacingDirection::Left;
-    turn();    
+    turn(Marvin::FacingDirection::Right);    
     numFootContacts = 0;
 }
 
@@ -56,8 +55,6 @@ void Marvin::updateCurrent(sf::Time deltaTime){
         mSprite.play(mAnimationMap[Marvin::AnimationID::Walk]);
     else
         mSprite.play(mAnimationMap[Marvin::AnimationID::Jump]);
-    if (mCurrentAnimationID == Marvin::AnimationID::None)
-        mSprite.stop();
     mSprite.update(deltaTime);
 }
 
@@ -89,37 +86,28 @@ bool Marvin::isOnGround(){
     return (numFootContacts > 0);
 }
 
-Marvin::AnimationID Marvin::getAnimationID(){
-    return mCurrentAnimationID;
-}
-
-void Marvin::setAnimationID(Marvin::AnimationID id){
-    mCurrentAnimationID = id;
-}
-
-void Marvin::setFacingDirection(Marvin::FacingDirection direction){
-    mCurrentFacingDirection = direction;
-}
-
-Marvin::FacingDirection Marvin::getFacingDirection(){
-    return mCurrentFacingDirection;
-}
-
-void Marvin::turn(){
-    if (mCurrentFacingDirection == Marvin::FacingDirection::Left){
-        mSprite.setScale(-1.f, 1.f);
-        mCurrentFacingDirection = Marvin::FacingDirection::Right;
-    }
-    else{
-        mSprite.setScale(1.f, 1.f);
-        mCurrentFacingDirection = Marvin::FacingDirection::Left;
-    }
-}
-
 void Marvin::setNumFootContacts(int num){
     numFootContacts = num;
 }
 
 int Marvin::getNumFootContacts(){
     return numFootContacts;
+}
+
+void Marvin::turn(Marvin::FacingDirection direction){
+    if ((mCurrentFacingDirection == Marvin::FacingDirection::Left) && 
+        (direction == Marvin::FacingDirection::Right)){
+        mSprite.setScale(-1.f, 1.f);
+        mCurrentFacingDirection = Marvin::FacingDirection::Right;
+    }
+    else if ((mCurrentFacingDirection == Marvin::FacingDirection::Right) && 
+             (direction == Marvin::FacingDirection::Left)){
+        mSprite.setScale(1.f, 1.f);
+        mCurrentFacingDirection = Marvin::FacingDirection::Left;
+    }
+    mSprite.play();
+}
+
+void Marvin::stopAnimation(){
+    mSprite.stop();
 }

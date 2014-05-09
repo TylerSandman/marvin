@@ -35,20 +35,14 @@ public:
     bool isOnGround();
     void setNumFootContacts(int num);
     int getNumFootContacts();
-    AnimationID getAnimationID();
-    void setAnimationID(AnimationID);
-    void setFacingDirection(FacingDirection direction);
-    void turn();
-    FacingDirection getFacingDirection();
-
+    void turn(FacingDirection direction);
+    void stopAnimation();
 
 private:
     b2Body *mB2Body;
     AnimatedSprite mSprite;
-    AnimationID mCurrentAnimationID;
     FacingDirection mCurrentFacingDirection;
     std::map<AnimationID, Animation> mAnimationMap;
     b2Vec2 mPreviousPosition;
-    bool mOnGround;
-    int numFootContacts;
+    int numFootContacts; //Ew. So...hacky. Gotta fix this.
 };

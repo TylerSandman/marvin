@@ -23,7 +23,8 @@ World::World(sf::RenderWindow &window, const std::string &map) :
         mWorldLoader(Box2DTiledLoader()),
         mCollisionHandler(CollisionHandler(*this)),
         mSceneGraph(SceneNode()),
-        mPlayerCharacter(nullptr){
+        mPlayerCharacter(nullptr),
+        mResetRequested(false){
 
     mMapLoader.load(map);
     assert(mMapLoader.isMapLoaded());
@@ -44,6 +45,29 @@ World::World(sf::RenderWindow &window, const std::string &map) :
 
     mWorldView.setCenter(sf::Vector2f(512.f,1400.f));
     mWindow.setView(mWorldView);
+}
+
+void World::reset(){
+    mBox2DWorld.release();
+    mWorldLoader.load(mMapData.tileLayers[0].tiles);
+    assert(mWorldLoader.isWorldLoaded());
+    mBox2DWorld = std::unique_ptr<b2World>(mWorldLoader.getWorld());
+    mBox2DWorld->SetContactListener(&mCollisionHandler);
+    mGameObjectFactory = GameObjectFactory(mMapData, mBox2DWorld.get());
+    for (std::size_t i = 0; i < LayerCount; ++i){
+        mSceneGraph.detachChild(*mSceneLayers[i]);
+    }
+    mSceneLayers.empty();
+    mPlayerCharacter = nullptr;
+    mPlayerBody = nullptr;
+    buildScene();
+    mWorldView.setCenter(sf::Vector2f(512.f,1400.f));
+    mWindow.setView(mWorldView);
+    mResetRequested = false;
+}
+
+void World::requestReset(){
+    mResetRequested = true;
 }
 
 CommandQueue& World::getCommandQueue(){
@@ -84,12 +108,14 @@ void World::update(sf::Time deltaTime){
 
     sf::Vector2f newCenter(playerPos.x + xOffset, playerPos.y + yOffset);
     mWorldView.setCenter(newCenter);
+
+    if (mResetRequested)
+        reset();
 }
 
 void World::draw(){
     mWindow.setView(mWorldView);
     mWindow.draw(mSceneGraph);
-    renderStaticBodyFixtures();
 }
 
 void World::loadTextures(){

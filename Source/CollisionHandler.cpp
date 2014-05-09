@@ -26,17 +26,23 @@ void CollisionHandler::BeginContact(b2Contact *contact){
         Logger::log("Jumped on a damaging...uh...thing\n");
     }
 
-    //Terrain collisions. Assumes no terrains have sensors (may need to reimplement)
+    //Terrain collisions.
     if (matchesCategories(collisionPair, Category::Type::Player, Category::Type::Walkable)){
+        
         //Is our foot sensor touching walkable terrain?
-        if (contact->GetFixtureA()->IsSensor()){
+        if ((contact->GetFixtureA()->IsSensor()) && 
+            (firstNode->getCategory() == Category::Type::Player)){
             Marvin &player = static_cast<Marvin&>(*firstNode);
             player.setNumFootContacts(player.getNumFootContacts() + 1);
         }           
-        else if (contact->GetFixtureB()->IsSensor()){
+        else if ((contact->GetFixtureB()->IsSensor()) &&
+                 (secondNode->getCategory() == Category::Type::Player)){
             Marvin &player = static_cast<Marvin&>(*secondNode);
             player.setNumFootContacts(player.getNumFootContacts() + 1);
         }
+
+        //Other cases TODO
+
     }
 }
 

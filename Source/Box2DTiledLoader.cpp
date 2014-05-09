@@ -10,6 +10,7 @@ Box2DTiledLoader::Box2DTiledLoader() : mWorldLoaded(false), mMapWidth(0), mMapHe
 
 void Box2DTiledLoader::load(const tiled::TileGrid& grid){
     
+    mWorldLoaded = false;
     float gravityVal = -1 * ((2 * MAX_JUMP_HEIGHT) / powf(JUMP_APEX_TIME,2.f));
     b2Vec2 gravity(0.0f, gravityVal);
     mWorld = new b2World(gravity);

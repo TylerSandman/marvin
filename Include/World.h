@@ -21,12 +21,14 @@ public:
     CommandQueue& getCommandQueue();
     void update(sf::Time deltaTime);
     void draw();
+    void requestReset();
 
 private:
     void loadTextures();
     void buildScene();
     void spawnPlayer(sf::Vector2f position);
     void renderStaticBodyFixtures(); //For debugging
+    void reset();
 
 private:
     enum Layer{
@@ -51,4 +53,5 @@ private:
     b2Body* mPlayerBody;
     std::unique_ptr<b2World> mBox2DWorld;
     MapData mMapData;
+    bool mResetRequested;
 };

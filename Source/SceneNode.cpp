@@ -35,6 +35,7 @@ SceneNode::Ptr SceneNode::detachChild(const SceneNode &node){
     assert(toDetach != mChildren.end());
     Ptr found = std::move(*toDetach);
     found->mParent = nullptr;
+    mChildren.erase(toDetach);
     return found;
 }
 
