@@ -29,6 +29,7 @@ private:
     void spawnPlayer(sf::Vector2f position);
     void renderStaticBodyFixtures(); //For debugging
     void reset();
+    void centerPlayerView();
 
 private:
     enum Layer{

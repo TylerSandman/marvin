@@ -109,5 +109,9 @@ void Marvin::turn(Marvin::FacingDirection direction){
 }
 
 void Marvin::stopAnimation(){
-    mSprite.stop();
+    //Need this check because during world restarts
+    //we may try to stop non-existant animations due
+    //to player resetting
+    if (mSprite.getAnimation()->getSize() > 0)
+        mSprite.stop();
 }

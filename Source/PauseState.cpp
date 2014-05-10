@@ -8,7 +8,7 @@ PauseState::PauseState(StateStack &stack, Context context) :
         State(stack, context),
         mGUIContainer(){
 
-    //Panel where our buttons will be displayed
+    //Panel where our button list will be displayed
     sf::Vector2f windowSize(context.window->getSize());
     auto buttonPanel = std::make_shared<GUI::Panel>(
         *getContext().textureManager,
@@ -26,7 +26,20 @@ PauseState::PauseState(StateStack &stack, Context context) :
             requestStackPop();
         });
     resumeButton->setText("Resume", sf::Color::White);
+    resumeButton->setPosition(0.f, -30.f);
     buttonPanel->add(resumeButton);
+    
+    auto exitButton = std::make_shared<GUI::Button>(
+         *getContext().textureManager,
+         *getContext().fontManager,
+         buttonPanel.get());
+    exitButton->setOnClick(
+        [this]() {
+            exit(0);
+        });
+    exitButton->setText("Exit", sf::Color::White);
+    exitButton->setPosition(0.f, 30.f);
+    buttonPanel->add(exitButton);
 }
 
 void PauseState::draw(){

@@ -15,7 +15,7 @@ bool PlayState::update(sf::Time deltaTime){
 
     mWorld->update(deltaTime);
     CommandQueue &commands = mWorld->getCommandQueue();
-    mPlayer.handleRealtimeInput(commands);
+    mPlayer.handleRealtimeInput(commands);   
     return true;
 }
 
@@ -27,10 +27,6 @@ bool PlayState::handleEvent(const sf::Event &event){
     if ((event.type == sf::Event::KeyPressed) && 
         (event.key.code == sf::Keyboard::P)){
         requestStackPush(ID::Pause);
-    }
-    if ((event.type == sf::Event::KeyPressed) && 
-        (event.key.code == sf::Keyboard::R)){
-        mWorld->requestReset();
     }
     return true;
 }

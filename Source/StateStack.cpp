@@ -8,7 +8,7 @@ void StateStack::update(sf::Time deltaTime){
 
     for(auto i = mStack.rbegin(); i != mStack.rend(); ++i){
         if (!i->get()->update(deltaTime))
-            return;
+            break;
     }
     applyPendingChanges();
 }

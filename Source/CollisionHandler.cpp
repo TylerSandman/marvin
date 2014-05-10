@@ -23,7 +23,7 @@ void CollisionHandler::BeginContact(b2Contact *contact){
 
     //Player and damagers
     if (matchesCategories(collisionPair, Category::Type::Player, Category::Type::Damager)){
-        Logger::log("Jumped on a damaging...uh...thing\n");
+        mWorld.requestReset();
     }
 
     //Terrain collisions.

@@ -43,12 +43,14 @@ World::World(sf::RenderWindow &window, const std::string &map) :
     loadTextures();
     buildScene();
 
-    mWorldView.setCenter(sf::Vector2f(512.f,1400.f));
+    centerPlayerView();
     mWindow.setView(mWorldView);
 }
 
 void World::reset(){
     mBox2DWorld.release();
+    mPlayerCharacter = nullptr;
+    mPlayerBody = nullptr;
     mWorldLoader.load(mMapData.tileLayers[0].tiles);
     assert(mWorldLoader.isWorldLoaded());
     mBox2DWorld = std::unique_ptr<b2World>(mWorldLoader.getWorld());
@@ -58,11 +60,8 @@ void World::reset(){
         mSceneGraph.detachChild(*mSceneLayers[i]);
     }
     mSceneLayers.empty();
-    mPlayerCharacter = nullptr;
-    mPlayerBody = nullptr;
     buildScene();
-    mWorldView.setCenter(sf::Vector2f(512.f,1400.f));
-    mWindow.setView(mWorldView);
+    centerPlayerView();
     mResetRequested = false;
 }
 
@@ -85,7 +84,13 @@ void World::update(sf::Time deltaTime){
     }
 
     mSceneGraph.update(deltaTime);
-  
+    centerPlayerView();
+
+    if (mResetRequested)
+        reset();
+}
+
+void World::centerPlayerView(){
     //Make sure our view is inside map bounds
     float viewWidth =  mWorldView.getSize().x;
     float viewHeight = mWorldView.getSize().y;
@@ -108,9 +113,6 @@ void World::update(sf::Time deltaTime){
 
     sf::Vector2f newCenter(playerPos.x + xOffset, playerPos.y + yOffset);
     mWorldView.setCenter(newCenter);
-
-    if (mResetRequested)
-        reset();
 }
 
 void World::draw(){
