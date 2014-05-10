@@ -10,6 +10,7 @@ enum TextureID{
     PlayerSpriteSheet,
     PlayerStanding,
     Button,
+    ButtonPressed,
     Panel
 };
 

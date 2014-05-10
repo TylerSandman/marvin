@@ -22,7 +22,8 @@ Game::Game() :
     mWindow.setVerticalSyncEnabled(true);
 
     //Load necessary textures and fonts
-    mTextureManager.load(TextureID::Button, "Resources/Textures/GUI/button.png");
+    mTextureManager.load(TextureID::Button, "Resources/Textures/GUI/green_button.png");
+    mTextureManager.load(TextureID::ButtonPressed, "Resources/Textures/GUI/green_button_pressed.png");
     mTextureManager.load(TextureID::Panel, "Resources/Textures/GUI/grey_panel.png");
     mFontManager.load(FontID::Main, "Resources/Fonts/kenvector_future.ttf");
     mFontManager.load(FontID::Thin, "Resources/Fonts/kenvector_future_thin.ttf");

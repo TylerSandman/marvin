@@ -36,7 +36,7 @@ void Button::setToggle(bool toggle){
 }
 
 bool Button::isSelectable(){
-    return false;
+    return true;
 }
 
 void Button::handleEvent(const sf::Event &event){
