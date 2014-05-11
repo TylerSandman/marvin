@@ -7,19 +7,24 @@
 
 namespace GUI{
 
-Button::Button(TextureManager &textureManager, FontManager &fontManager, Component *parent) :
-        Component(parent),
-        mTexture(textureManager.get(TextureID::Button)),
-        mText("", fontManager.get(FontID::Main), 24),
-        mIsToggle(false){
+Button::Button(TextureManager &textureManager) : 
+    mTextureNormal(textureManager.get(TextureID::GreenButton)),
+    mTexturePressed(textureManager.get(TextureID::GreenButtonPressed)),
+    mTextureDisabled(textureManager.get(TextureID::ButtonDisabled)),
+    mIsToggle(false),
+    mEnabled(true){}
 
-    mSprite.setTexture(mTexture);
+Button::Button(TextureManager &textureManager, FontManager &fontManager) :
+        mTextureNormal(textureManager.get(TextureID::GreenButton)),
+        mTexturePressed(textureManager.get(TextureID::GreenButtonPressed)),
+        mTextureDisabled(textureManager.get(TextureID::ButtonDisabled)),
+        mText("", fontManager.get(FontID::Main), 24),
+        mIsToggle(false),
+        mEnabled(true){
+
+    mSprite.setTexture(mTextureNormal);
     sf::FloatRect bounds = mSprite.getLocalBounds();
     mSprite.setOrigin(bounds.width/2, bounds.height/2);
-}
-
-void Button::setOnClick(Callback callback){
-    mOnClick = callback;
 }
 
 void Button::setText(const std::string &text, sf::Color color){
@@ -28,7 +33,10 @@ void Button::setText(const std::string &text, sf::Color color){
     sf::FloatRect textBounds = mText.getGlobalBounds();
     mText.setOrigin(textBounds.width/2, textBounds.height/2);
     mText.setPosition(0.f, -textBounds.height/2);
-    mDefaultColor = color;
+}
+
+void Button::setCallback(Callback callback){
+    mCallback = callback;
 }
 
 void Button::setToggle(bool toggle){
@@ -36,35 +44,60 @@ void Button::setToggle(bool toggle){
 }
 
 bool Button::isSelectable(){
-    return true;
+    return mEnabled;
 }
 
-void Button::handleEvent(const sf::Event &event){
+void Button::enable(){
+    mEnabled = true;
+    mText.setColor(sf::Color::Black);
+    changeTexture(Type::Normal);
+}
 
-    sf::FloatRect buttonRect = getRect();
-    //Hover behaviour
-    if (event.type == sf::Event::MouseMoved){
-        
-        float mouseX = static_cast<float>(event.mouseMove.x);
-        float mouseY = static_cast<float>(event.mouseMove.y);
+void Button::disable(){
+    mEnabled = false;
+    mText.setColor(sf::Color(0,0,0,100));
+    changeTexture(Type::Disabled);
+}
 
-        if (buttonRect.contains(mouseX, mouseY))
-            mText.setColor(sf::Color::Black);
+void Button::select(){
+
+    Component::select();
+    changeTexture(Type::Pressed);
+}
+
+void Button::deselect(){
+    Component::deselect();
+    changeTexture(Type::Normal);
+}
+
+void Button::activate(){
+
+    Component::activate();
+
+    if (mIsToggle)
+        changeTexture(Type::Pressed);
+
+    if (mCallback)
+        mCallback();
+
+    if (!mIsToggle)
+        deactivate();
+}
+
+void Button::deactivate(){
+
+    Component::deactivate();
+
+    if (mIsToggle){
+        if (isSelected())
+            changeTexture(Type::Pressed);
         else
-            mText.setColor(mDefaultColor);
-    }
-
-    //Handle button clicks
-    if ((event.type == sf::Event::MouseButtonPressed) &&
-        (event.mouseButton.button == sf::Mouse::Button::Left)) {
-
-        float mouseX = static_cast<float>(event.mouseButton.x);
-        float mouseY = static_cast<float>(event.mouseButton.y);
-                
-        if ((buttonRect.contains(mouseX, mouseY)) && (!isSelected()))
-            if (mOnClick) mOnClick();
+            changeTexture(Type::Normal);
     }
 }
+
+
+void Button::handleEvent(const sf::Event &event){}
 
 void Button::draw(sf::RenderTarget &target, sf::RenderStates states) const{
 
@@ -73,15 +106,19 @@ void Button::draw(sf::RenderTarget &target, sf::RenderStates states) const{
     target.draw(mText, states);
 }
 
-sf::FloatRect Button::getRect() const{
-    sf::Vector2f origin = mSprite.getOrigin();
-    sf::Vector2f pos = getAbsolutePosition();
-    sf::FloatRect bounds = mSprite.getLocalBounds();
-    sf::FloatRect buttonRect(
-        pos.x - origin.x,
-        pos.y - origin.y,
-        bounds.width,
-        bounds.height);
-    return buttonRect;
+void Button::changeTexture(Type buttonType){
+
+    switch(buttonType){
+    case(Type::Normal):
+        mSprite.setTexture(mTextureNormal);
+        break;
+    case(Type::Pressed):
+        mSprite.setTexture(mTexturePressed);
+        break;
+    case(Type::Disabled):
+        mSprite.setTexture(mTextureDisabled);
+        break;
+
+    }
 }
 }

@@ -1,45 +1,45 @@
 #include <memory>
 #include "PauseState.h"
 #include "Container.h"
-#include "Panel.h"
+#include "Image.h"
 #include "Button.h"
 
 PauseState::PauseState(StateStack &stack, Context context) : 
         State(stack, context),
         mGUIContainer(){
 
-    //Panel where our button list will be displayed
+    //Background panel where our button list will be displayed
     sf::Vector2f windowSize(context.window->getSize());
-    auto buttonPanel = std::make_shared<GUI::Panel>(
-        *getContext().textureManager,
-        &mGUIContainer);
-    buttonPanel->setPosition(windowSize * 0.5f);
-    mGUIContainer.add(buttonPanel);
+    auto backgroundPanel = std::make_shared<GUI::Image>(
+        getContext().textureManager->get(TextureID::PauseScreenPanel));
+    backgroundPanel->setPosition(windowSize * 0.5f);
+    mGUIContainer.add(backgroundPanel);
 
     //Buttons
     auto resumeButton = std::make_shared<GUI::Button>(
          *getContext().textureManager,
-         *getContext().fontManager,
-         buttonPanel.get());
-    resumeButton->setOnClick(
+         *getContext().fontManager);
+    resumeButton->setCallback(
         [this]() {
             requestStackPop();
         });
-    resumeButton->setText("Resume", sf::Color::White);
-    resumeButton->setPosition(0.f, -30.f);
-    buttonPanel->add(resumeButton);
+    resumeButton->setText("Resume", sf::Color::Black);
+    resumeButton->setPosition(
+        sf::Vector2f(windowSize.x * 0.5f, windowSize.y * 0.5f - 35));
+    mGUIContainer.add(resumeButton);
     
     auto exitButton = std::make_shared<GUI::Button>(
          *getContext().textureManager,
-         *getContext().fontManager,
-         buttonPanel.get());
-    exitButton->setOnClick(
+         *getContext().fontManager);
+    exitButton->setCallback(
         [this]() {
-            exit(0);
+            requestStackClear();
+            requestStackPush(ID::LevelSelect);
         });
-    exitButton->setText("Exit", sf::Color::White);
-    exitButton->setPosition(0.f, 30.f);
-    buttonPanel->add(exitButton);
+    exitButton->setText("Levels", sf::Color::Black);
+    exitButton->setPosition(
+        sf::Vector2f(windowSize.x * 0.5f, windowSize.y * 0.5f + 35));
+    mGUIContainer.add(exitButton);
 }
 
 void PauseState::draw(){

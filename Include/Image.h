@@ -10,7 +10,7 @@ public:
     typedef std::shared_ptr<Image> Ptr;
 
 public:
-    Image(sf::Texture &texture, Component *parent=nullptr);
+    Image(sf::Texture &texture, sf::IntRect textureRect=sf::IntRect(0,0,0,0));
     virtual void handleEvent(const sf::Event &event);
     virtual bool isSelectable();
     

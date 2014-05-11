@@ -26,8 +26,11 @@
     <ClInclude Include="Include\GameObjectFactory.h" />
     <ClInclude Include="Include\Image.h" />
     <ClInclude Include="Include\Label.h" />
+    <ClInclude Include="Include\LevelSelectState.h" />
     <ClInclude Include="Include\Logger.h" />
     <ClInclude Include="Include\Panel.h" />
+    <ClInclude Include="Include\ContainerButton.h" />
+    <ClInclude Include="Include\ContainerButton.h" />
     <ClInclude Include="Include\PauseState.h" />
     <ClInclude Include="Include\PlayState.h" />
     <ClInclude Include="Include\MapData.h" />
@@ -61,8 +64,11 @@
     <ClCompile Include="Source\GameObjectFactory.cpp" />
     <ClCompile Include="Source\Image.cpp" />
     <ClCompile Include="Source\Label.cpp" />
+    <ClCompile Include="Source\LevelSelectState.cpp" />
     <ClCompile Include="Source\Logger.cpp" />
     <ClCompile Include="Source\Panel.cpp" />
+    <ClCompile Include="Source\ContainerButton.cpp" />
+    <ClCompile Include="Source\ContainerButton.cpp" />
     <ClCompile Include="Source\PauseState.cpp" />
     <ClCompile Include="Source\PlayState.cpp" />
     <ClCompile Include="Source\main.cpp" />
@@ -75,6 +81,41 @@
     <ClCompile Include="Source\TiledJSONLoader.cpp" />
     <ClCompile Include="Source\TilemapNode.cpp" />
     <ClCompile Include="Source\World.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\Textures\Background\grasslands_bg.png" />
+    <Image Include="Resources\Textures\GUI\button_disabled.png" />
+    <Image Include="Resources\Textures\GUI\green_button.png" />
+    <Image Include="Resources\Textures\GUI\green_button_pressed.png" />
+    <Image Include="Resources\Textures\GUI\green_panel_button.png" />
+    <Image Include="Resources\Textures\GUI\green_panel_button_pressed.png" />
+    <Image Include="Resources\Textures\GUI\grey_panel.png" />
+    <Image Include="Resources\Textures\GUI\grey_panel_large.png" />
+    <Image Include="Resources\Textures\GUI\panel_button_disabled.png" />
+    <Image Include="Resources\Textures\GUI\Sample Level Selection.png" />
+    <Image Include="Resources\Textures\Player\alienGreen.png" />
+    <Image Include="Resources\Textures\Player\alienGreen_climb1.png" />
+    <Image Include="Resources\Textures\Player\alienGreen_climb2.png" />
+    <Image Include="Resources\Textures\Player\alienGreen_duck.png" />
+    <Image Include="Resources\Textures\Player\alienGreen_hurt.png" />
+    <Image Include="Resources\Textures\Player\alienGreen_jump.png" />
+    <Image Include="Resources\Textures\Player\alienGreen_stand.png" />
+    <Image Include="Resources\Textures\Player\alienGreen_swim1.png" />
+    <Image Include="Resources\Textures\Player\alienGreen_swim2.png" />
+    <Image Include="Resources\Textures\Player\alienGreen_walk1.png" />
+    <Image Include="Resources\Textures\Player\alienGreen_walk2.png" />
+    <Image Include="Resources\Textures\Player\player_spritesheet.png" />
+    <Image Include="Resources\Textures\Tileset\base_tiles_spritesheet.png" />
+    <Image Include="Resources\Textures\Tileset\items_spritesheet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Maps\grasslands.json" />
+    <None Include="Resources\Maps\grasslands.tmx" />
+    <None Include="Resources\Textures\GUI\Sample Level Selection.pdf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Resources\Fonts\kenvector_future.ttf" />
+    <Font Include="Resources\Fonts\kenvector_future_thin.ttf" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{12C9EF66-2E4E-4006-B438-C31AA4C61FE1}</ProjectGuid>
@@ -119,6 +160,7 @@
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>Include;C:\Users\Tyler\Downloads\Box2D_v2.3.0\Box2D_v2.3.0\Box2D;C:\Users\Tyler\Downloads\json_spirit_v4.06\json_spirit_v4.06\json_spirit;C:\SFML-2.1\include;C:\Users\Tyler\Downloads\boost_1_55_0\boost_1_55_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnablePREfast>false</EnablePREfast>
+      <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
     </ClCompile>
     <Link>
       <TargetMachine>MachineX86</TargetMachine>

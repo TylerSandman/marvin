@@ -9,20 +9,19 @@ public:
     typedef std::shared_ptr<Component> Ptr;
 
 public:
-    Component(Component *parent=nullptr);
+    Component();
     virtual ~Component();
     virtual bool isSelectable() = 0;
     bool isSelected() const;
     virtual void select();
     virtual void deselect();
+    virtual bool isActive();
+    virtual void activate();
+    virtual void deactivate();
     virtual void handleEvent(const sf::Event &event) = 0;
-
-    //Used for mouse click events
-    sf::Vector2f getAbsolutePosition() const;
-    sf::Transform getAbsoluteTransform() const;
 
 private:
     bool mIsSelected;
-    Component *mParent;
+    bool mIsActive;
 };
 }

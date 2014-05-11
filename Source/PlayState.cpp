@@ -16,7 +16,7 @@ bool PlayState::update(sf::Time deltaTime){
     mWorld->update(deltaTime);
     CommandQueue &commands = mWorld->getCommandQueue();
     mPlayer.handleRealtimeInput(commands);   
-    return true;
+    return false;
 }
 
 bool PlayState::handleEvent(const sf::Event &event){
@@ -28,5 +28,5 @@ bool PlayState::handleEvent(const sf::Event &event){
         (event.key.code == sf::Keyboard::P)){
         requestStackPush(ID::Pause);
     }
-    return true;
+    return false;
 }

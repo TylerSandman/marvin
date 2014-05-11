@@ -123,7 +123,7 @@ void World::draw(){
 void World::loadTextures(){
 
     //Load our backgrounds
-    mTextureManager.load(TextureID::Background1, "Resources/Textures/Background/grasslands_bg.png");
+    mTextureManager.load(TextureID::GrasslandsBackground, "Resources/Textures/Background/grasslands_bg.png");
 
     //Load our player
     mTextureManager.load(TextureID::PlayerSpriteSheet, "Resources/Textures/Player/player_spritesheet.png");
@@ -140,7 +140,7 @@ void World::buildScene(){
     }
 
     //Background layer
-    sf::Texture &texture = mTextureManager.get(TextureID::Background1);
+    sf::Texture &texture = mTextureManager.get(TextureID::GrasslandsBackground);
     std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(texture));
     mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
 

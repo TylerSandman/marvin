@@ -5,8 +5,13 @@
 namespace GUI
 {
 
-Label::Label(const std::string& text, FontManager& fontManager) : 
-    mText(text, fontManager.get(FontID::Main), 16){}
+Label::Label(const std::string& text, sf::Color color, FontManager& fontManager) : 
+    mText(text, fontManager.get(FontID::Main), 16){
+
+    mText.setColor(color);
+    sf::FloatRect bounds = mText.getLocalBounds();
+    mText.setOrigin(bounds.width/2, bounds.height/2);
+}
 
 bool Label::isSelectable(){
     return false;

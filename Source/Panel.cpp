@@ -4,9 +4,8 @@
 
 namespace GUI{
 
-Panel::Panel(TextureManager &textureManager, Component *parent) : 
-        Container(parent),
-        mTexture(textureManager.get(TextureID::Panel)),
+Panel::Panel(TextureManager &textureManager) : 
+        mTexture(textureManager.get(TextureID::PauseScreenPanel)),
         mSprite(mTexture){
 
     sf::FloatRect bounds = mSprite.getLocalBounds();

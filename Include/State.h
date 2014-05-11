@@ -31,7 +31,8 @@ public:
         None,
         Title,
         Play,
-        Pause
+        Pause,
+        LevelSelect
     };
 
 public:

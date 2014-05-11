@@ -1,9 +1,9 @@
 #include "Component.h"
 namespace GUI{
 
-Component::Component(Component *parent) : 
+Component::Component() : 
     mIsSelected(false),
-    mParent(parent){}
+    mIsActive(false){}
 
 Component::~Component(){}
 
@@ -19,17 +19,15 @@ void Component::deselect(){
     mIsSelected = false;
 }
 
-sf::Vector2f Component::getAbsolutePosition() const{
-    return getAbsoluteTransform() * sf::Vector2f();
+void Component::activate(){
+    mIsActive = true;
 }
 
-sf::Transform Component::getAbsoluteTransform() const{
+void Component::deactivate(){
+    mIsActive = false;
+}
 
-    sf::Transform transform = sf::Transform::Identity;
-
-    for (const Component *comp = this; comp != nullptr; comp = comp->mParent)
-        transform = comp->getTransform() * transform;
-
-    return transform;
+bool Component::isActive(){
+    return mIsActive;
 }
 }

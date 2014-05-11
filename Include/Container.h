@@ -12,15 +12,20 @@ public:
     typedef std::shared_ptr<Container> Ptr;
 
 public:
-    Container(Component *parent=nullptr);
+    Container();
     virtual bool isSelectable();
     virtual void handleEvent(const sf::Event &event);
     virtual void add(Component::Ptr component);
 
 private:
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+    bool hasSelection();
+    void select(std::size_t index);
+    void selectNext();
+    void selectPrevious();
 
 protected:
     std::vector<Component::Ptr> mChildren;
+    int mSelectedChild;
 };
 }

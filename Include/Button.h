@@ -13,24 +13,42 @@ public:
     typedef std::shared_ptr<Button> Ptr;
     typedef std::function<void()> Callback;
 
+    enum Type{
+        Normal,
+        Pressed,
+        Disabled
+    };
+
 public:
-    Button(TextureManager &textureManager, FontManager &fontManager, Component *parent=nullptr);
-    void setOnClick(Callback callback);
-    void setText(const std::string &text, sf::Color color);
-    void setToggle(bool toggle);
+    Button(TextureManager &textureManager); //Button without text
+    Button(TextureManager &textureManager, FontManager &fontManager);
+    virtual void setCallback(Callback callback);
+    virtual void setToggle(bool toggle);
     virtual bool isSelectable();
+    virtual void enable();
+    virtual void disable();
+    virtual void select();
+    virtual void deselect();
+    virtual void activate();
+    virtual void deactivate();
     virtual void handleEvent(const sf::Event &event);
+    void setText(const std::string &text, sf::Color color);
+
+protected:
+    sf::Texture mTextureNormal;
+    sf::Texture mTexturePressed;
+    sf::Texture mTextureDisabled;  
+    Callback mCallback;
+    sf::Sprite mSprite;
+    bool mIsToggle;
+    bool mEnabled;
 
 private:
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
-    sf::FloatRect getRect() const;
+    virtual void changeTexture(Type buttonType);
 
-private:
-    Callback mOnClick;
-    sf::Texture &mTexture;
-    sf::Sprite mSprite;
-    sf::Text mText;
-    sf::Color mDefaultColor;
-    bool mIsToggle;
+private:   
+    sf::Text mText; //Base button exclusive
+
 };
 }

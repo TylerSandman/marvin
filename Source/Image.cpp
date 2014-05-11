@@ -7,11 +7,12 @@
 
 namespace GUI{
 
-Image::Image(sf::Texture &texture, Component *parent) :
-        Component(parent),
+Image::Image(sf::Texture &texture, sf::IntRect textureRect) :
         mTexture(texture){
 
     mSprite.setTexture(mTexture);
+    if (textureRect != sf::IntRect(0,0,0,0))
+        mSprite.setTextureRect(textureRect);
     sf::FloatRect bounds = mSprite.getLocalBounds();
     mSprite.setOrigin(bounds.width/2, bounds.height/2);
 }

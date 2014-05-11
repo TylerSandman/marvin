@@ -6,12 +6,18 @@
 #include <cassert>
 
 enum TextureID{
-    Background1,
+    Background,
+    GrasslandsBackground,
     PlayerSpriteSheet,
     PlayerStanding,
-    Button,
-    ButtonPressed,
-    Panel
+    ButtonDisabled,
+    GreenButton,
+    GreenButtonPressed,
+    GreenContainerButton,
+    GreenContainerButtonPressed,
+    ContainerButtonDisabled,
+    PauseScreenPanel,
+    LevelSelectionPanel
 };
 
 enum FontID{

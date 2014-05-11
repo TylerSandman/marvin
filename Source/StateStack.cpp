@@ -1,6 +1,7 @@
 #include "StateStack.h"
 #include "PlayState.h"
 #include "PauseState.h"
+#include "LevelSelectState.h"
 
 StateStack::StateStack(State::Context context): mContext(context){}
 
@@ -35,6 +36,8 @@ State::Ptr StateStack::createState(State::ID stateID){
         return std::unique_ptr<PlayState>(new PlayState(*this, mContext, mContext.map));
     case(State::ID::Pause):
         return std::unique_ptr<PauseState>(new PauseState(*this, mContext));
+    case(State::ID::LevelSelect):
+        return std::unique_ptr<LevelSelectState>(new LevelSelectState(*this, mContext));
     }
 }
 
