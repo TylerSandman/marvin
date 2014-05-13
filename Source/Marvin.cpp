@@ -112,6 +112,7 @@ void Marvin::stopAnimation(){
     //Need this check because during world restarts
     //we may try to stop non-existant animations due
     //to player resetting
-    if (mSprite.getAnimation()->getSize() > 0)
+    if ((mSprite.getAnimation()->getSize() > 0) &&
+        (mSprite.getAnimation()->getSize() < 10))
         mSprite.stop();
 }

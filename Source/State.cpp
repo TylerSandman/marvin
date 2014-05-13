@@ -6,8 +6,8 @@ State::State(StateStack &stack, Context context) :
 
 State::~State(){}
 
-void State::requestStackPush(ID stateID){
-    mStack->pushState(stateID);
+void State::requestStackPush(ID stateID, const std::string &map){
+    mStack->pushState(stateID, map);
 }
 
 void State::requestStackPop(){

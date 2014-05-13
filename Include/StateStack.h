@@ -15,8 +15,8 @@ public:
     void update(sf::Time deltaTime);
     void draw();
     void handleEvent(const sf::Event &event);
-    State::Ptr createState(State::ID stateID);
-    void pushState(State::ID stateID);
+    State::Ptr createState(State::ID stateID, const std::string &map="grasslands.json");
+    void pushState(State::ID stateID, const std::string &map="grasslands.json");
     void popState();
     void clearStates();
     bool isEmpty() const;
@@ -26,10 +26,11 @@ private:
 
 private:
     struct PendingChange{
-        PendingChange(StateStack::Action action, State::ID stateID=State::ID::None) : 
-            action(action), stateID(stateID){}
+        PendingChange(StateStack::Action action, State::ID stateID=State::ID::None, const std::string &map="grasslands.json") : 
+            action(action), stateID(stateID), map(map){}
         StateStack::Action action;
         State::ID stateID;
+        std::string map;
     };
 
 

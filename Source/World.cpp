@@ -24,9 +24,15 @@ World::World(sf::RenderWindow &window, const std::string &map) :
         mCollisionHandler(CollisionHandler(*this)),
         mSceneGraph(SceneNode()),
         mPlayerCharacter(nullptr),
-        mResetRequested(false){
+        mResetRequested(false),
+        mMapLoaded(false),
+        mObjectsLoaded(false),
+        mTexturesLoaded(false),
+        mMap(map){}
 
-    mMapLoader.load(map);
+void World::initialize(){
+    mMapLoader.load(mMap);
+    mMapLoaded = mMapLoader.isMapLoaded();
     assert(mMapLoader.isMapLoaded());
     mMapData.tileWidth = mMapLoader.getTileSize().x;
     mMapData.tileHeight = mMapLoader.getTileSize().y;
@@ -36,16 +42,19 @@ World::World(sf::RenderWindow &window, const std::string &map) :
     mMapData.objectGroups = mMapLoader.getObjectGroups();
 
     mWorldLoader.load(mMapLoader.getTileLayers()[0].tiles);
+    mObjectsLoaded = mWorldLoader.isWorldLoaded();
     assert(mWorldLoader.isWorldLoaded());
     mBox2DWorld = std::unique_ptr<b2World>(mWorldLoader.getWorld());
     mBox2DWorld->SetContactListener(&mCollisionHandler);
     mGameObjectFactory = GameObjectFactory(mMapData, mBox2DWorld.get());
     loadTextures();
     buildScene();
+    mTexturesLoaded = true;
 
     centerPlayerView();
     mWindow.setView(mWorldView);
 }
+
 
 void World::reset(){
     mBox2DWorld.release();
@@ -123,7 +132,7 @@ void World::draw(){
 void World::loadTextures(){
 
     //Load our backgrounds
-    mTextureManager.load(TextureID::GrasslandsBackground, "Resources/Textures/Background/grasslands_bg.png");
+    mTextureManager.load(TextureID::GrasslandsBackground, "Resources/Textures/Background/bg.png");
 
     //Load our player
     mTextureManager.load(TextureID::PlayerSpriteSheet, "Resources/Textures/Player/player_spritesheet.png");
@@ -141,7 +150,8 @@ void World::buildScene(){
 
     //Background layer
     sf::Texture &texture = mTextureManager.get(TextureID::GrasslandsBackground);
-    std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(texture));
+    texture.setRepeated(true);
+    std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(texture, sf::IntRect(0, 0, mMapData.mapWidth * 70, mMapData.mapHeight * 70)));
     mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
 
     //Tilemap layer
@@ -233,3 +243,9 @@ void World::renderStaticBodyFixtures(){
         }
     }
 }
+
+bool World::mapLoaded(){ return mMapLoaded; }
+
+bool World::objectsLoaded(){ return mObjectsLoaded; }
+
+bool World::texturesLoaded(){ return mTexturesLoaded; }

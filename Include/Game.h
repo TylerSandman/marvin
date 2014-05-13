@@ -5,6 +5,7 @@
 #include "StateStack.h"
 #include "Player.h"
 #include "ResourceManager.h"
+#include "LevelManager.h"
 
 class Game{
 
@@ -22,5 +23,6 @@ private:
     Player mPlayer;
     TextureManager mTextureManager;
     FontManager mFontManager;
-    StateStack mStateStack;
+    LevelManager mLevelManager;
+    StateStack mStateStack;    
 };

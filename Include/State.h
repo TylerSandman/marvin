@@ -1,9 +1,11 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 #include "ResourceManager.h"
+#include "LevelManager.h"
 #include "Player.h"
 
 class StateStack;
+class World;
 
 class State{
 
@@ -14,25 +16,26 @@ public:
             sf::RenderWindow &window, 
             TextureManager &textureManager, 
             FontManager &fontManager,
-            Player &player, 
-            const std::string &map="") : 
+            LevelManager &levelManager,
+            Player &player) : 
                 window(&window), 
                 textureManager(&textureManager), 
                 fontManager(&fontManager), 
-                player(&player), 
-                map(map){}
+                levelManager(&levelManager),
+                player(&player){}
         sf::RenderWindow *window;
         TextureManager *textureManager;
         FontManager *fontManager;
+        LevelManager *levelManager;
         Player *player;
-        std::string map;
     };
     enum ID{
         None,
         Title,
         Play,
         Pause,
-        LevelSelect
+        LevelSelect,
+        Loading
     };
 
 public:
@@ -43,7 +46,7 @@ public:
     virtual bool handleEvent(const sf::Event &event) = 0;
 
 protected:
-    void requestStackPush(ID stateID);
+    void requestStackPush(ID stateID, const std::string &map="grasslands.json");
     void requestStackPop();
     void requestStackClear();
     Context getContext() const;

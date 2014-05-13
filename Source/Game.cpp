@@ -8,6 +8,7 @@
 #include "TiledJSONLoader.h"
 #include "Box2DTiledLoader.h"
 #include "ResourceManager.h"
+#include "LevelManager.h"
 #include "Game.h"
 #include "State.h"
 #include "Constants.h"
@@ -17,7 +18,8 @@ Game::Game() :
         mPlayer(),
         mTextureManager(),
         mFontManager(),
-        mStateStack(State::Context(mWindow, mTextureManager, mFontManager, mPlayer, "grasslands.json")){
+        mLevelManager(mWindow),
+        mStateStack(State::Context(mWindow, mTextureManager, mFontManager, mLevelManager, mPlayer)){
 
     mWindow.setVerticalSyncEnabled(true);
 

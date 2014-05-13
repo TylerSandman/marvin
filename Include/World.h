@@ -19,9 +19,15 @@ class World{
 public:
     World(sf::RenderWindow &window, const std::string &map);
     CommandQueue& getCommandQueue();
+    void initialize();
     void update(sf::Time deltaTime);
     void draw();
     void requestReset();
+
+    //Querying functions for loading screen
+    bool mapLoaded();
+    bool objectsLoaded();
+    bool texturesLoaded();
 
 private:
     void loadTextures();
@@ -54,5 +60,9 @@ private:
     b2Body* mPlayerBody;
     std::unique_ptr<b2World> mBox2DWorld;
     MapData mMapData;
+    std::string mMap;
     bool mResetRequested;
+    bool mMapLoaded;
+    bool mObjectsLoaded;
+    bool mTexturesLoaded;
 };

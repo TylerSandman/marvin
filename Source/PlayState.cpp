@@ -3,8 +3,8 @@
 PlayState::PlayState(StateStack &stack, Context context, const std::string &map) : 
         State(stack, context),
         mPlayer(*context.player){
-
-    mWorld.reset(new World(*context.window, map));
+    
+    mWorld.reset(context.levelManager->get(map));
 }
 
 void PlayState::draw(){

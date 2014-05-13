@@ -29,15 +29,15 @@ LevelSelectState::LevelSelectState(StateStack &stack, Context context) :
     mGUIContainer.add(backgroundPanel);
 
     //Level selection buttons
-    addLevel("Grasslands");
-    addLevel("Jumping Fun", false);
-    addLevel("Waterboy", false);
-    addLevel("Clear Walk", false);
-    addLevel("Go Fast", false);
-    addLevel("Slow Down", false);
-    addLevel("High Heights", false);
-    addLevel("Hot Pursuit", false);
-    addLevel("Dangah Zone", false);
+    addLevel("Grasslands", "grasslands.json");
+    addLevel("Test Map", "testmap.json");
+    addLevel("Waterboy", "waterboy.json", false);
+    addLevel("Clear Walk", "clearwalk.json", false);
+    addLevel("Go Fast", "gofast.json", false);
+    addLevel("Slow Down", "slowdown.json", false);
+    addLevel("High Heights", "highheights.json", false);
+    addLevel("Hot Pursuit", "hotpursuit.json", false);
+    addLevel("Dangah Zone", "dangahzone.json", false);
 }
 
 void LevelSelectState::draw(){
@@ -60,14 +60,14 @@ bool LevelSelectState::handleEvent(const sf::Event &event){
     return false;
 }
 
-void LevelSelectState::addLevel(const std::string &name, bool enabled){
+void LevelSelectState::addLevel(const std::string &name, const std::string &map, bool enabled){
     sf::Vector2f windowSize(getContext().window->getSize());
     auto levelButton = std::make_shared<GUI::ContainerButton>(
          *getContext().textureManager);
     levelButton->setCallback(
-        [this]() {
+        [this, map]() {
             requestStackPop();
-            requestStackPush(State::ID::Play);
+            requestStackPush(State::ID::Loading, map);
         });
     GUI::Label::Ptr levelLabel;
     if (enabled){

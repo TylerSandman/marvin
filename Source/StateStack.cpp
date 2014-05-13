@@ -2,6 +2,7 @@
 #include "PlayState.h"
 #include "PauseState.h"
 #include "LevelSelectState.h"
+#include "LevelLoadingState.h"
 
 StateStack::StateStack(State::Context context): mContext(context){}
 
@@ -29,20 +30,22 @@ void StateStack::handleEvent(const sf::Event &event){
     }
 }
 
-State::Ptr StateStack::createState(State::ID stateID){
+State::Ptr StateStack::createState(State::ID stateID, const std::string &map){
 
     switch(stateID){
     case(State::ID::Play):
-        return std::unique_ptr<PlayState>(new PlayState(*this, mContext, mContext.map));
+        return std::unique_ptr<PlayState>(new PlayState(*this, mContext, map));
     case(State::ID::Pause):
         return std::unique_ptr<PauseState>(new PauseState(*this, mContext));
     case(State::ID::LevelSelect):
         return std::unique_ptr<LevelSelectState>(new LevelSelectState(*this, mContext));
+    case(State::ID::Loading):
+        return std::unique_ptr<LevelLoadingState>(new LevelLoadingState(*this, mContext, map));
     }
 }
 
-void StateStack::pushState(State::ID stateID){
-    mPendingList.push_back(PendingChange(Push, stateID));
+void StateStack::pushState(State::ID stateID, const std::string &map){
+    mPendingList.push_back(PendingChange(Push, stateID, map));
 }
 
 void StateStack::popState(){
@@ -63,7 +66,7 @@ void StateStack::applyPendingChanges(){
 
         switch(change.action){
         case(Action::Push):
-            mStack.push_back(std::move(createState(change.stateID)));
+            mStack.push_back(std::move(createState(change.stateID, change.map)));
             break;
         case(Action::Pop):
             mStack.pop_back();

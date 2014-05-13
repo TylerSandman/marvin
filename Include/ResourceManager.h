@@ -5,6 +5,8 @@
 #include <string>
 #include <cassert>
 
+class World;
+
 enum TextureID{
     Background,
     GrasslandsBackground,
@@ -36,7 +38,6 @@ private:
 };
 
 //Typedefs for ease of use
-
 typedef ResourceManager<TextureID, sf::Texture> TextureManager;
 typedef ResourceManager<FontID, sf::Font> FontManager;
 

@@ -14,7 +14,7 @@ public:
     bool handleEvent(const sf::Event &event);
 
 private:
-    void addLevel(const std::string &name, bool enabled=true);
+    void addLevel(const std::string &name, const std::string &map, bool enabled=true);
 
 private:
     GUI::Container mGUIContainer;
