@@ -3,6 +3,7 @@
 #include "PauseState.h"
 #include "LevelSelectState.h"
 #include "LevelLoadingState.h"
+#include "MenuState.h"
 
 StateStack::StateStack(State::Context context): mContext(context){}
 
@@ -41,6 +42,8 @@ State::Ptr StateStack::createState(State::ID stateID, const std::string &map){
         return std::unique_ptr<LevelSelectState>(new LevelSelectState(*this, mContext));
     case(State::ID::Loading):
         return std::unique_ptr<LevelLoadingState>(new LevelLoadingState(*this, mContext, map));
+    case(State::ID::Menu):
+        return std::unique_ptr<MenuState>(new MenuState(*this, mContext));
     }
 }
 

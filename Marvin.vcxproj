@@ -30,8 +30,8 @@
     <ClInclude Include="Include\LevelManager.h" />
     <ClInclude Include="Include\LevelSelectState.h" />
     <ClInclude Include="Include\Logger.h" />
+    <ClInclude Include="Include\MenuState.h" />
     <ClInclude Include="Include\Panel.h" />
-    <ClInclude Include="Include\ContainerButton.h" />
     <ClInclude Include="Include\ContainerButton.h" />
     <ClInclude Include="Include\PauseState.h" />
     <ClInclude Include="Include\PlayState.h" />
@@ -70,8 +70,8 @@
     <ClCompile Include="Source\LevelManager.cpp" />
     <ClCompile Include="Source\LevelSelectState.cpp" />
     <ClCompile Include="Source\Logger.cpp" />
+    <ClCompile Include="Source\MenuState.cpp" />
     <ClCompile Include="Source\Panel.cpp" />
-    <ClCompile Include="Source\ContainerButton.cpp" />
     <ClCompile Include="Source\ContainerButton.cpp" />
     <ClCompile Include="Source\PauseState.cpp" />
     <ClCompile Include="Source\PlayState.cpp" />

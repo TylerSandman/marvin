@@ -37,10 +37,10 @@
     <ClInclude Include="Include\Image.h" />
     <ClInclude Include="Include\Label.h" />
     <ClInclude Include="Include\ContainerButton.h" />
-    <ClInclude Include="Include\ContainerButton.h" />
     <ClInclude Include="Include\LevelSelectState.h" />
     <ClInclude Include="Include\LevelLoadingState.h" />
     <ClInclude Include="Include\LevelManager.h" />
+    <ClInclude Include="Include\MenuState.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Box2DTiledLoader.cpp" />
@@ -70,11 +70,11 @@
     <ClCompile Include="Source\AnimatedSprite.cpp" />
     <ClCompile Include="Source\Image.cpp" />
     <ClCompile Include="Source\Label.cpp" />
-    <ClCompile Include="Source\ContainerButton.cpp" />
-    <ClCompile Include="Source\ContainerButton.cpp" />
     <ClCompile Include="Source\LevelSelectState.cpp" />
     <ClCompile Include="Source\LevelLoadingState.cpp" />
     <ClCompile Include="Source\LevelManager.cpp" />
+    <ClCompile Include="Source\ContainerButton.cpp" />
+    <ClCompile Include="Source\MenuState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\GUI\Sample Level Selection.png" />

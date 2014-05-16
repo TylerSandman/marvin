@@ -9,8 +9,10 @@ class World;
 
 enum TextureID{
     Background,
+    CastleBackground,
     GrasslandsBackground,
     PlayerSpriteSheet,
+    SpinnerSpriteSheet,
     PlayerStanding,
     ButtonDisabled,
     GreenButton,

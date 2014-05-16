@@ -35,7 +35,8 @@ public:
         Play,
         Pause,
         LevelSelect,
-        Loading
+        Loading,
+        Menu
     };
 
 public:

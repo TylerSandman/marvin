@@ -22,7 +22,7 @@ void Container::handleEvent(const sf::Event &event){
             selectPrevious();
         }
         else if (event.key.code == sf::Keyboard::S || event.key.code == sf::Keyboard::Down){
-            selectPrevious();
+            selectNext();
         }
         else if (event.key.code == sf::Keyboard::Space || event.key.code == sf::Keyboard::Return){
             if (hasSelection())

@@ -1,6 +1,7 @@
 #pragma once
 #include "State.h"
 #include "World.h"
+#include "AnimatedSprite.h"
 
 class StateStack;
 
@@ -21,6 +22,9 @@ private:
     Player &mPlayer;
     sf::Thread mLoadingThread;
     sf::Mutex mMutex;
+    sf::Sprite mBackground;
+    Animation mAnimation;
+    AnimatedSprite mSprite;
     sf::Text mLoadingText;
     std::string mMap;
     bool mMapLoaded;

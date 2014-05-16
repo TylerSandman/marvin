@@ -54,7 +54,10 @@ bool LevelSelectState::update(sf::Time deltaTime){
 bool LevelSelectState::handleEvent(const sf::Event &event){
     
     if (event.type == sf::Event::KeyPressed){
-        ;//TODO handle menu navigation
+        if (event.key.code == sf::Keyboard::Escape){
+            requestStackClear();
+            requestStackPush(ID::Menu);
+        }
     }
     mGUIContainer.handleEvent(event);
     return false;
