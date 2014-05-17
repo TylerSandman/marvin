@@ -2,6 +2,7 @@
 #include "State.h"
 #include "World.h"
 #include "Container.h"
+#include "AnimatedSprite.h"
 
 class StateStack;
 
@@ -15,4 +16,10 @@ public:
 
 private:
     GUI::Container mGUIContainer;
+    sf::Text mTitleText;
+    sf::Sprite mGrass;
+    sf::Sprite mBackground;
+    sf::Sprite mBackdrop;
+    Animation mCharacterAnimation;
+    AnimatedSprite mCharacter;
 };

@@ -21,7 +21,8 @@ enum TextureID{
     GreenContainerButtonPressed,
     ContainerButtonDisabled,
     PauseScreenPanel,
-    LevelSelectionPanel
+    LevelSelectionPanel,
+    MenuGround
 };
 
 enum FontID{
