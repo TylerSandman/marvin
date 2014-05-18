@@ -5,11 +5,11 @@
 namespace GUI
 {
 
-Label::Label(const std::string& text, sf::Color color, FontManager& fontManager) : 
-    mText(text, fontManager.get(FontID::Main), 16){
+Label::Label(const std::string& text, sf::Color color, unsigned int size, FontManager& fontManager) : 
+    mText(text, fontManager.get(FontID::Main), size){
 
     mText.setColor(color);
-    sf::FloatRect bounds = mText.getLocalBounds();
+    sf::FloatRect bounds = mText.getGlobalBounds();
     mText.setOrigin(bounds.width/2, bounds.height/2);
 }
 

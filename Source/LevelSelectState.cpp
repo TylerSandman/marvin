@@ -35,9 +35,9 @@ LevelSelectState::LevelSelectState(StateStack &stack, Context context) :
     addLevel("Clear Walk", "clearwalk.json", false);
     addLevel("Go Fast", "gofast.json", false);
     addLevel("Slow Down", "slowdown.json", false);
-    addLevel("High Heights", "highheights.json", false);
-    addLevel("Hot Pursuit", "hotpursuit.json", false);
-    addLevel("Dangah Zone", "dangahzone.json", false);
+    //addLevel("High Heights", "highheights.json", false);
+    //addLevel("Hot Pursuit", "hotpursuit.json", false);
+    //addLevel("Dangah Zone", "dangahzone.json", false);
 }
 
 void LevelSelectState::draw(){
@@ -77,19 +77,27 @@ void LevelSelectState::addLevel(const std::string &name, const std::string &map,
         levelLabel = std::make_shared<GUI::Label>(
             name,
             sf::Color::Black,
+            32,
             *getContext().fontManager);
     }
     else{
         levelLabel = std::make_shared<GUI::Label>(
             name,
             sf::Color(0,0,0,100),
+            32,
             *getContext().fontManager);
         levelButton->disable();
-    }
-    float posX = windowSize.x*0.5f + 250*((numLevels % 3) -1.f);
-    float posY = windowSize.y*0.5f + 200*((numLevels / 3) -1.f);
-    levelButton->setPosition(posX, posY);
+    }  
+    
     levelButton->add(levelLabel);
     mGUIContainer.add(levelButton);
+    float posX = windowSize.x*0.5f;
+    float posY = 125 + 100*numLevels;
+    levelButton->setPosition(posX, posY);
+
+    //Kind of a hacky way to center the text, but this
+    //is to compensate for the padding the selection arrow gives
+    levelLabel->move(20, -10);
+
     ++numLevels;
 }

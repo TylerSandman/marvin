@@ -11,7 +11,7 @@ public:
     typedef std::shared_ptr<Label> Ptr;
 
 public:
-    Label(const std::string &text, sf::Color color, FontManager &fontManager);
+    Label(const std::string &text, sf::Color color, unsigned int size, FontManager &fontManager);
     virtual bool isSelectable();
     void setText(const std::string &text);
     virtual void handleEvent(const sf::Event &event);
