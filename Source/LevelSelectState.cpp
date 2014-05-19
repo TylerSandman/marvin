@@ -8,42 +8,43 @@
 
 LevelSelectState::LevelSelectState(StateStack &stack, Context context) : 
         State(stack, context),
+        mLevelPanelView(),
         mGUIContainer(),
         numLevels(0){
 
+    sf::Vector2u windowSize = context.window->getSize();
+
     //Background
     sf::Texture &bgTexture = getContext().textureManager->get(TextureID::Background);
-    sf::IntRect textureRect(
+    sf::IntRect bgRect(
         0,
         0,
-        static_cast<int>(getContext().window->getSize().x),
-        static_cast<int>(getContext().window->getSize().y));
+        static_cast<int>(windowSize.x),
+        static_cast<int>(windowSize.y));
     bgTexture.setRepeated(true);
-    mBackground = sf::Sprite(bgTexture, textureRect);
+    mBackground = sf::Sprite(bgTexture, bgRect);
 
-    //Background panel where our button list will be displayed
-    sf::Vector2f windowSize(context.window->getSize());
-    auto backgroundPanel = std::make_shared<GUI::Image>(
-        getContext().textureManager->get(TextureID::LevelSelectionPanel));
-    backgroundPanel->setPosition(windowSize * 0.5f);
-    mGUIContainer.add(backgroundPanel);
+    //Backdrop
+    sf::Texture &backdropTexture = getContext().textureManager->get(TextureID::GrasslandsBackground);
+    sf::IntRect backdropRect(
+        0, 0,
+        static_cast<int>(windowSize.x),
+        backdropTexture.getSize().y);
+    backdropTexture.setRepeated(true);
+    mBackdrop = sf::Sprite(backdropTexture, backdropRect);
+    mBackdrop.setPosition(0, windowSize.y - backdropTexture.getSize().y);
 
-    //Level selection buttons
-    addLevel("Grasslands", "grasslands.json");
-    addLevel("Test Map", "testmap.json");
-    addLevel("Waterboy", "waterboy.json", false);
-    addLevel("Clear Walk", "clearwalk.json", false);
-    addLevel("Go Fast", "gofast.json", false);
-    addLevel("Slow Down", "slowdown.json", false);
-    //addLevel("High Heights", "highheights.json", false);
-    //addLevel("Hot Pursuit", "hotpursuit.json", false);
-    //addLevel("Dangah Zone", "dangahzone.json", false);
+    //Panel to display levels
+    buildLevelPanel();
 }
 
 void LevelSelectState::draw(){
     sf::RenderWindow &window = *getContext().window;
     window.setView(window.getDefaultView());
     window.draw(mBackground);
+    window.draw(mBackdrop);
+    window.draw(mLevelPanel);
+    window.setView(mLevelPanelView);
     window.draw(mGUIContainer);
 }
 
@@ -100,4 +101,42 @@ void LevelSelectState::addLevel(const std::string &name, const std::string &map,
     levelLabel->move(20, -10);
 
     ++numLevels;
+}
+
+void LevelSelectState::buildLevelPanel(){
+
+    sf::Vector2f windowSize(getContext().window->getSize());
+    sf::Texture &bgPanelTexture = getContext().textureManager->get(TextureID::LevelSelectionPanel);
+    mLevelPanel = sf::Sprite(bgPanelTexture);
+    mLevelPanel.setOrigin(sf::Vector2f(
+        mLevelPanel.getGlobalBounds().width / 2,
+        mLevelPanel.getGlobalBounds().height / 2));
+    mLevelPanel.setPosition(windowSize * 0.5f);
+    mLevelPanel.setColor(sf::Color(255, 255, 255, 100));
+
+    //Set a centered view for our level display panel to handle
+    //overflowing levels and scrolling down
+    mLevelPanelView.setCenter(mLevelPanel.getPosition());
+    mLevelPanelView.setSize(sf::Vector2f(
+        static_cast<float>(bgPanelTexture.getSize().x),
+        static_cast<float>(bgPanelTexture.getSize().y)));
+
+    //Set viewport ratio according to the ratio of panel size
+    //to window size, with a small amount of padding
+    mLevelPanelView.setViewport(sf::FloatRect(
+        (windowSize.x - bgPanelTexture.getSize().x) / 2.f / windowSize.x,
+        ((windowSize.y - bgPanelTexture.getSize().y) / 2.f / windowSize.y) + 0.01f,
+        bgPanelTexture.getSize().x / windowSize.x,
+        bgPanelTexture.getSize().y / windowSize.y - 0.02f));
+
+    //Level selection buttons
+    addLevel("Grasslands", "grasslands.json");
+    addLevel("Test Map", "testmap.json");
+    addLevel("Waterboy", "waterboy.json", false);
+    addLevel("Clear Walk", "clearwalk.json", false);
+    addLevel("Go Fast", "gofast.json", false);
+    addLevel("Slow Down", "slowdown.json", false);
+    addLevel("High Heights", "highheights.json", false);
+    addLevel("Hot Pursuit", "hotpursuit.json", false);
+    addLevel("Dangah Zone", "dangahzone.json", false);
 }

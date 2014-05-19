@@ -15,9 +15,13 @@ public:
 
 private:
     void addLevel(const std::string &name, const std::string &map, bool enabled=true);
+    void buildLevelPanel();
 
 private:
+    sf::View mLevelPanelView;
     GUI::Container mGUIContainer;
+    sf::Sprite mLevelPanel;
     sf::Sprite mBackground;
+    sf::Sprite mBackdrop;
     unsigned int numLevels;
 };
