@@ -28,6 +28,5 @@ protected:
     std::vector<Component::Ptr> mChildren;
     int mSelectedChild;
     sf::View mView;
-    sf::Vector2f startViewPos; //Used when wrapping selections around to the beginning
 };
 }

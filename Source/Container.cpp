@@ -7,8 +7,7 @@ namespace GUI{
 Container::Container(sf::View view) : 
     mChildren(),
     mSelectedChild(-1),
-    mView(view),
-    startViewPos(view.getCenter()){}
+    mView(view){}
 
 bool Container::isSelectable(){
     return false;
@@ -75,13 +74,21 @@ void Container::selectNext(){
 
     int eleYPos = mChildren[next]->getPosition().y;
     int viewBottom = mView.getCenter().y + mView.getSize().y/2.f;
+    int viewTop = mView.getCenter().y - mView.getSize().y/2.f;
     if (eleYPos + 50 > viewBottom){
-        mView.move(0.f, (next - mSelectedChild) * 100.f);
+        float currentYPos = mChildren[mSelectedChild]->getPosition().y;
+        mView.move(0.f, eleYPos - currentYPos);
     }
 
     //Wrap around
-    else if (next == 0){
-        mView.setCenter(startViewPos);
+    else if (eleYPos - 50 < viewTop){
+        float viewOffset = 0.f;
+        for (int i = mSelectedChild; i >= next; --i){
+            if (mChildren[i]->getPosition().y - 50.f < viewTop){
+                viewOffset -= 100.f;
+            }
+        }
+        mView.move(0.f, viewOffset);
     }
     select(next);
 }
@@ -100,19 +107,18 @@ void Container::selectPrevious(){
     int viewTop = mView.getCenter().y - mView.getSize().y/2.f;
     int viewBottom = mView.getCenter().y + mView.getSize().y/2.f;
     if (eleYPos - 50 < viewTop){
-        mView.move(0.f, (prev - mSelectedChild) * 100.f);
+        float currentYPos = mChildren[mSelectedChild]->getPosition().y;
+        mView.move(0.f, eleYPos - currentYPos);
     }
 
     //Wrap around
     //Assumes all non-selectable elements are adjacent and at the end of container
     else if (eleYPos + 50 > viewBottom){
         float viewOffset = 0.f;
-        int currentChildIndex = 0;
-        while (mChildren[currentChildIndex]->isSelectable()){
-            if (mChildren[currentChildIndex]->getPosition().y + 50 > viewBottom){
+        for (int i = mSelectedChild; i <= prev; ++i){
+            if (mChildren[i]->getPosition().y + 50 > viewBottom){
                 viewOffset += 100.f;
             }
-            currentChildIndex++;
         }
         mView.move(0.f, viewOffset);
     }
