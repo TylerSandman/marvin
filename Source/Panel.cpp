@@ -4,7 +4,8 @@
 
 namespace GUI{
 
-Panel::Panel(TextureManager &textureManager) : 
+Panel::Panel(TextureManager &textureManager, sf::View view) : 
+        Container(view),
         mTexture(textureManager.get(TextureID::PauseScreenPanel)),
         mSprite(mTexture){
 

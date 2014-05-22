@@ -12,7 +12,7 @@ public:
     typedef std::shared_ptr<Container> Ptr;
 
 public:
-    Container();
+    Container(sf::View view);
     virtual bool isSelectable();
     virtual void handleEvent(const sf::Event &event);
     virtual void add(Component::Ptr component);
@@ -27,5 +27,7 @@ private:
 protected:
     std::vector<Component::Ptr> mChildren;
     int mSelectedChild;
+    sf::View mView;
+    sf::Vector2f startViewPos; //Used when wrapping selections around to the beginning
 };
 }

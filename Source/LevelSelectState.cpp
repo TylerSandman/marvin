@@ -8,8 +8,7 @@
 
 LevelSelectState::LevelSelectState(StateStack &stack, Context context) : 
         State(stack, context),
-        mLevelPanelView(),
-        mGUIContainer(),
+        mGUIContainer(context.window->getDefaultView()),
         numLevels(0){
 
     sf::Vector2u windowSize = context.window->getSize();
@@ -44,7 +43,6 @@ void LevelSelectState::draw(){
     window.draw(mBackground);
     window.draw(mBackdrop);
     window.draw(mLevelPanel);
-    window.setView(mLevelPanelView);
     window.draw(mGUIContainer);
 }
 
@@ -116,27 +114,32 @@ void LevelSelectState::buildLevelPanel(){
 
     //Set a centered view for our level display panel to handle
     //overflowing levels and scrolling down
-    mLevelPanelView.setCenter(mLevelPanel.getPosition());
-    mLevelPanelView.setSize(sf::Vector2f(
+    sf::View levelPanelView;
+    levelPanelView.setCenter(mLevelPanel.getPosition());
+    levelPanelView.setSize(sf::Vector2f(
         static_cast<float>(bgPanelTexture.getSize().x),
         static_cast<float>(bgPanelTexture.getSize().y)));
 
     //Set viewport ratio according to the ratio of panel size
     //to window size, with a small amount of padding
-    mLevelPanelView.setViewport(sf::FloatRect(
+    levelPanelView.setViewport(sf::FloatRect(
         (windowSize.x - bgPanelTexture.getSize().x) / 2.f / windowSize.x,
         ((windowSize.y - bgPanelTexture.getSize().y) / 2.f / windowSize.y) + 0.01f,
         bgPanelTexture.getSize().x / windowSize.x,
         bgPanelTexture.getSize().y / windowSize.y - 0.02f));
 
+    mGUIContainer = GUI::Container(levelPanelView);
+
     //Level selection buttons
     addLevel("Grasslands", "grasslands.json");
     addLevel("Test Map", "testmap.json");
-    addLevel("Waterboy", "waterboy.json", false);
-    addLevel("Clear Walk", "clearwalk.json", false);
-    addLevel("Go Fast", "gofast.json", false);
-    addLevel("Slow Down", "slowdown.json", false);
-    addLevel("High Heights", "highheights.json", false);
-    addLevel("Hot Pursuit", "hotpursuit.json", false);
-    addLevel("Dangah Zone", "dangahzone.json", false);
+    addLevel("Waterboy", "waterboy.json");
+    addLevel("Clear Walk", "clearwalk.json");
+    addLevel("Go Fast", "gofast.json");
+    addLevel("Slow Down", "slowdown.json");
+    addLevel("High Heights", "highheights.json");
+    addLevel("Hot Pursuit", "hotpursuit.json");
+    addLevel("Dangah Zone", "dangahzone.json");
+    addLevel("Dangah Zone 2", "dangahzone.json", false);
+    addLevel("Dangah Zone 3", "dangahzone.json", false);
 }

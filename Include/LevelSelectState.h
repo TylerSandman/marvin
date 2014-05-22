@@ -18,7 +18,6 @@ private:
     void buildLevelPanel();
 
 private:
-    sf::View mLevelPanelView;
     GUI::Container mGUIContainer;
     sf::Sprite mLevelPanel;
     sf::Sprite mBackground;

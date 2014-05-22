@@ -10,7 +10,7 @@ public:
     typedef std::shared_ptr<Panel> Ptr;
 
 public:
-    Panel(TextureManager &textureManager);
+    Panel(TextureManager &textureManager, sf::View view);
     
 private:
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
