@@ -72,9 +72,9 @@ void Container::selectNext(){
         next = (next + 1) % mChildren.size();
     } while (!mChildren[next]->isSelectable());
 
-    int eleYPos = mChildren[next]->getPosition().y;
-    int viewBottom = mView.getCenter().y + mView.getSize().y/2.f;
-    int viewTop = mView.getCenter().y - mView.getSize().y/2.f;
+    float eleYPos = mChildren[next]->getPosition().y;
+    float viewBottom = mView.getCenter().y + mView.getSize().y/2.f;
+    float viewTop = mView.getCenter().y - mView.getSize().y/2.f;
     if (eleYPos + 50 > viewBottom){
         float currentYPos = mChildren[mSelectedChild]->getPosition().y;
         mView.move(0.f, eleYPos - currentYPos);
@@ -103,9 +103,9 @@ void Container::selectPrevious(){
         prev = (prev + mChildren.size() - 1) % mChildren.size();
     } while (!mChildren[prev]->isSelectable());
 
-    int eleYPos = mChildren[prev]->getPosition().y;
-    int viewTop = mView.getCenter().y - mView.getSize().y/2.f;
-    int viewBottom = mView.getCenter().y + mView.getSize().y/2.f;
+    float eleYPos = mChildren[prev]->getPosition().y;
+    float viewTop = mView.getCenter().y - mView.getSize().y/2.f;
+    float viewBottom = mView.getCenter().y + mView.getSize().y/2.f;
     if (eleYPos - 50 < viewTop){
         float currentYPos = mChildren[mSelectedChild]->getPosition().y;
         mView.move(0.f, eleYPos - currentYPos);

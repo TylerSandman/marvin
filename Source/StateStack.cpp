@@ -44,6 +44,8 @@ State::Ptr StateStack::createState(State::ID stateID, const std::string &map){
         return std::unique_ptr<LevelLoadingState>(new LevelLoadingState(*this, mContext, map));
     case(State::ID::Menu):
         return std::unique_ptr<MenuState>(new MenuState(*this, mContext));
+    default:
+        return std::unique_ptr<MenuState>(new MenuState(*this, mContext));
     }
 }
 

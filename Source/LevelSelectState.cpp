@@ -31,7 +31,9 @@ LevelSelectState::LevelSelectState(StateStack &stack, Context context) :
         backdropTexture.getSize().y);
     backdropTexture.setRepeated(true);
     mBackdrop = sf::Sprite(backdropTexture, backdropRect);
-    mBackdrop.setPosition(0, windowSize.y - backdropTexture.getSize().y);
+    mBackdrop.setPosition(
+        0, 
+        windowSize.y - static_cast<float>(backdropTexture.getSize().y));
 
     //Panel to display levels
     buildLevelPanel();
@@ -90,8 +92,8 @@ void LevelSelectState::addLevel(const std::string &name, const std::string &map,
     
     levelButton->add(levelLabel);
     mGUIContainer.add(levelButton);
-    float posX = windowSize.x*0.5f;
-    float posY = 125 + 100*numLevels;
+    float posX = windowSize.x * 0.5f;
+    float posY = static_cast<float>(125 + 100 * numLevels);
     levelButton->setPosition(posX, posY);
 
     //Kind of a hacky way to center the text, but this

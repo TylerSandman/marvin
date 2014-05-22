@@ -14,21 +14,24 @@ MenuState::MenuState(StateStack &stack, Context context) :
 
     //Background
     sf::Texture &groundTexture = context.textureManager->get(TextureID::MenuGround);
-    int numRepeats = std::ceil(windowSize.x / groundTexture.getSize().x);
+    float numRepeats = std::ceil(windowSize.x / groundTexture.getSize().x);
     groundTexture.setRepeated(true);
     mGrass = sf::Sprite(
         groundTexture,
         sf::IntRect(
             0, 0, 
-            groundTexture.getSize().x * numRepeats * 2, 
+            static_cast<int>(groundTexture.getSize().x * numRepeats * 2), 
             groundTexture.getSize().y));
-    int yOffset = mGrass.getGlobalBounds().height;
+    float yOffset = mGrass.getGlobalBounds().height;
     mGrass.setPosition(0, windowSize.y - yOffset);
 
     sf::Texture &bgTexture = context.textureManager->get(TextureID::Background);
     bgTexture.setRepeated(true);
     mBackground.setTexture(bgTexture);
-    mBackground.setTextureRect(sf::IntRect(0, 0, windowSize.x, windowSize.y));
+    mBackground.setTextureRect(sf::IntRect(
+        0, 0, 
+        static_cast<int>(windowSize.x),
+        static_cast<int>(windowSize.y)));
 
     sf::Texture &backdropTexture = context.textureManager->get(TextureID::GrasslandsBackground);
     numRepeats = std::ceil(windowSize.x / backdropTexture.getSize().x);
@@ -37,8 +40,8 @@ MenuState::MenuState(StateStack &stack, Context context) :
         backdropTexture,
         sf::IntRect(
         0, 0,
-        backdropTexture.getSize().x * numRepeats * 2,
-        backdropTexture.getSize().y));
+        static_cast<int>(backdropTexture.getSize().x * numRepeats * 2),
+        (backdropTexture.getSize().y)));
     yOffset = mGrass.getGlobalBounds().height + mBackdrop.getGlobalBounds().height;
     mBackdrop.setPosition(0, windowSize.y - yOffset);
 
