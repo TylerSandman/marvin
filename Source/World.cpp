@@ -108,7 +108,7 @@ void World::update(sf::Time deltaTime){
         mLevelTimeElapsed.asSeconds() * 100.f) / 100.f;
     mTimeText->setText(timeStream.str());  
     mTimeText->setPosition(
-        mWorldView.getCenter().x + mWorldView.getSize().x / 2.f - 100.f,
+        mWorldView.getCenter().x + mWorldView.getSize().x / 2.f - 125.f,
         mWorldView.getCenter().y - mWorldView.getSize().y / 2.f + 25.f);
 
     if (mResetRequested)
@@ -199,9 +199,6 @@ void World::buildScene(){
     std::unique_ptr<TextNode> timeText(new TextNode(timeFont));
     mTimeText = timeText.get();
     mTimeText->setColor(sf::Color::Black);
-    mTimeText->setPosition(
-        mWindow.getSize().x - 125.f,
-        25.f);
     mSceneLayers[HUD]->attachChild(std::move(timeText));
 }
 
