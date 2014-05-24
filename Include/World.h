@@ -11,6 +11,7 @@
 #include "GameObjectFactory.h"
 #include "CollisionHandler.h"
 #include "Command.h"
+#include "TextNode.h"
 
 class Marvin;
 
@@ -30,7 +31,7 @@ public:
     bool texturesLoaded();
 
 private:
-    void loadTextures();
+    void loadResources();
     void buildScene();
     void spawnPlayer(sf::Vector2f position);
     void renderStaticBodyFixtures(); //For debugging
@@ -42,6 +43,7 @@ private:
         Background,
         Tilemap,
         Object,
+        HUD,
         LayerCount
     };
     
@@ -50,6 +52,7 @@ private:
     sf::View mWorldView;
     CommandQueue mCommandQueue;
     TextureManager mTextureManager;
+    FontManager mFontManager;
     TiledJSONLoader mMapLoader;
     Box2DTiledLoader mWorldLoader;
     GameObjectFactory mGameObjectFactory;
@@ -61,6 +64,8 @@ private:
     std::unique_ptr<b2World> mBox2DWorld;
     MapData mMapData;
     std::string mMap;
+    sf::Time mLevelTimeElapsed;
+    TextNode *mTimeText;
     bool mResetRequested;
     bool mMapLoaded;
     bool mObjectsLoaded;

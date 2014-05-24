@@ -41,6 +41,7 @@
     <ClInclude Include="Include\LevelLoadingState.h" />
     <ClInclude Include="Include\LevelManager.h" />
     <ClInclude Include="Include\MenuState.h" />
+    <ClInclude Include="Include\TextNode.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Box2DTiledLoader.cpp" />
@@ -75,6 +76,7 @@
     <ClCompile Include="Source\LevelManager.cpp" />
     <ClCompile Include="Source\ContainerButton.cpp" />
     <ClCompile Include="Source\MenuState.cpp" />
+    <ClCompile Include="Source\TextNode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\GUI\Sample Level Selection.png" />

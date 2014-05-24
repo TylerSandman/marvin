@@ -45,6 +45,7 @@
     <ClInclude Include="Include\SpriteNode.h" />
     <ClInclude Include="Include\State.h" />
     <ClInclude Include="Include\StateStack.h" />
+    <ClInclude Include="Include\TextNode.h" />
     <ClInclude Include="Include\Tile.h" />
     <ClInclude Include="Include\TiledJSONLoader.h" />
     <ClInclude Include="Include\TileLayer.h" />
@@ -82,6 +83,7 @@
     <ClCompile Include="Source\SpriteNode.cpp" />
     <ClCompile Include="Source\State.cpp" />
     <ClCompile Include="Source\StateStack.cpp" />
+    <ClCompile Include="Source\TextNode.cpp" />
     <ClCompile Include="Source\TiledJSONLoader.cpp" />
     <ClCompile Include="Source\TilemapNode.cpp" />
     <ClCompile Include="Source\World.cpp" />

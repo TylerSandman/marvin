@@ -2,9 +2,12 @@
 #include <Box2D\Box2D.h>
 #include <array>
 #include <memory>
+#include <iostream>
+#include <boost/math/special_functions/round.hpp>
 #include "Marvin.h"
 #include "SceneNode.h"
 #include "SpriteNode.h"
+#include "TextNode.h"
 #include "TilemapNode.h"
 #include "ResourceManager.h"
 #include "TiledJSONLoader.h"
@@ -19,6 +22,7 @@ World::World(sf::RenderWindow &window, const std::string &map) :
         mWindow(window),
         mWorldView(mWindow.getDefaultView()),
         mTextureManager(TextureManager()),
+        mFontManager(FontManager()),
         mMapLoader(TiledJSONLoader("Resources/Maps/", "Resources/Textures/Tileset/")),
         mWorldLoader(Box2DTiledLoader()),
         mCollisionHandler(CollisionHandler(*this)),
@@ -47,7 +51,7 @@ void World::initialize(){
     mBox2DWorld = std::unique_ptr<b2World>(mWorldLoader.getWorld());
     mBox2DWorld->SetContactListener(&mCollisionHandler);
     mGameObjectFactory = GameObjectFactory(mMapData, mBox2DWorld.get());
-    loadTextures();
+    loadResources();
     buildScene();
     mTexturesLoaded = true;
 
@@ -58,6 +62,7 @@ void World::initialize(){
 
 void World::reset(){
     mBox2DWorld.release();
+    mLevelTimeElapsed = sf::Time::Zero;
     mPlayerCharacter = nullptr;
     mPlayerBody = nullptr;
     mWorldLoader.load(mMapData.tileLayers[0].tiles);
@@ -84,6 +89,8 @@ CommandQueue& World::getCommandQueue(){
 
 void World::update(sf::Time deltaTime){
 
+    mLevelTimeElapsed += deltaTime;
+
     //It's important we advance our physics engine before updating
     mBox2DWorld->Step(deltaTime.asSeconds(), 6, 2);
 
@@ -95,11 +102,21 @@ void World::update(sf::Time deltaTime){
     mSceneGraph.update(deltaTime);
     centerPlayerView();
 
+    //Reposition and update our time
+    std::ostringstream timeStream;
+    timeStream << boost::math::round(
+        mLevelTimeElapsed.asSeconds() * 100.f) / 100.f;
+    mTimeText->setText(timeStream.str());  
+    mTimeText->setPosition(
+        mWorldView.getCenter().x + mWorldView.getSize().x / 2.f - 100.f,
+        mWorldView.getCenter().y - mWorldView.getSize().y / 2.f + 25.f);
+
     if (mResetRequested)
         reset();
 }
 
 void World::centerPlayerView(){
+
     //Make sure our view is inside map bounds
     float viewWidth =  mWorldView.getSize().x;
     float viewHeight = mWorldView.getSize().y;
@@ -125,11 +142,12 @@ void World::centerPlayerView(){
 }
 
 void World::draw(){
+
     mWindow.setView(mWorldView);
-    mWindow.draw(mSceneGraph);
+    mWindow.draw(mSceneGraph);  
 }
 
-void World::loadTextures(){
+void World::loadResources(){
 
     //Load our backgrounds
     mTextureManager.load(TextureID::GrasslandsBackground, "Resources/Textures/Background/bg.png");
@@ -137,6 +155,9 @@ void World::loadTextures(){
     //Load our player
     mTextureManager.load(TextureID::PlayerSpriteSheet, "Resources/Textures/Player/player_spritesheet.png");
     mTextureManager.load(TextureID::PlayerStanding, "Resources/Textures/Player/alienGreen_stand.png");
+
+    //Load fonts
+    mFontManager.load(FontID::Thin, "Resources/Fonts/kenvector_future_thin.ttf");
 }
 
 void World::buildScene(){
@@ -160,7 +181,6 @@ void World::buildScene(){
     mSceneLayers[Tilemap]->attachChild(std::move(tileMap));
 
     //Object layer (players, enemies, etc)
-
     for(auto &objectGroup : mMapData.objectGroups){
         for(auto &object : objectGroup.objects){
             if (object.type == "Player"){
@@ -173,6 +193,16 @@ void World::buildScene(){
         }
     } 
     mSceneLayers[Object]->attachChild(std::move(std::unique_ptr<Marvin>(mPlayerCharacter)));
+
+    //HUD Layer
+    sf::Font &timeFont = mFontManager.get(FontID::Thin);
+    std::unique_ptr<TextNode> timeText(new TextNode(timeFont));
+    mTimeText = timeText.get();
+    mTimeText->setColor(sf::Color::Black);
+    mTimeText->setPosition(
+        mWindow.getSize().x - 125.f,
+        25.f);
+    mSceneLayers[HUD]->attachChild(std::move(timeText));
 }
 
 void World::spawnPlayer(sf::Vector2f position){
