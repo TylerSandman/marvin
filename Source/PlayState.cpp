@@ -15,7 +15,13 @@ bool PlayState::update(sf::Time deltaTime){
 
     mWorld->update(deltaTime);
     CommandQueue &commands = mWorld->getCommandQueue();
-    mPlayer.handleRealtimeInput(commands);   
+    mPlayer.handleRealtimeInput(commands);  
+
+    if (mWorld->isComplete()){
+        //TODO stats display etc
+        requestStackPop();
+        requestStackPush(ID::LevelSelect);
+    }
     return false;
 }
 

@@ -27,6 +27,20 @@
                  "width":70,
                  "x":140,
                  "y":1610
+                }, 
+                {
+                 "gid":65,
+                 "height":0,
+                 "name":"Exit",
+                 "properties":
+                    {
+
+                    },
+                 "type":"Exit",
+                 "visible":true,
+                 "width":0,
+                 "x":1960,
+                 "y":1680
                 }],
          "opacity":1,
          "type":"objectgroup",

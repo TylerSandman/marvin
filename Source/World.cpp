@@ -29,6 +29,7 @@ World::World(sf::RenderWindow &window, const std::string &map) :
         mSceneGraph(SceneNode()),
         mPlayerCharacter(nullptr),
         mResetRequested(false),
+        mCompletionRequested(false),
         mMapLoaded(false),
         mObjectsLoaded(false),
         mTexturesLoaded(false),
@@ -113,6 +114,14 @@ void World::update(sf::Time deltaTime){
 
     if (mResetRequested)
         reset();
+}
+
+void World::requestCompletion(){
+    mCompletionRequested = true;
+}
+
+bool World::isComplete(){
+    return mCompletionRequested;
 }
 
 void World::centerPlayerView(){

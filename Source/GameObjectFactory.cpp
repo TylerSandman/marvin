@@ -25,6 +25,10 @@ GameObject* GameObjectFactory::createGameObject(tiled::Object &object){
         newObject = new GameObject(
             Category::Type::Damager, object.sprite, objectBody);
     }
+    else if (type.compare("Exit") == 0){
+        newObject = new GameObject(
+            Category::Type::Exit, object.sprite, objectBody);
+    }
     objectBody->SetUserData(newObject);
     return newObject;
 }

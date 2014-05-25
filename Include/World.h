@@ -24,6 +24,8 @@ public:
     void update(sf::Time deltaTime);
     void draw();
     void requestReset();
+    void requestCompletion();
+    bool isComplete();
 
     //Querying functions for loading screen
     bool mapLoaded();
@@ -67,6 +69,7 @@ private:
     sf::Time mLevelTimeElapsed;
     TextNode *mTimeText;
     bool mResetRequested;
+    bool mCompletionRequested;
     bool mMapLoaded;
     bool mObjectsLoaded;
     bool mTexturesLoaded;

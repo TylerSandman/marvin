@@ -12,7 +12,7 @@ namespace Category{
         Player = 1 << 1, //Player
         Enemy = 1 << 2, //Enemy
         Pickup = 1 << 3, //Coins, powerups, etc
-        Interactable = 1 << 4, //Coin blocks, springs, etc
+        Exit = 1 << 4, //End of level
         Damager = 1 << 5, //Spikes, lava, etc
         Projectile = 1 << 6 //Bullet, fireball ,etc
     };

@@ -40,9 +40,10 @@ void CollisionHandler::BeginContact(b2Contact *contact){
             Marvin &player = static_cast<Marvin&>(*secondNode);
             player.setNumFootContacts(player.getNumFootContacts() + 1);
         }
+    }
 
-        //Other cases TODO
-
+    if (matchesCategories(collisionPair, Category::Type::Player, Category::Type::Exit)){
+        mWorld.requestCompletion();
     }
 }
 
