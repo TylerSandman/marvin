@@ -42,6 +42,7 @@
     <ClInclude Include="Include\LevelManager.h" />
     <ClInclude Include="Include\MenuState.h" />
     <ClInclude Include="Include\TextNode.h" />
+    <ClInclude Include="Include\SaveManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Box2DTiledLoader.cpp" />
@@ -77,6 +78,7 @@
     <ClCompile Include="Source\ContainerButton.cpp" />
     <ClCompile Include="Source\MenuState.cpp" />
     <ClCompile Include="Source\TextNode.cpp" />
+    <ClCompile Include="Source\SaveManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\GUI\Sample Level Selection.png" />

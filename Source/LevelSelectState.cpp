@@ -5,6 +5,7 @@
 #include "Button.h"
 #include "Label.h"
 #include "ContainerButton.h"
+#include "SaveManager.h"
 
 LevelSelectState::LevelSelectState(StateStack &stack, Context context) : 
         State(stack, context),
@@ -131,6 +132,10 @@ void LevelSelectState::buildLevelPanel(){
         bgPanelTexture.getSize().y / windowSize.y - 0.02f));
 
     mGUIContainer = GUI::Container(levelPanelView);
+
+    //Determine which levels are available
+    SaveManager *saveManager = SaveManager::getInstance();
+
 
     //Level selection buttons
     addLevel("Grasslands", "grasslands.json");
