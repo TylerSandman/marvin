@@ -78,7 +78,6 @@
     <ClCompile Include="Source\ContainerButton.cpp" />
     <ClCompile Include="Source\MenuState.cpp" />
     <ClCompile Include="Source\TextNode.cpp" />
-    <ClCompile Include="Source\SaveManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\GUI\Sample Level Selection.png" />
@@ -114,5 +113,8 @@
   <ItemGroup>
     <Font Include="Resources\Fonts\kenvector_future.ttf" />
     <Font Include="Resources\Fonts\kenvector_future_thin.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="Lib\Serialization\libboost_serialization-vc110-mt-gd-1_55.lib" />
   </ItemGroup>
 </Project>

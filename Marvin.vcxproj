@@ -80,7 +80,6 @@
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\Marvin.cpp" />
     <ClCompile Include="Source\Player.cpp" />
-    <ClCompile Include="Source\SaveManager.cpp" />
     <ClCompile Include="Source\SceneNode.cpp" />
     <ClCompile Include="Source\SpriteNode.cpp" />
     <ClCompile Include="Source\State.cpp" />
@@ -124,6 +123,9 @@
   <ItemGroup>
     <Font Include="Resources\Fonts\kenvector_future.ttf" />
     <Font Include="Resources\Fonts\kenvector_future_thin.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="Lib\Serialization\libboost_serialization-vc110-mt-gd-1_55.lib" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{12C9EF66-2E4E-4006-B438-C31AA4C61FE1}</ProjectGuid>
@@ -174,8 +176,8 @@
       <TargetMachine>MachineX86</TargetMachine>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>Lib/Box2D;Lib/SFML;</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-audio-d.lib;sfml-graphics-d.lib;sfml-main-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;Box2D-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>Lib/Box2D;Lib/SFML;Lib/Serialization</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libboost_serialization-vc110-mt-gd-1_55.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-main-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;Box2D-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <Profile>false</Profile>
     </Link>
   </ItemDefinitionGroup>

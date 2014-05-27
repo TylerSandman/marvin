@@ -17,6 +17,7 @@ private:
     void handleInput();
     void update(sf::Time deltaTime);
     void draw();
+    void exit();
 
 private:
     sf::RenderWindow mWindow;

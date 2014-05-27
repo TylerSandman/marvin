@@ -135,18 +135,18 @@ void LevelSelectState::buildLevelPanel(){
 
     //Determine which levels are available
     SaveManager *saveManager = SaveManager::getInstance();
-
+    saveManager->markLevelCompleted("Grasslands");
 
     //Level selection buttons
-    addLevel("Grasslands", "grasslands.json");
-    addLevel("Test Map", "testmap.json");
-    addLevel("Waterboy", "waterboy.json");
-    addLevel("Clear Walk", "clearwalk.json");
-    addLevel("Go Fast", "gofast.json");
-    addLevel("Slow Down", "slowdown.json");
-    addLevel("High Heights", "highheights.json");
-    addLevel("Hot Pursuit", "hotpursuit.json");
-    addLevel("Dangah Zone", "dangahzone.json");
-    addLevel("Dangah Zone 2", "dangahzone.json", false);
-    addLevel("Dangah Zone 3", "dangahzone.json", false);
+    addLevel("Grasslands", "grasslands.json", saveManager->isLevelCompleted("Grasslands"));
+    addLevel("Test Map", "testmap.json", saveManager->isLevelCompleted("Test Map"));
+    addLevel("Waterboy", "testmap.json", saveManager->isLevelCompleted("Waterboy"));
+    addLevel("Clear Walk", "testmap.json", saveManager->isLevelCompleted("Clear Walk"));
+    addLevel("Go Fast", "testmap.json", saveManager->isLevelCompleted("Go Fast"));
+    addLevel("Slow Down", "testmap.json", saveManager->isLevelCompleted("Slow Down"));
+    addLevel("High Heights", "testmap.json", saveManager->isLevelCompleted("High Heights"));;
+    addLevel("Hot Pursuit", "testmap.json", saveManager->isLevelCompleted("Hot Pursuit"));
+    addLevel("Dangah Zone", "testmap.json", saveManager->isLevelCompleted("Dangah Zone"));
+    addLevel("Dangah Zone 2", "testmap.json", saveManager->isLevelCompleted("Dangah Zone 2"));
+    addLevel("Dangah Zone 3", "testmap.json", saveManager->isLevelCompleted("Dangah Zone 3"));
 }

@@ -5,6 +5,8 @@
 #include <iostream>
 #include <cmath>
 #include <string>
+#include <boost/archive/binary_oarchive.hpp>
+#include <boost/archive/binary_iarchive.hpp>
 #include "TiledJSONLoader.h"
 #include "Box2DTiledLoader.h"
 #include "ResourceManager.h"
@@ -12,6 +14,7 @@
 #include "Game.h"
 #include "State.h"
 #include "Constants.h"
+#include "SaveManager.h"
 
 Game::Game() : 
         mWindow(sf::RenderWindow(sf::VideoMode(1024,768), "Marvin", sf::Style::Close)),
@@ -40,6 +43,22 @@ Game::Game() :
     mFontManager.load(FontID::Main, "Resources/Fonts/kenvector_future.ttf");
     mFontManager.load(FontID::Thin, "Resources/Fonts/kenvector_future_thin.ttf");
     mStateStack.pushState(State::ID::Menu);
+
+    //Load game data    
+    SaveManager *saveManager = SaveManager::getInstance();
+    std::ifstream ifs("save.bin", std::ios::binary);
+    if (ifs.good()){
+        boost::archive::binary_iarchive ia(ifs);
+        ia >> saveManager;
+    }
+
+    //Create save file if nonexistant
+    else{
+        std::ofstream ofs("save.bin", std::ios::binary);
+        boost::archive::binary_oarchive oa(ofs);
+        oa << saveManager;
+    }
+    
 }
 
 void Game::run(){
@@ -55,7 +74,7 @@ void Game::run(){
             update(FRAME_RATE);
 
             if (mStateStack.isEmpty()){
-                mWindow.close();
+                exit();
             }
         }
         draw();
@@ -69,7 +88,7 @@ void Game::handleInput(){
     while (mWindow.pollEvent(event)){
         mStateStack.handleEvent(event);
         if (event.type == sf::Event::Closed){
-            mWindow.close();
+            exit();
         }
     }
 }
@@ -83,4 +102,14 @@ void Game::draw(){
     mStateStack.draw();
     mWindow.setView(mWindow.getDefaultView());
     mWindow.display();
+}
+
+void Game::exit(){
+
+    //Save data
+    std::ofstream ofs("save.bin", std::ios::binary);
+    SaveManager *saveManager = SaveManager::getInstance();
+    boost::archive::binary_oarchive oa(ofs);
+    oa << saveManager;
+    mWindow.close();
 }
