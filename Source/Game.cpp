@@ -45,20 +45,7 @@ Game::Game() :
     mStateStack.pushState(State::ID::Menu);
 
     //Load game data    
-    SaveManager *saveManager = SaveManager::getInstance();
-    std::ifstream ifs("save.bin", std::ios::binary);
-    if (ifs.good()){
-        boost::archive::binary_iarchive ia(ifs);
-        ia >> saveManager;
-    }
-
-    //Create save file if nonexistant
-    else{
-        std::ofstream ofs("save.bin", std::ios::binary);
-        boost::archive::binary_oarchive oa(ofs);
-        oa << saveManager;
-    }
-    
+    load("save.bin", SaveManager::getInstance());
 }
 
 void Game::run(){
@@ -107,9 +94,29 @@ void Game::draw(){
 void Game::exit(){
 
     //Save data
-    std::ofstream ofs("save.bin", std::ios::binary);
-    SaveManager *saveManager = SaveManager::getInstance();
+    save("save.bin", SaveManager::getInstance());
+    mWindow.close();
+}
+
+void Game::load(const std::string &saveFile, SaveManager &saveManager){
+    std::ifstream ifs(saveFile.c_str(), std::ios::binary);
+    if (ifs.good()){
+        boost::archive::binary_iarchive ia(ifs);
+        ia >> saveManager;
+        int test = 5;
+    }
+
+    //Create save file if nonexistant
+    else{
+        std::ofstream ofs(saveFile.c_str(), std::ios::binary);
+        boost::archive::binary_oarchive oa(ofs);
+        saveManager.makeNewSave();
+        oa << saveManager;
+    }
+}
+
+void Game::save(const std::string &saveFile, SaveManager &saveManager){
+    std::ofstream ofs(saveFile.c_str(), std::ios::binary);
     boost::archive::binary_oarchive oa(ofs);
     oa << saveManager;
-    mWindow.close();
 }

@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "ResourceManager.h"
 #include "LevelManager.h"
+#include "SaveManager.h"
 
 class Game{
 
@@ -18,6 +19,8 @@ private:
     void update(sf::Time deltaTime);
     void draw();
     void exit();
+    void load(const std::string &saveFile, SaveManager &saveManager);
+    void save(const std::string &saveFile, SaveManager &saveManager);
 
 private:
     sf::RenderWindow mWindow;

@@ -133,20 +133,50 @@ void LevelSelectState::buildLevelPanel(){
 
     mGUIContainer = GUI::Container(levelPanelView);
 
-    //Determine which levels are available
-    SaveManager *saveManager = SaveManager::getInstance();
-    saveManager->markLevelCompleted("Grasslands");
+
+    SaveManager &saveManager = SaveManager::getInstance();
 
     //Level selection buttons
-    addLevel("Grasslands", "grasslands.json", saveManager->isLevelCompleted("Grasslands"));
-    addLevel("Test Map", "testmap.json", saveManager->isLevelCompleted("Test Map"));
-    addLevel("Waterboy", "testmap.json", saveManager->isLevelCompleted("Waterboy"));
-    addLevel("Clear Walk", "testmap.json", saveManager->isLevelCompleted("Clear Walk"));
-    addLevel("Go Fast", "testmap.json", saveManager->isLevelCompleted("Go Fast"));
-    addLevel("Slow Down", "testmap.json", saveManager->isLevelCompleted("Slow Down"));
-    addLevel("High Heights", "testmap.json", saveManager->isLevelCompleted("High Heights"));;
-    addLevel("Hot Pursuit", "testmap.json", saveManager->isLevelCompleted("Hot Pursuit"));
-    addLevel("Dangah Zone", "testmap.json", saveManager->isLevelCompleted("Dangah Zone"));
-    addLevel("Dangah Zone 2", "testmap.json", saveManager->isLevelCompleted("Dangah Zone 2"));
-    addLevel("Dangah Zone 3", "testmap.json", saveManager->isLevelCompleted("Dangah Zone 3"));
+    LevelData data = saveManager.getLevelData("grasslands.json");
+    addLevel(data.name, "grasslands.json", true);
+
+    LevelData previousData = data;
+    data = saveManager.getLevelData("testmap.json");   
+    addLevel(data.name, "testmap.json", previousData.completed);
+
+    previousData = data;
+    data = saveManager.getLevelData("waterboy.json");
+    addLevel(data.name, "waterboy.json", previousData.completed);
+
+    previousData = data;
+    data = saveManager.getLevelData("clearwalk.json");
+    addLevel(data.name, "clearwalk.json", previousData.completed);
+
+    previousData = data;
+    data = saveManager.getLevelData("gofast.json");
+    addLevel(data.name, "gofast.json", previousData.completed);
+
+    previousData = data;
+    data = saveManager.getLevelData("slowdown.json");
+    addLevel(data.name, "slowdown.json", previousData.completed);
+
+    previousData = data;
+    data = saveManager.getLevelData("highheights.json");
+    addLevel(data.name, "highheights.json", previousData.completed);
+
+    previousData = data;
+    data = saveManager.getLevelData("hotpursuit.json");
+    addLevel(data.name, "hotpursuit.json", previousData.completed);
+
+    previousData = data;
+    data = saveManager.getLevelData("dangahzone.json");
+    addLevel(data.name, "dangahzone.json", previousData.completed);
+
+    previousData = data;
+    data = saveManager.getLevelData("dangahzone2.json");
+    addLevel(data.name, "dangahzone2.json", previousData.completed);
+
+    previousData = data;
+    data = saveManager.getLevelData("dangahzone3.json");
+    addLevel(data.name, "dangahzone3.json", previousData.completed);
 }

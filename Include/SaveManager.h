@@ -1,45 +1,71 @@
 #pragma once
 #include <memory>
 #include <map>
+#include <iostream>
 #include <boost/archive/binary_oarchive.hpp>
 #include <boost/archive/binary_iarchive.hpp>
 #include <boost/serialization/map.hpp>
 
+struct LevelData{
+    std::string name;
+    bool completed;
+    float bestTime;
+
+    LevelData(){}
+    LevelData(const std::string &name, bool completed, double bestTime) : 
+        name(name), completed(completed), bestTime(bestTime){}
+
+    template<class Archive>
+    void serialize(Archive &ar, const unsigned int version){
+        ar & name;
+        ar & completed;
+        ar & bestTime;
+    }
+};
+
 class SaveManager{
 
 public:
-    static SaveManager* getInstance(){
-        static std::unique_ptr<SaveManager> saveInstance(new SaveManager());
-        return saveInstance.get();
-    }
-    void markLevelCompleted(const std::string &levelName){
-        mLevelCompletionMap[levelName] = true;
-    }
-    bool isLevelCompleted(const std::string &levelName){
-        return mLevelCompletionMap[levelName];
+
+    static SaveManager& getInstance(){
+        static SaveManager saveManager;
+        return saveManager;
     }
 
+    void markLevelCompleted(const std::string &map){
+        mLevelDataMap[map].completed = true;
+    }
+
+    bool isLevelCompleted(const std::string &map){
+        return mLevelDataMap[map].completed;
+    }
+
+    void makeNewSave(){
+        mLevelDataMap["grasslands.json"] = LevelData("Grasslands", false, 0.0f);
+        mLevelDataMap["testmap.json"] = LevelData("Test Map", false, 0.0f);
+        mLevelDataMap["waterboy.json"] = LevelData("Waterboy", false, 0.0f);
+        mLevelDataMap["clearwalk.json"] = LevelData("Clear Walk", false, 0.0f);
+        mLevelDataMap["gofast.json"] = LevelData("Go Fast", false, 0.0f);
+        mLevelDataMap["slowdown.json"] = LevelData("Slow Down", false, 0.0f);
+        mLevelDataMap["highheights.json"] = LevelData("High Heights", false, 0.0f);
+        mLevelDataMap["hotpursuit.json"] = LevelData("Hot Pursuit", false, 0.0f);
+        mLevelDataMap["dangahzone.json"] = LevelData("Dangah Zone", false, 0.0f);
+        mLevelDataMap["dangahzone2.json"] = LevelData("Dangah Zone 2", false, 0.0f);
+        mLevelDataMap["dangahzone3.json"] = LevelData("Dangah Zone 3", false, 0.0f);
+    }
+
+    LevelData getLevelData(const std::string &map){
+        return mLevelDataMap[map];
+    }
 
 private:
     friend class boost::serialization::access;
     template<class Archive>
     void serialize(Archive &ar, const unsigned int version){
-        ar & mLevelCompletionMap;
+        ar & mLevelDataMap;
     }
-    SaveManager(){
-        mLevelCompletionMap["Grasslands"] = false;
-        mLevelCompletionMap["Test Map"] = false;
-        mLevelCompletionMap["Waterboy"] = false;
-        mLevelCompletionMap["Clear Walk"] = false;
-        mLevelCompletionMap["Go Fast"] = false;
-        mLevelCompletionMap["Slow Down"] = false;
-        mLevelCompletionMap["High Heights"] = false;
-        mLevelCompletionMap["Hot Pursuit"] = false;
-        mLevelCompletionMap["Dangah Zone"] = false;
-        mLevelCompletionMap["Dangah Zone 2"] = false;
-        mLevelCompletionMap["Dangah Zone 3"] = false;
-    }
+    SaveManager(){}
     SaveManager(SaveManager const&){}
     void operator=(SaveManager const&){}
-    std::map<std::string, bool> mLevelCompletionMap;
+    std::map<std::string, LevelData> mLevelDataMap;
 };

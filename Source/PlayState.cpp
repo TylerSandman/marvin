@@ -1,10 +1,12 @@
 #include "PlayState.h"
+#include "SaveManager.h"
 
 PlayState::PlayState(StateStack &stack, Context context, const std::string &map) : 
         State(stack, context),
-        mPlayer(*context.player){
+        mPlayer(*context.player),
+        mMapName(map){
     
-    mWorld.reset(context.levelManager->get(map));
+    mWorld.reset(context.levelManager->get(mMapName));
 }
 
 void PlayState::draw(){
@@ -21,6 +23,7 @@ bool PlayState::update(sf::Time deltaTime){
         //TODO stats display etc
         requestStackPop();
         requestStackPush(ID::LevelSelect);
+        SaveManager::getInstance().markLevelCompleted(mMapName);
     }
     return false;
 }

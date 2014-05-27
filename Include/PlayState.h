@@ -15,4 +15,5 @@ public:
 private:
     std::unique_ptr<World> mWorld;
     Player &mPlayer;
+    std::string mMapName;
 };
