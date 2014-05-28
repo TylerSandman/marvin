@@ -86,6 +86,15 @@ void LevelSelectState::addLevel(LevelData lData, const std::string &map, bool en
             sf::Color::Black,
             32,
             *getContext().fontManager);
+
+        GUI::Label::Ptr timeLabel;
+        std::ostringstream timeStream;
+        timeStream << lData.bestTime;
+        timeLabel = std::make_shared<GUI::Label>(
+            timeStream.str(),
+            sf::Color::Black,
+            32,
+            *getContext().fontManager);
     }
     else{
         levelLabel = std::make_shared<GUI::Label>(
@@ -97,13 +106,25 @@ void LevelSelectState::addLevel(LevelData lData, const std::string &map, bool en
     }  
 
     GUI::Label::Ptr timeLabel;
-    std::ostringstream timeStream;
-    timeStream << lData.bestTime;
-    timeLabel = std::make_shared<GUI::Label>(
-        timeStream.str(),
-        sf::Color::Black,
-        32,
-        *getContext().fontManager);
+
+    if (lData.bestTime > 0.0f){
+        std::ostringstream timeStream;
+        timeStream << lData.bestTime;
+        timeLabel = std::make_shared<GUI::Label>(
+            timeStream.str(),
+            sf::Color::Black,
+            32,
+            *getContext().fontManager);
+    }
+    else{
+        std::ostringstream timeStream;
+        timeStream << lData.bestTime;
+        timeLabel = std::make_shared<GUI::Label>(
+            timeStream.str(),
+            sf::Color(0,0,0,100),
+            32,
+            *getContext().fontManager);
+    }
     
     levelButton->add(levelLabel);
     levelButton->add(timeLabel);
