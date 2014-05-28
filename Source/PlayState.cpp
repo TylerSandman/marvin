@@ -15,16 +15,18 @@ void PlayState::draw(){
 
 bool PlayState::update(sf::Time deltaTime){
 
-    mWorld->update(deltaTime);
-    CommandQueue &commands = mWorld->getCommandQueue();
-    mPlayer.handleRealtimeInput(commands);  
-
-    if (mWorld->isComplete()){
+    if(!mWorld->isComplete())
+        mWorld->update(deltaTime);
+    else{
         //TODO stats display etc
         requestStackPop();
         requestStackPush(ID::LevelSelect);
-        SaveManager::getInstance().markLevelCompleted(mMapName);
+        SaveManager::getInstance().markLevelCompleted(mMapName, mWorld->getAttemptTime());
     }
+    CommandQueue &commands = mWorld->getCommandQueue();
+    mPlayer.handleRealtimeInput(commands);  
+
+    
     return false;
 }
 

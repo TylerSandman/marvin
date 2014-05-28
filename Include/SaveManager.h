@@ -12,7 +12,7 @@ struct LevelData{
     float bestTime;
 
     LevelData(){}
-    LevelData(const std::string &name, bool completed, double bestTime) : 
+    LevelData(const std::string &name, bool completed, float bestTime) : 
         name(name), completed(completed), bestTime(bestTime){}
 
     template<class Archive>
@@ -32,8 +32,10 @@ public:
         return saveManager;
     }
 
-    void markLevelCompleted(const std::string &map){
+    void markLevelCompleted(const std::string &map, float time){
         mLevelDataMap[map].completed = true;
+        if ((time < mLevelDataMap[map].bestTime) || (mLevelDataMap[map].bestTime == 0.0f))
+            mLevelDataMap[map].bestTime = time;
     }
 
     bool isLevelCompleted(const std::string &map){

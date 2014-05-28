@@ -26,6 +26,7 @@ public:
     void requestReset();
     void requestCompletion();
     bool isComplete();
+    float getAttemptTime();
 
     //Querying functions for loading screen
     bool mapLoaded();
@@ -67,6 +68,7 @@ private:
     MapData mMapData;
     std::string mMap;
     sf::Time mLevelTimeElapsed;
+    float mCompletionTime;
     TextNode *mTimeText;
     bool mResetRequested;
     bool mCompletionRequested;

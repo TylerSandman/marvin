@@ -2,6 +2,7 @@
 #include "State.h"
 #include "World.h"
 #include "Container.h"
+#include "SaveManager.h"
 
 class StateStack;
 
@@ -14,7 +15,7 @@ public:
     bool handleEvent(const sf::Event &event);
 
 private:
-    void addLevel(const std::string &name, const std::string &map, bool enabled=true);
+    void addLevel(LevelData lData, const std::string &map, bool enabled=true);
     void buildLevelPanel();
 
 private:

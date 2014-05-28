@@ -1,4 +1,6 @@
 #include <memory>
+#include <boost/math/special_functions/round.hpp>
+#include <iostream>
 #include "LevelSelectState.h"
 #include "Container.h"
 #include "Image.h"
@@ -65,33 +67,46 @@ bool LevelSelectState::handleEvent(const sf::Event &event){
     return false;
 }
 
-void LevelSelectState::addLevel(const std::string &name, const std::string &map, bool enabled){
+void LevelSelectState::addLevel(LevelData lData, const std::string &map, bool enabled){
+
     sf::Vector2f windowSize(getContext().window->getSize());
     auto levelButton = std::make_shared<GUI::ContainerButton>(
          *getContext().textureManager);
+
     levelButton->setCallback(
         [this, map]() {
             requestStackPop();
             requestStackPush(State::ID::Loading, map);
         });
+
     GUI::Label::Ptr levelLabel;
     if (enabled){
         levelLabel = std::make_shared<GUI::Label>(
-            name,
+            lData.name,
             sf::Color::Black,
             32,
             *getContext().fontManager);
     }
     else{
         levelLabel = std::make_shared<GUI::Label>(
-            name,
+            lData.name,
             sf::Color(0,0,0,100),
             32,
             *getContext().fontManager);
         levelButton->disable();
     }  
+
+    GUI::Label::Ptr timeLabel;
+    std::ostringstream timeStream;
+    timeStream << lData.bestTime;
+    timeLabel = std::make_shared<GUI::Label>(
+        timeStream.str(),
+        sf::Color::Black,
+        32,
+        *getContext().fontManager);
     
     levelButton->add(levelLabel);
+    levelButton->add(timeLabel);
     mGUIContainer.add(levelButton);
     float posX = windowSize.x * 0.5f;
     float posY = static_cast<float>(125 + 100 * numLevels);
@@ -100,6 +115,8 @@ void LevelSelectState::addLevel(const std::string &name, const std::string &map,
     //Kind of a hacky way to center the text, but this
     //is to compensate for the padding the selection arrow gives
     levelLabel->move(20, -10);
+    timeLabel->move(20, -10);
+    timeLabel->move(300, 0);
 
     ++numLevels;
 }
@@ -138,45 +155,45 @@ void LevelSelectState::buildLevelPanel(){
 
     //Level selection buttons
     LevelData data = saveManager.getLevelData("grasslands.json");
-    addLevel(data.name, "grasslands.json", true);
+    addLevel(data, "grasslands.json", true);
 
     LevelData previousData = data;
     data = saveManager.getLevelData("testmap.json");   
-    addLevel(data.name, "testmap.json", previousData.completed);
+    addLevel(data, "testmap.json", previousData.completed);
 
     previousData = data;
     data = saveManager.getLevelData("waterboy.json");
-    addLevel(data.name, "waterboy.json", previousData.completed);
+    addLevel(data, "waterboy.json", previousData.completed);
 
     previousData = data;
     data = saveManager.getLevelData("clearwalk.json");
-    addLevel(data.name, "clearwalk.json", previousData.completed);
+    addLevel(data, "clearwalk.json", previousData.completed);
 
     previousData = data;
     data = saveManager.getLevelData("gofast.json");
-    addLevel(data.name, "gofast.json", previousData.completed);
+    addLevel(data, "gofast.json", previousData.completed);
 
     previousData = data;
     data = saveManager.getLevelData("slowdown.json");
-    addLevel(data.name, "slowdown.json", previousData.completed);
+    addLevel(data, "slowdown.json", previousData.completed);
 
     previousData = data;
     data = saveManager.getLevelData("highheights.json");
-    addLevel(data.name, "highheights.json", previousData.completed);
+    addLevel(data, "highheights.json", previousData.completed);
 
     previousData = data;
     data = saveManager.getLevelData("hotpursuit.json");
-    addLevel(data.name, "hotpursuit.json", previousData.completed);
+    addLevel(data, "hotpursuit.json", previousData.completed);
 
     previousData = data;
     data = saveManager.getLevelData("dangahzone.json");
-    addLevel(data.name, "dangahzone.json", previousData.completed);
+    addLevel(data, "dangahzone.json", previousData.completed);
 
     previousData = data;
     data = saveManager.getLevelData("dangahzone2.json");
-    addLevel(data.name, "dangahzone2.json", previousData.completed);
+    addLevel(data, "dangahzone2.json", previousData.completed);
 
     previousData = data;
     data = saveManager.getLevelData("dangahzone3.json");
-    addLevel(data.name, "dangahzone3.json", previousData.completed);
+    addLevel(data, "dangahzone3.json", previousData.completed);
 }

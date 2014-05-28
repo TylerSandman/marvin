@@ -64,6 +64,7 @@ void World::initialize(){
 void World::reset(){
     mBox2DWorld.release();
     mLevelTimeElapsed = sf::Time::Zero;
+    mCompletionTime = 0.0f;
     mPlayerCharacter = nullptr;
     mPlayerBody = nullptr;
     mWorldLoader.load(mMapData.tileLayers[0].tiles);
@@ -118,10 +119,16 @@ void World::update(sf::Time deltaTime){
 
 void World::requestCompletion(){
     mCompletionRequested = true;
+    std::ostringstream timeStream;
+    mCompletionTime = boost::math::round(mLevelTimeElapsed.asSeconds() * 100.f) / 100.f;
 }
 
 bool World::isComplete(){
     return mCompletionRequested;
+}
+
+float World::getAttemptTime(){
+    return mCompletionTime;
 }
 
 void World::centerPlayerView(){
