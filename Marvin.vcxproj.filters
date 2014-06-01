@@ -43,6 +43,8 @@
     <ClInclude Include="Include\MenuState.h" />
     <ClInclude Include="Include\TextNode.h" />
     <ClInclude Include="Include\SaveManager.h" />
+    <ClInclude Include="Include\SnakeSlime.h" />
+    <ClInclude Include="Include\EntityFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Box2DTiledLoader.cpp" />
@@ -78,6 +80,8 @@
     <ClCompile Include="Source\ContainerButton.cpp" />
     <ClCompile Include="Source\MenuState.cpp" />
     <ClCompile Include="Source\TextNode.cpp" />
+    <ClCompile Include="Source\SnakeSlime.cpp" />
+    <ClCompile Include="Source\EntityFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\GUI\Sample Level Selection.png" />

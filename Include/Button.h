@@ -35,9 +35,9 @@ public:
     void setText(const std::string &text, sf::Color color);
 
 protected:
-    sf::Texture mTextureNormal;
-    sf::Texture mTexturePressed;
-    sf::Texture mTextureDisabled;  
+    sf::Texture &mTextureNormal;
+    sf::Texture &mTexturePressed;
+    sf::Texture &mTextureDisabled;  
     Callback mCallback;
     sf::Sprite mSprite;
     bool mIsToggle;

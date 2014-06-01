@@ -26,12 +26,6 @@ public:
     unsigned int getCategory();
     virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
     virtual void updateCurrent(sf::Time deltaTime);
-    sf::Vector2f getRenderPosition();
-    void setRenderPosition(sf::Vector2f position);
-    b2Vec2 getPosition();
-    void setVelocity(b2Vec2 velocity);
-    b2Vec2 getVelocity(); 
-    sf::FloatRect getBoundingBox();
     bool isOnGround();
     void setNumFootContacts(int num);
     int getNumFootContacts();
@@ -39,10 +33,7 @@ public:
     void stopAnimation();
 
 private:
-    b2Body *mB2Body;
-    AnimatedSprite mSprite;
     FacingDirection mCurrentFacingDirection;
     std::map<AnimationID, Animation> mAnimationMap;
-    b2Vec2 mPreviousPosition;
     int numFootContacts; //Ew. So...hacky. Gotta fix this.
 };

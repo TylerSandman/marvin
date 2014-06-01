@@ -40,6 +40,7 @@ Game::Game() :
     mTextureManager.load(TextureID::GreenContainerButtonPressed, "Resources/Textures/GUI/green_panel_button_pressed.png");
     mTextureManager.load(TextureID::ContainerButtonDisabled, "Resources/Textures/GUI/panel_button_disabled.png");
     mTextureManager.load(TextureID::PlayerSpriteSheet, "Resources/Textures/Player/player_spritesheet.png");
+    mTextureManager.load(TextureID::EnemiesSpriteSheet, "Resources/Textures/Enemy/enemies_spritesheet.png");
     mFontManager.load(FontID::Main, "Resources/Fonts/kenvector_future.ttf");
     mFontManager.load(FontID::Thin, "Resources/Fonts/kenvector_future_thin.ttf");
     mStateStack.pushState(State::ID::Menu);

@@ -22,7 +22,8 @@ void CollisionHandler::BeginContact(b2Contact *contact){
     CommandQueue& commandQueue = mWorld.getCommandQueue();
 
     //Player and damagers
-    if (matchesCategories(collisionPair, Category::Type::Player, Category::Type::Damager)){
+    if ((matchesCategories(collisionPair, Category::Type::Player, Category::Type::Damager))||
+        (matchesCategories(collisionPair, Category::Type::Player, Category::Type::Enemy))){
         mWorld.requestReset();
     }
 

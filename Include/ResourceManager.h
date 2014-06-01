@@ -12,6 +12,7 @@ enum TextureID{
     CastleBackground,
     GrasslandsBackground,
     PlayerSpriteSheet,
+    EnemiesSpriteSheet,
     SpinnerSpriteSheet,
     PlayerStanding,
     ButtonDisabled,

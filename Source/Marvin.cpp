@@ -5,7 +5,7 @@
 #include "Command.h"
 
 Marvin::Marvin(TextureManager &textureManager, b2Body *playerBody) : 
-    mB2Body(playerBody), mPreviousPosition(playerBody->GetPosition()){
+    Entity(playerBody){
 
     sf::Texture &spriteSheet = textureManager.get(TextureID::PlayerSpriteSheet);
     
@@ -56,30 +56,6 @@ void Marvin::updateCurrent(sf::Time deltaTime){
     else
         mSprite.play(mAnimationMap[Marvin::AnimationID::Jump]);
     mSprite.update(deltaTime);
-}
-
-sf::Vector2f Marvin::getRenderPosition(){
-    return mSprite.getPosition();
-}
-
-void Marvin::setRenderPosition(sf::Vector2f position){
-    mSprite.setPosition(position);
-}
-
-b2Vec2 Marvin::getPosition(){
-    return mB2Body->GetPosition();
-}
-
-void Marvin::setVelocity(b2Vec2 velocity){
-    mB2Body->SetLinearVelocity(velocity);
-}
-
-b2Vec2 Marvin::getVelocity(){
-    return mB2Body->GetLinearVelocity();
-}
-
-sf::FloatRect Marvin::getBoundingBox(){
-    return mSprite.getGlobalBounds();
 }
 
 bool Marvin::isOnGround(){

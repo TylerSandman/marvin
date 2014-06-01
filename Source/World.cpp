@@ -14,6 +14,7 @@
 #include "Box2DTiledLoader.h"
 #include "MapData.h"
 #include "GameObjectFactory.h"
+#include "EntityFactory.h"
 #include "CollisionHandler.h"
 #include "World.h"
 
@@ -172,6 +173,8 @@ void World::loadResources(){
     mTextureManager.load(TextureID::PlayerSpriteSheet, "Resources/Textures/Player/player_spritesheet.png");
     mTextureManager.load(TextureID::PlayerStanding, "Resources/Textures/Player/alienGreen_stand.png");
 
+    //Load entities
+    mTextureManager.load(TextureID::EnemiesSpriteSheet, "Resources/Textures/Enemy/enemies_spritesheet.png");
     //Load fonts
     mFontManager.load(FontID::Thin, "Resources/Fonts/kenvector_future_thin.ttf");
 }
@@ -197,14 +200,22 @@ void World::buildScene(){
     mSceneLayers[Tilemap]->attachChild(std::move(tileMap));
 
     //Object layer (players, enemies, etc)
+    EntityFactory entityFactory = EntityFactory(mTextureManager, mMapData, mBox2DWorld.get());
     for(auto &objectGroup : mMapData.objectGroups){
-        for(auto &object : objectGroup.objects){
-            if (object.type == "Player"){
-                spawnPlayer(object.position);
-            }
-            else{
+        if (objectGroup.name == "Objects"){
+            for (auto &object : objectGroup.objects){
                 mSceneLayers[Object]->attachChild(
                     GameObject::Ptr(mGameObjectFactory.createGameObject(object)));
+            }
+        }
+        else if (objectGroup.name == "Spawns"){
+            for (auto &object : objectGroup.objects){
+                if (object.type == "Player")
+                    spawnPlayer(object.position);
+                else{
+                    mSceneLayers[Object]->attachChild(
+                        Entity::Ptr(entityFactory.createEntity(object)));
+                }
             }
         }
     } 

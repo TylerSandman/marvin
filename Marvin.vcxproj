@@ -21,6 +21,7 @@
     <ClInclude Include="Include\Constants.h" />
     <ClInclude Include="Include\Container.h" />
     <ClInclude Include="Include\Entity.h" />
+    <ClInclude Include="Include\EntityFactory.h" />
     <ClInclude Include="Include\Game.h" />
     <ClInclude Include="Include\GameObject.h" />
     <ClInclude Include="Include\GameObjectFactory.h" />
@@ -43,6 +44,7 @@
     <ClInclude Include="Include\ResourceManager.h" />
     <ClInclude Include="Include\SaveManager.h" />
     <ClInclude Include="Include\SceneNode.h" />
+    <ClInclude Include="Include\SnakeSlime.h" />
     <ClInclude Include="Include\SpriteNode.h" />
     <ClInclude Include="Include\State.h" />
     <ClInclude Include="Include\StateStack.h" />
@@ -63,6 +65,7 @@
     <ClCompile Include="Source\Component.cpp" />
     <ClCompile Include="Source\Container.cpp" />
     <ClCompile Include="Source\Entity.cpp" />
+    <ClCompile Include="Source\EntityFactory.cpp" />
     <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\GameObjectFactory.cpp" />
@@ -81,6 +84,7 @@
     <ClCompile Include="Source\Marvin.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\SceneNode.cpp" />
+    <ClCompile Include="Source\SnakeSlime.cpp" />
     <ClCompile Include="Source\SpriteNode.cpp" />
     <ClCompile Include="Source\State.cpp" />
     <ClCompile Include="Source\StateStack.cpp" />
@@ -178,7 +182,7 @@
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>Lib/Box2D;Lib/SFML;Lib/Serialization</AdditionalLibraryDirectories>
       <AdditionalDependencies>libboost_serialization-vc110-mt-gd-1_55.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-main-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;Box2D-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <Profile>false</Profile>
+      <Profile>true</Profile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

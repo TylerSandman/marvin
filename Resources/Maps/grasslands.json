@@ -29,18 +29,17 @@
                  "y":1610
                 }, 
                 {
-                 "gid":65,
-                 "height":0,
-                 "name":"Exit",
+                 "height":70,
+                 "name":"SnakeSlime",
                  "properties":
                     {
 
                     },
-                 "type":"Exit",
+                 "type":"SnakeSlime",
                  "visible":true,
-                 "width":0,
-                 "x":1960,
-                 "y":1680
+                 "width":70,
+                 "x":770,
+                 "y":1610
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -107,6 +106,20 @@
                  "visible":true,
                  "width":0,
                  "x":1610,
+                 "y":1680
+                }, 
+                {
+                 "gid":65,
+                 "height":0,
+                 "name":"Exit",
+                 "properties":
+                    {
+
+                    },
+                 "type":"Exit",
+                 "visible":true,
+                 "width":0,
+                 "x":1890,
                  "y":1680
                 }],
          "opacity":1,
