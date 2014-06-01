@@ -3,6 +3,7 @@
 
 Entity::Entity(b2Body *entityBody) : 
     mB2Body(entityBody), mPreviousPosition(entityBody->GetPosition()){}
+
 sf::Vector2f Entity::getRenderPosition(){
     return mSprite.getPosition();
 }

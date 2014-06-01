@@ -42,7 +42,7 @@ b2Body* GameObjectFactory::createPhysicsBody(tiled::Object &object){
     //Center our object's origins to play nice with Box2D
     b2Vec2 position = b2Vec2(
         object.position.x + bounds.width/2,
-        object.position.y + bounds.height/2);
+        object.position.y + bounds.height/2 - mMapData.tileHeight);
 
     //All game objects are static bodies for now
     //TODO handle projectiles

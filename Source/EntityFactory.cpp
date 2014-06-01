@@ -6,6 +6,7 @@
 #include "Command.h"
 #include "EntityFactory.h"
 #include "SnakeSlime.h"
+#include "Barnacle.h"
 
 EntityFactory::EntityFactory(TextureManager &textureManager, MapData data, b2World *world) : 
         mTextureManager(textureManager), mMapData(data), mWorld(world){}
@@ -21,10 +22,17 @@ Entity* EntityFactory::createEntity(tiled::Object &object){
     if (type == "SnakeSlime"){
         enemySprite.setTextureRect(sf::IntRect(424, 187, 53, 147));
     }
+    if (type == "Barnacle"){
+        enemySprite.setTextureRect(sf::IntRect(318, 239, 51, 57));
+    }
     sf::FloatRect bounds = enemySprite.getGlobalBounds();
-    sf::Vector2f renderPos = object.position + sf::Vector2f(0.f, bounds.height/2);
+    sf::Vector2f renderPos = object.position + sf::Vector2f(mMapData.tileWidth / 2.f, (mMapData.tileHeight - bounds.height / 2.f + 1.f));
     if (type.compare("SnakeSlime") == 0){
         newEntity = new SnakeSlime(
+            mTextureManager, objectBody);
+    }
+    if (type.compare("Barnacle") == 0){
+        newEntity = new Barnacle(
             mTextureManager, objectBody);
     }
     newEntity->setRenderPosition(renderPos);
@@ -42,8 +50,11 @@ b2Body* EntityFactory::createPhysicsBody(tiled::Object &object){
     if (type == "SnakeSlime"){
         enemySprite.setTextureRect(sf::IntRect(424, 187, 53, 147));
     }
+    if (type == "Barnacle"){
+        enemySprite.setTextureRect(sf::IntRect(318, 239, 51, 57));
+    }
     sf::FloatRect bounds = enemySprite.getGlobalBounds();
-    sf::Vector2f renderPos = object.position + sf::Vector2f(0.f, bounds.height/2);
+    sf::Vector2f renderPos = object.position + sf::Vector2f(mMapData.tileWidth / 2.f, (mMapData.tileHeight - bounds.height / 2.f));
     sf::Vector2f centerEntityPos = sf::Vector2f(
         renderPos.x,
         mMapData.mapHeight*70.f - renderPos.y);

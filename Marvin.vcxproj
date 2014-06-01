@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClInclude Include="Include\AnimatedSprite.h" />
     <ClInclude Include="Include\Animation.h" />
+    <ClInclude Include="Include\Barnacle.h" />
     <ClInclude Include="Include\Box2DTiledLoader.h" />
     <ClInclude Include="Include\Button.h" />
     <ClInclude Include="Include\CollisionHandler.h" />
@@ -59,6 +60,7 @@
   <ItemGroup>
     <ClCompile Include="Source\AnimatedSprite.cpp" />
     <ClCompile Include="Source\Animation.cpp" />
+    <ClCompile Include="Source\Barnacle.cpp" />
     <ClCompile Include="Source\Box2DTiledLoader.cpp" />
     <ClCompile Include="Source\Button.cpp" />
     <ClCompile Include="Source\CollisionHandler.cpp" />
