@@ -212,6 +212,7 @@ tiled::Object TiledJSONLoader::loadObject(json_spirit::mValue &objectVal, tiled:
     currentObject.GID = GID;
     currentObject.name = object["name"].get_str();
     currentObject.type = object["type"].get_str();
+    currentObject.properties = object["properties"].get_obj();
     currentObject.position = sf::Vector2f(
         static_cast<float>(object["x"].get_int()),
         static_cast<float>(object["y"].get_int()));

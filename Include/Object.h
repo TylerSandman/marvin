@@ -1,6 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <json_spirit_reader_template.h>
 #include <vector>
+#include <map>
 #include <string>
 
 namespace tiled{
@@ -13,7 +15,9 @@ namespace tiled{
         bool visible;
         std::string name;
         std::string type;
+        std::map<std::string, json_spirit::mValue> properties;
         sf::Vector2f position;
+
         sf::Sprite sprite;
     };
 

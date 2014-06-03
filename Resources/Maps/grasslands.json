@@ -92,6 +92,19 @@
                  "width":70,
                  "x":1540,
                  "y":1610
+                }, 
+                {
+                 "height":70,
+                 "name":"Slime",
+                 "properties":
+                    {
+                     "jumpHeight":"5"
+                    },
+                 "type":"Slime",
+                 "visible":true,
+                 "width":70,
+                 "x":420,
+                 "y":1400
                 }],
          "opacity":1,
          "type":"objectgroup",

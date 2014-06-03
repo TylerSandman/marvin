@@ -46,6 +46,7 @@
     <ClInclude Include="Include\SnakeSlime.h" />
     <ClInclude Include="Include\EntityFactory.h" />
     <ClInclude Include="Include\Barnacle.h" />
+    <ClInclude Include="Include\Slime.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Box2DTiledLoader.cpp" />
@@ -84,6 +85,7 @@
     <ClCompile Include="Source\SnakeSlime.cpp" />
     <ClCompile Include="Source\EntityFactory.cpp" />
     <ClCompile Include="Source\Barnacle.cpp" />
+    <ClCompile Include="Source\Slime.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\GUI\Sample Level Selection.png" />

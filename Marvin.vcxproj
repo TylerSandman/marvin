@@ -45,6 +45,7 @@
     <ClInclude Include="Include\ResourceManager.h" />
     <ClInclude Include="Include\SaveManager.h" />
     <ClInclude Include="Include\SceneNode.h" />
+    <ClInclude Include="Include\Slime.h" />
     <ClInclude Include="Include\SnakeSlime.h" />
     <ClInclude Include="Include\SpriteNode.h" />
     <ClInclude Include="Include\State.h" />
@@ -86,6 +87,7 @@
     <ClCompile Include="Source\Marvin.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\SceneNode.cpp" />
+    <ClCompile Include="Source\Slime.cpp" />
     <ClCompile Include="Source\SnakeSlime.cpp" />
     <ClCompile Include="Source\SpriteNode.cpp" />
     <ClCompile Include="Source\State.cpp" />
