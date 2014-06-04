@@ -6,10 +6,10 @@
 #include "ResourceManager.h"
 #include "AnimatedSprite.h"
 
-class Slime : public Entity{
+class GrassBlock : public Entity{
     
 public:
-    Slime(TextureManager &textureManager, b2Body *enemyBody, float jumpVelocity);
+    GrassBlock(TextureManager &textureManager, b2Body *enemyBody, float jumpVelocity);
     unsigned int getCategory();
     virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
     virtual void updateCurrent(sf::Time deltaTime);

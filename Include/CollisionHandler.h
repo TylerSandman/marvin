@@ -12,7 +12,7 @@ public:
     void EndContact(b2Contact *contact);
 
 private:
-    bool matchesCategories(SceneNode::Pair &nodes, Category::Type type1, Category::Type type2);
+    bool matchesCategories(SceneNode::Pair &nodes, unsigned int type1, unsigned int type2);
 
 private:
     World &mWorld;

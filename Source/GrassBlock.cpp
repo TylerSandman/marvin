@@ -1,12 +1,12 @@
 #include <SFML/Graphics.hpp>
 #include <Box2D\Box2D.h>
 #include <cmath>
-#include "Slime.h"
+#include "GrassBlock.h"
 #include "ResourceManager.h"
 #include "Command.h"
 #include "Constants.h"
 
-Slime::Slime(TextureManager &textureManager, b2Body *enemyBody, float jumpHeight) : 
+GrassBlock::GrassBlock(TextureManager &textureManager, b2Body *enemyBody, float jumpHeight) : 
     Entity(enemyBody),
     mBouncing(false),
     jumpVelocity(sqrt(fabs(2 * phys::GRAVITY * jumpHeight))){
@@ -15,10 +15,8 @@ Slime::Slime(TextureManager &textureManager, b2Body *enemyBody, float jumpHeight
     
     Animation bounceAnimation;
     bounceAnimation.setSpriteSheet(spriteSheet);
-    bounceAnimation.addFrame(sf::IntRect(140, 65, 49, 34));
-    bounceAnimation.addFrame(sf::IntRect(578, 312, 57, 34));
-    bounceAnimation.addFrame(sf::IntRect(576, 457, 57, 34));
-    bounceAnimation.addFrame(sf::IntRect(578, 312, 57, 34));
+    bounceAnimation.addFrame(sf::IntRect(0, 141, 71, 70));
+    bounceAnimation.addFrame(sf::IntRect(0, 211, 71, 70));
     mAnimation = bounceAnimation;
 
     mSprite = AnimatedSprite(sf::seconds(0.035f));
@@ -28,15 +26,15 @@ Slime::Slime(TextureManager &textureManager, b2Body *enemyBody, float jumpHeight
     mSprite.setOrigin(bounds.width/2, bounds.height/2);
 }
 
-unsigned int Slime::getCategory(){
-    return Category::Enemy;
+unsigned int GrassBlock::getCategory(){
+    return Category::Walkable | Category::Enemy;
 }
 
-void Slime::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const{
+void GrassBlock::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const{
     target.draw(mSprite, states);
 }
 
-void Slime::updateCurrent(sf::Time deltaTime){
+void GrassBlock::updateCurrent(sf::Time deltaTime){
 
     //Move sprite according to Box2D's World step
     b2Vec2 physPos = mB2Body->GetPosition();
@@ -56,11 +54,11 @@ void Slime::updateCurrent(sf::Time deltaTime){
     }
 }
 
-void Slime::jump(){
+void GrassBlock::jump(){
     setVelocity(b2Vec2(getVelocity().x, jumpVelocity));
 }
 
-void Slime::stopAnimation(){
+void GrassBlock::stopAnimation(){
     //Need this check because during world restarts
     //we may try to stop non-existant animations due
     //to player resetting

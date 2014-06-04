@@ -105,6 +105,19 @@
                  "width":70,
                  "x":420,
                  "y":1400
+                }, 
+                {
+                 "height":70,
+                 "name":"GrassBlock",
+                 "properties":
+                    {
+                     "jumpHeight":"6"
+                    },
+                 "type":"GrassBlock",
+                 "visible":true,
+                 "width":70,
+                 "x":560,
+                 "y":1400
                 }],
          "opacity":1,
          "type":"objectgroup",

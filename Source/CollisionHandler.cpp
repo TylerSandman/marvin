@@ -21,29 +21,58 @@ void CollisionHandler::BeginContact(b2Contact *contact){
     SceneNode::Pair collisionPair(firstNode, secondNode);
     CommandQueue& commandQueue = mWorld.getCommandQueue();
 
-    //Player and damagers
-    if ((matchesCategories(collisionPair, Category::Type::Player, Category::Type::Damager))||
-        (matchesCategories(collisionPair, Category::Type::Player, Category::Type::Enemy))){
-        mWorld.requestReset();
-    }
-
-    //Terrain collisions.
-    if (matchesCategories(collisionPair, Category::Type::Player, Category::Type::Walkable)){
+     //Movable terrain collisions
+     if ((matchesCategories(collisionPair, Category::Type::Player, Category::Type::Walkable)) &&
+         (matchesCategories(collisionPair, Category::Type::Player, Category::Type::Enemy))){
         
-        //Is our foot sensor touching walkable terrain?
+        //Player stepping on top
         if ((contact->GetFixtureA()->IsSensor()) && 
-            (firstNode->getCategory() == Category::Type::Player)){
+            (firstNode->getCategory() & Category::Type::Player)){
             Marvin &player = static_cast<Marvin&>(*firstNode);
             player.setNumFootContacts(player.getNumFootContacts() + 1);
         }           
         else if ((contact->GetFixtureB()->IsSensor()) &&
-                 (secondNode->getCategory() == Category::Type::Player)){
+                 (secondNode->getCategory() & Category::Type::Player)){
+            Marvin &player = static_cast<Marvin&>(*secondNode);
+            player.setNumFootContacts(player.getNumFootContacts() + 1);
+        }
+
+        //Block on top of Player
+        if ((contact->GetFixtureA()->IsSensor()) && 
+            (firstNode->getCategory() & Category::Type::Enemy)){
+            mWorld.requestReset();
+        }           
+        else if ((contact->GetFixtureB()->IsSensor()) &&
+                 (secondNode->getCategory() & Category::Type::Enemy)){
+            mWorld.requestReset();
+        }
+    }
+
+    //Player and damagers
+    else if ((matchesCategories(collisionPair, Category::Type::Player, Category::Type::Damager))||
+        (matchesCategories(collisionPair, Category::Type::Player, Category::Type::Enemy))){
+        mWorld.requestReset();
+    }
+
+
+
+    //Terrain collisions.
+    else if (matchesCategories(collisionPair, Category::Type::Player, Category::Type::Walkable)){
+        
+        //Is our foot sensor touching walkable terrain?
+        if ((contact->GetFixtureA()->IsSensor()) && 
+            (firstNode->getCategory() & Category::Type::Player)){
+            Marvin &player = static_cast<Marvin&>(*firstNode);
+            player.setNumFootContacts(player.getNumFootContacts() + 1);
+        }           
+        else if ((contact->GetFixtureB()->IsSensor()) &&
+                 (secondNode->getCategory() & Category::Type::Player)){
             Marvin &player = static_cast<Marvin&>(*secondNode);
             player.setNumFootContacts(player.getNumFootContacts() + 1);
         }
     }
 
-    if (matchesCategories(collisionPair, Category::Type::Player, Category::Type::Exit)){
+    else if (matchesCategories(collisionPair, Category::Type::Player, Category::Type::Exit)){
         mWorld.requestCompletion();
     }
 }
@@ -63,7 +92,9 @@ void CollisionHandler::EndContact(b2Contact *contact){
     CommandQueue& commandQueue = mWorld.getCommandQueue();
 
     //Terrain collisions. Assumes no terrains have sensors (may need to reimplement)
-    if (matchesCategories(collisionPair, Category::Type::Player, Category::Type::Walkable)){
+    if ((matchesCategories(collisionPair, Category::Type::Player, Category::Type::Walkable))||
+        ((matchesCategories(collisionPair, Category::Type::Player, Category::Type::Walkable))&&
+        (matchesCategories(collisionPair, Category::Type::Player, Category::Type::Enemy)))){
         //Has our foot sensor left walkable terrain?
         if (contact->GetFixtureA()->IsSensor()){
             Marvin &player = static_cast<Marvin&>(*firstNode);
@@ -76,7 +107,7 @@ void CollisionHandler::EndContact(b2Contact *contact){
     }
 }
 
-bool CollisionHandler::matchesCategories(SceneNode::Pair &nodes, Category::Type type1, Category::Type type2){
+bool CollisionHandler::matchesCategories(SceneNode::Pair &nodes, unsigned int type1, unsigned int type2){
     
     unsigned int cat1 = nodes.first->getCategory();
     unsigned int cat2 = nodes.second->getCategory();

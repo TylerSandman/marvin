@@ -1,5 +1,6 @@
 #include <Box2D\Box2D.h>
 #include <string>
+#include <limits>
 #include "ResourceManager.h"
 #include "MapData.h"
 #include "Object.h"
@@ -9,6 +10,7 @@
 #include "SnakeSlime.h"
 #include "Barnacle.h"
 #include "Slime.h"
+#include "GrassBlock.h"
 
 EntityFactory::EntityFactory(TextureManager &textureManager, MapData data, b2World *world) : 
         mTextureManager(textureManager), mMapData(data), mWorld(world){}
@@ -30,6 +32,9 @@ Entity* EntityFactory::createEntity(tiled::Object &object){
     if (type == "Slime"){
         enemySprite.setTextureRect(sf::IntRect(140, 65, 49, 34));
     }
+    if (type == "GrassBlock"){
+        enemySprite.setTextureRect(sf::IntRect(0, 141, 71, 70));
+    }
     sf::FloatRect bounds = enemySprite.getGlobalBounds();
     sf::Vector2f renderPos = object.position + sf::Vector2f(mMapData.tileWidth / 2.f, (mMapData.tileHeight - bounds.height / 2.f + 1.f));
     if (type.compare("SnakeSlime") == 0){
@@ -42,6 +47,10 @@ Entity* EntityFactory::createEntity(tiled::Object &object){
     }
     if (type.compare("Slime") == 0){
         newEntity = new Slime(
+            mTextureManager, objectBody, stof(object.properties["jumpHeight"].get_str()));
+    }
+    if (type.compare("GrassBlock") == 0){
+        newEntity = new GrassBlock(
             mTextureManager, objectBody, stof(object.properties["jumpHeight"].get_str()));
     }
     newEntity->setRenderPosition(renderPos);
@@ -65,6 +74,9 @@ b2Body* EntityFactory::createPhysicsBody(tiled::Object &object){
     if (type == "Slime"){
         enemySprite.setTextureRect(sf::IntRect(140, 65, 49, 34));
     }
+    if (type == "GrassBlock"){
+        enemySprite.setTextureRect(sf::IntRect(0, 141, 71, 70));
+    }
     sf::FloatRect bounds = enemySprite.getGlobalBounds();
     sf::Vector2f renderPos = object.position + sf::Vector2f(mMapData.tileWidth / 2.f, (mMapData.tileHeight - bounds.height / 2.f));
     sf::Vector2f centerEntityPos = sf::Vector2f(
@@ -83,8 +95,29 @@ b2Body* EntityFactory::createPhysicsBody(tiled::Object &object){
     boundingBox.SetAsBox(bounds.width / 70.f / 2 - 0.1f, bounds.height / 70.f / 2); 
     b2FixtureDef playerFixture;
     playerFixture.friction = 0.f;
+    playerFixture.restitution = 0.f;
     playerFixture.shape = &boundingBox;
     entityBody->CreateFixture(&playerFixture);
+
+        //Bottom sensor for GrassBlock
+    if (type == "GrassBlock"){
+        b2PolygonShape blockSensor; 
+        b2Vec2 footVertices[4];
+        footVertices[0] = b2Vec2(-bounds.width / 70.f / 2 + 0.2f, -bounds.height / 70.f / 2 - 0.01f);
+        footVertices[1] = b2Vec2(-bounds.width / 70.f / 2 + 0.2f, -bounds.height / 70.f / 2 + 0.05f);
+        footVertices[2] = b2Vec2(bounds.width / 70.f / 2 - 0.2f, -bounds.height / 70.f / 2 + 0.05f);
+        footVertices[3] = b2Vec2(bounds.width / 70.f / 2 - 0.2f, -bounds.height / 70.f / 2 - 0.04f);
+        blockSensor.Set(footVertices,4);
+        b2FixtureDef footFixture;
+        footFixture.isSensor = true;
+        footFixture.friction = 0.25f;
+        footFixture.shape = &blockSensor;
+        entityBody->CreateFixture(&footFixture);
+        b2MassData grassMassData;
+        entityBody->GetMassData(&grassMassData);
+        grassMassData.mass = static_cast<float>(UINT_MAX);
+        entityBody->SetMassData(&grassMassData);
+    }
 
     return entityBody;
 }
