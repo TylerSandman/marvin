@@ -11,10 +11,12 @@ namespace Category{
         Walkable = 1 << 0, //Platforms, tops of boxes, etc
         Player = 1 << 1, //Player
         Enemy = 1 << 2, //Enemy
-        Pickup = 1 << 3, //Coins, powerups, etc
-        Exit = 1 << 4, //End of level
-        Damager = 1 << 5, //Spikes, lava, etc
-        Projectile = 1 << 6 //Bullet, fireball ,etc
+        GrassBlock = 1 << 3, //GrassBlock entity
+        GrassPlatform = 1 << 4, //GrassPlatform entity
+        Pickup = 1 << 5, //Coins, powerups, etc
+        Exit = 1 << 6, //End of level
+        Damager = 1 << 7, //Spikes, lava, etc
+        Projectile = 1 << 8 //Bullet, fireball ,etc
     };
 }
 

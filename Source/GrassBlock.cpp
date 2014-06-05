@@ -27,7 +27,7 @@ GrassBlock::GrassBlock(TextureManager &textureManager, b2Body *enemyBody, float 
 }
 
 unsigned int GrassBlock::getCategory(){
-    return Category::Walkable | Category::Enemy;
+    return Category::GrassBlock;
 }
 
 void GrassBlock::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const{

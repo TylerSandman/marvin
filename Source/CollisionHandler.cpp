@@ -22,8 +22,7 @@ void CollisionHandler::BeginContact(b2Contact *contact){
     CommandQueue& commandQueue = mWorld.getCommandQueue();
 
      //Movable terrain collisions
-     if ((matchesCategories(collisionPair, Category::Type::Player, Category::Type::Walkable)) &&
-         (matchesCategories(collisionPair, Category::Type::Player, Category::Type::Enemy))){
+     if ((matchesCategories(collisionPair, Category::Type::Player, Category::Type::GrassBlock))){
         
         //Player stepping on top
         if ((contact->GetFixtureA()->IsSensor()) && 
@@ -39,11 +38,11 @@ void CollisionHandler::BeginContact(b2Contact *contact){
 
         //Block on top of Player
         if ((contact->GetFixtureA()->IsSensor()) && 
-            (firstNode->getCategory() & Category::Type::Enemy)){
+            (firstNode->getCategory() & Category::Type::GrassBlock)){
             mWorld.requestReset();
         }           
         else if ((contact->GetFixtureB()->IsSensor()) &&
-                 (secondNode->getCategory() & Category::Type::Enemy)){
+                 (secondNode->getCategory() & Category::Type::GrassBlock)){
             mWorld.requestReset();
         }
     }
@@ -93,8 +92,7 @@ void CollisionHandler::EndContact(b2Contact *contact){
 
     //Terrain collisions. Assumes no terrains have sensors (may need to reimplement)
     if ((matchesCategories(collisionPair, Category::Type::Player, Category::Type::Walkable))||
-        ((matchesCategories(collisionPair, Category::Type::Player, Category::Type::Walkable))&&
-        (matchesCategories(collisionPair, Category::Type::Player, Category::Type::Enemy)))){
+        ((matchesCategories(collisionPair, Category::Type::Player, Category::Type::GrassBlock)))){
         //Has our foot sensor left walkable terrain?
         if (contact->GetFixtureA()->IsSensor()){
             Marvin &player = static_cast<Marvin&>(*firstNode);
