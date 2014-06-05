@@ -48,6 +48,7 @@
     <ClInclude Include="Include\Barnacle.h" />
     <ClInclude Include="Include\Slime.h" />
     <ClInclude Include="Include\GrassBlock.h" />
+    <ClInclude Include="Include\GrassPlatform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Box2DTiledLoader.cpp" />
@@ -88,6 +89,7 @@
     <ClCompile Include="Source\Barnacle.cpp" />
     <ClCompile Include="Source\Slime.cpp" />
     <ClCompile Include="Source\GrassBlock.cpp" />
+    <ClCompile Include="Source\GrassPlatform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\GUI\Sample Level Selection.png" />

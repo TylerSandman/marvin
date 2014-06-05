@@ -1,6 +1,7 @@
 #include <Box2D\Box2D.h>
 #include <string>
 #include <limits>
+#include <json_spirit_reader_template.h>
 #include "ResourceManager.h"
 #include "MapData.h"
 #include "Object.h"
@@ -11,6 +12,7 @@
 #include "Barnacle.h"
 #include "Slime.h"
 #include "GrassBlock.h"
+#include "GrassPlatform.h"
 
 EntityFactory::EntityFactory(TextureManager &textureManager, MapData data, b2World *world) : 
         mTextureManager(textureManager), mMapData(data), mWorld(world){}
@@ -35,6 +37,9 @@ Entity* EntityFactory::createEntity(tiled::Object &object){
     if (type == "GrassBlock"){
         enemySprite.setTextureRect(sf::IntRect(0, 141, 71, 70));
     }
+    if (type == "GrassPlatform"){
+        enemySprite.setTextureRect(sf::IntRect(579, 272, 209, 39));
+    }
     sf::FloatRect bounds = enemySprite.getGlobalBounds();
     sf::Vector2f renderPos = object.position + sf::Vector2f(mMapData.tileWidth / 2.f, (mMapData.tileHeight - bounds.height / 2.f + 1.f));
     if (type.compare("SnakeSlime") == 0){
@@ -53,6 +58,25 @@ Entity* EntityFactory::createEntity(tiled::Object &object){
         newEntity = new GrassBlock(
             mTextureManager, objectBody, stof(object.properties["jumpHeight"].get_str()));
     }
+    if (type.compare("GrassPlatform") == 0){
+
+        //Parse waypoints
+        std::vector<sf::Vector2f> waypoints;
+        std::string waypointsJSON = object.properties["waypoints"].get_str();
+        json_spirit::mValue waypointsValue;
+        json_spirit::read_string(waypointsJSON, waypointsValue);
+        json_spirit::mArray waypointsArray = waypointsValue.get_array();
+        for (auto &waypoint : waypointsArray){
+            json_spirit::mObject waypointObj = waypoint.get_obj();
+            sf::Vector2f waypoint(
+                waypointObj["x"].get_real() * 70.f,
+                waypointObj["y"].get_real() * 70.f);
+            waypoints.push_back(waypoint);
+        }
+        newEntity = new GrassPlatform(
+            mTextureManager, objectBody, stof(object.properties["velocity"].get_str()), waypoints);
+    }
+
     newEntity->setRenderPosition(renderPos);
     objectBody->SetUserData(newEntity);
     return newEntity;
@@ -77,16 +101,21 @@ b2Body* EntityFactory::createPhysicsBody(tiled::Object &object){
     if (type == "GrassBlock"){
         enemySprite.setTextureRect(sf::IntRect(0, 141, 71, 70));
     }
+    if (type == "GrassPlatform"){
+        enemySprite.setTextureRect(sf::IntRect(579, 272, 209, 39));
+    }
     sf::FloatRect bounds = enemySprite.getGlobalBounds();
     sf::Vector2f renderPos = object.position + sf::Vector2f(mMapData.tileWidth / 2.f, (mMapData.tileHeight - bounds.height / 2.f));
     sf::Vector2f centerEntityPos = sf::Vector2f(
         renderPos.x,
         mMapData.mapHeight*70.f - renderPos.y);
 
-    //All entities are dynamic bodies for now
     b2BodyDef entityDef;
     entityDef.fixedRotation = true;
-    entityDef.type = b2_dynamicBody;
+    if (type == "GrassPlatform")
+        entityDef.type = b2_kinematicBody;
+    else
+        entityDef.type = b2_dynamicBody;
     entityDef.position.Set(centerEntityPos.x / 70.f, centerEntityPos.y / 70.f);
     b2Body *entityBody = mWorld->CreateBody(&entityDef);
 
@@ -94,7 +123,7 @@ b2Body* EntityFactory::createPhysicsBody(tiled::Object &object){
     b2PolygonShape boundingBox;
     boundingBox.SetAsBox(bounds.width / 70.f / 2 - 0.1f, bounds.height / 70.f / 2); 
     b2FixtureDef playerFixture;
-    playerFixture.friction = 0.f;
+    playerFixture.friction = 1.f;
     playerFixture.restitution = 0.f;
     playerFixture.shape = &boundingBox;
     entityBody->CreateFixture(&playerFixture);

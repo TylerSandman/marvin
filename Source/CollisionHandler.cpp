@@ -1,6 +1,7 @@
 #include "Command.h"
 #include "CollisionHandler.h"
 #include "Marvin.h"
+#include "GrassPlatform.h"
 #include "Logger.h"
 #include "World.h"
 
@@ -47,6 +48,26 @@ void CollisionHandler::BeginContact(b2Contact *contact){
         }
     }
 
+     //Player and moving platforms
+     else if (matchesCategories(collisionPair, Category::Type::Player, Category::Type::GrassPlatform)){
+        
+         //Player stepping on top
+        if ((contact->GetFixtureA()->IsSensor()) && 
+            (firstNode->getCategory() & Category::Type::Player)){
+            Marvin &player = static_cast<Marvin&>(*firstNode);
+            player.setNumFootContacts(player.getNumFootContacts() + 1);
+            GrassPlatform &platform = static_cast<GrassPlatform&>(*secondNode);
+            platform.activate();
+        }           
+        else if ((contact->GetFixtureB()->IsSensor()) &&
+                 (secondNode->getCategory() & Category::Type::Player)){
+            Marvin &player = static_cast<Marvin&>(*secondNode);
+            player.setNumFootContacts(player.getNumFootContacts() + 1);
+            GrassPlatform &platform = static_cast<GrassPlatform&>(*firstNode);
+            platform.activate();
+        }
+     }
+
     //Player and damagers
     else if ((matchesCategories(collisionPair, Category::Type::Player, Category::Type::Damager))||
         (matchesCategories(collisionPair, Category::Type::Player, Category::Type::Enemy))){
@@ -92,7 +113,8 @@ void CollisionHandler::EndContact(b2Contact *contact){
 
     //Terrain collisions. Assumes no terrains have sensors (may need to reimplement)
     if ((matchesCategories(collisionPair, Category::Type::Player, Category::Type::Walkable))||
-        ((matchesCategories(collisionPair, Category::Type::Player, Category::Type::GrassBlock)))){
+        (matchesCategories(collisionPair, Category::Type::Player, Category::Type::GrassBlock))||
+        (matchesCategories(collisionPair, Category::Type::Player, Category::Type::GrassPlatform))){
         //Has our foot sensor left walkable terrain?
         if (contact->GetFixtureA()->IsSensor()){
             Marvin &player = static_cast<Marvin&>(*firstNode);

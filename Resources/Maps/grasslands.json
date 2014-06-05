@@ -111,13 +111,27 @@
                  "name":"GrassBlock",
                  "properties":
                     {
-                     "jumpHeight":"6"
+                     "jumpHeight":"8"
                     },
                  "type":"GrassBlock",
                  "visible":true,
                  "width":70,
                  "x":560,
                  "y":1400
+                }, 
+                {
+                 "height":70,
+                 "name":"GrassPlatform",
+                 "properties":
+                    {
+                     "velocity":"8",
+                     "waypoints":"[{\"x\":18,\"y\":21},{\"x\":23,\"y\":21},{\"x\":23,\"y\":10}]"
+                    },
+                 "type":"GrassPlatform",
+                 "visible":true,
+                 "width":70,
+                 "x":1260,
+                 "y":1470
                 }],
          "opacity":1,
          "type":"objectgroup",
