@@ -60,7 +60,7 @@ std::function<void(SceneNode&, sf::Time)> PlayerMoveAccelerator(float targetSpee
             player.setVelocity(interpolatedVelocity);       
         }
         player.setControlledVelocity(interpolatedControlledVelocity);
-    }
+    };
 }
 
 //Function object to handle animation
