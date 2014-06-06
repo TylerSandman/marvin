@@ -5,6 +5,7 @@
 #include "Entity.h"
 #include "ResourceManager.h"
 #include "AnimatedSprite.h"
+#include "GrassPlatform.h"
 
 class Marvin : public Entity{
 
@@ -26,6 +27,12 @@ public:
     unsigned int getCategory();
     virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
     virtual void updateCurrent(sf::Time deltaTime);
+    void setControlledVelocity(b2Vec2 velocity);
+    b2Vec2 getControlledVelocity();
+    void attachPlatform(GrassPlatform *platform);
+    void detachPlatform();
+    GrassPlatform* getAttachedPlatform() const;
+    bool isOnPlatform();
     bool isOnGround();
     void setNumFootContacts(int num);
     int getNumFootContacts();
@@ -35,5 +42,7 @@ public:
 private:
     FacingDirection mCurrentFacingDirection;
     std::map<AnimationID, Animation> mAnimationMap;
+    GrassPlatform *mAttachedPlatform;
+    b2Vec2 mControlledVelocity;
     int numFootContacts; //Ew. So...hacky. Gotta fix this.
 };

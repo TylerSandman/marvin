@@ -15,9 +15,10 @@ std::function<void(SceneNode&, sf::Time)> PlayerJumpInitiator(){
         Marvin &player = static_cast<Marvin&>(node);
         b2Vec2 currentVelocity = player.getVelocity();
         if (player.isOnGround()){
-            player.setVelocity(b2Vec2(currentVelocity.x, phys::JUMP_VELOCITY));  
+            b2Vec2 velocity(currentVelocity.x, phys::JUMP_VELOCITY);
+            player.setVelocity(velocity);
+            player.setControlledVelocity(velocity);
         }
-        
     };
 }
 
@@ -28,7 +29,7 @@ std::function<void(SceneNode&, sf::Time)> PlayerJumpAccelerator(bool jumpHeld){
 
         Marvin &player = static_cast<Marvin&>(node);
         b2Vec2 currentVelocity = player.getVelocity();
-        if (!jumpHeld){
+        if ((!jumpHeld) && (!player.isOnGround())){
             player.setVelocity(b2Vec2(
                 currentVelocity.x, 
                 std::min(phys::JUMP_TERMINATION_VELOCITY, currentVelocity.y)));
@@ -44,9 +45,22 @@ std::function<void(SceneNode&, sf::Time)> PlayerMoveAccelerator(float targetSpee
         b2Vec2 currentVelocity = player.getVelocity();        
         b2Vec2 interpolatedVelocity = b2Vec2(
             phys::ACCELERATION_CONSTANT * targetSpeed + (1 - phys::ACCELERATION_CONSTANT) * currentVelocity.x,
+            currentVelocity.y);       
+        GrassPlatform *platform = player.getAttachedPlatform();
+        b2Vec2 interpolatedControlledVelocity(
+            phys::ACCELERATION_CONSTANT * targetSpeed + (1 - phys::ACCELERATION_CONSTANT) * player.getControlledVelocity().x,
             currentVelocity.y);
-        player.setVelocity(interpolatedVelocity);
-    };
+        if (platform){
+            b2Vec2 interpolatedPlatformVelocity(
+                interpolatedControlledVelocity.x + platform->getVelocity().x,
+                currentVelocity.y);
+            player.setVelocity(interpolatedPlatformVelocity);
+        }
+        else{
+            player.setVelocity(interpolatedVelocity);       
+        }
+        player.setControlledVelocity(interpolatedControlledVelocity);
+    }
 }
 
 //Function object to handle animation

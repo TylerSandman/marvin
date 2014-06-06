@@ -5,7 +5,9 @@
 #include "Command.h"
 
 Marvin::Marvin(TextureManager &textureManager, b2Body *playerBody) : 
-    Entity(playerBody){
+    Entity(playerBody),
+    mAttachedPlatform(nullptr),
+    mControlledVelocity(getVelocity()){
 
     sf::Texture &spriteSheet = textureManager.get(TextureID::PlayerSpriteSheet);
     
@@ -56,6 +58,26 @@ void Marvin::updateCurrent(sf::Time deltaTime){
     else
         mSprite.play(mAnimationMap[Marvin::AnimationID::Jump]);
     mSprite.update(deltaTime);
+}
+
+void Marvin::setControlledVelocity(b2Vec2 velocity){
+    mControlledVelocity = velocity;
+}
+
+b2Vec2 Marvin::getControlledVelocity(){
+    return mControlledVelocity;
+}
+
+void Marvin::attachPlatform(GrassPlatform *platform){
+    mAttachedPlatform = platform;
+}
+
+void Marvin::detachPlatform(){
+    mAttachedPlatform = nullptr;
+}
+
+GrassPlatform* Marvin::getAttachedPlatform() const{
+    return mAttachedPlatform;
 }
 
 bool Marvin::isOnGround(){

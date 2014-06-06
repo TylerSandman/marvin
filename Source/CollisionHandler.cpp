@@ -58,6 +58,7 @@ void CollisionHandler::BeginContact(b2Contact *contact){
             player.setNumFootContacts(player.getNumFootContacts() + 1);
             GrassPlatform &platform = static_cast<GrassPlatform&>(*secondNode);
             platform.activate();
+            player.attachPlatform(&platform);
         }           
         else if ((contact->GetFixtureB()->IsSensor()) &&
                  (secondNode->getCategory() & Category::Type::Player)){
@@ -65,6 +66,7 @@ void CollisionHandler::BeginContact(b2Contact *contact){
             player.setNumFootContacts(player.getNumFootContacts() + 1);
             GrassPlatform &platform = static_cast<GrassPlatform&>(*firstNode);
             platform.activate();
+            player.attachPlatform(&platform);
         }
      }
 
@@ -119,10 +121,14 @@ void CollisionHandler::EndContact(b2Contact *contact){
         if (contact->GetFixtureA()->IsSensor()){
             Marvin &player = static_cast<Marvin&>(*firstNode);
             player.setNumFootContacts(player.getNumFootContacts() - 1);
+            if (secondNode->getCategory() & Category::Type::GrassPlatform)
+                player.detachPlatform();
         }           
         else if (contact->GetFixtureB()->IsSensor()){
             Marvin &player = static_cast<Marvin&>(*secondNode);
             player.setNumFootContacts(player.getNumFootContacts() - 1);
+            if (firstNode->getCategory() & Category::Type::GrassPlatform)
+                player.detachPlatform();
         }
     }
 }
