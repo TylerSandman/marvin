@@ -35,6 +35,7 @@ public:
         Play,
         Pause,
         LevelSelect,
+        LevelCompletion,
         Loading,
         Menu
     };

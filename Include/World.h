@@ -27,6 +27,7 @@ public:
     void requestCompletion();
     bool isComplete();
     float getAttemptTime();
+    int getNumDeaths();
 
     //Querying functions for loading screen
     bool mapLoaded();
@@ -70,6 +71,7 @@ private:
     sf::Time mLevelTimeElapsed;
     float mCompletionTime;
     TextNode *mTimeText;
+    int numDeaths;
     bool mResetRequested;
     bool mCompletionRequested;
     bool mCompleted;

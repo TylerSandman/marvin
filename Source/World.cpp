@@ -29,6 +29,7 @@ World::World(sf::RenderWindow &window, const std::string &map) :
         mCollisionHandler(CollisionHandler(*this)),
         mSceneGraph(SceneNode()),
         mPlayerCharacter(nullptr),
+        numDeaths(0),
         mResetRequested(false),
         mCompletionRequested(false),
         mCompleted(false),
@@ -81,6 +82,7 @@ void World::reset(){
     buildScene();
     centerPlayerView();
     mResetRequested = false;
+    ++numDeaths;
 }
 
 void World::requestReset(){
@@ -142,6 +144,10 @@ bool World::isComplete(){
 
 float World::getAttemptTime(){
     return mCompletionTime;
+}
+
+int World::getNumDeaths(){
+    return numDeaths;
 }
 
 void World::centerPlayerView(){

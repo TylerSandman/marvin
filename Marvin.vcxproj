@@ -30,6 +30,7 @@
     <ClInclude Include="Include\GrassPlatform.h" />
     <ClInclude Include="Include\Image.h" />
     <ClInclude Include="Include\Label.h" />
+    <ClInclude Include="Include\LevelCompletionState.h" />
     <ClInclude Include="Include\LevelLoadingState.h" />
     <ClInclude Include="Include\LevelManager.h" />
     <ClInclude Include="Include\LevelSelectState.h" />
@@ -78,6 +79,7 @@
     <ClCompile Include="Source\GrassPlatform.cpp" />
     <ClCompile Include="Source\Image.cpp" />
     <ClCompile Include="Source\Label.cpp" />
+    <ClCompile Include="Source\LevelCompletionState.cpp" />
     <ClCompile Include="Source\LevelLoadingState.cpp" />
     <ClCompile Include="Source\LevelManager.cpp" />
     <ClCompile Include="Source\LevelSelectState.cpp" />

@@ -23,6 +23,17 @@ struct LevelData{
     }
 };
 
+struct LevelCompletionData{
+
+    LevelCompletionData(){}
+    LevelCompletionData(const std::string &map, float time, int deaths) : 
+        map(map), time(time), deaths(deaths){}
+
+    std::string map;
+    float time;
+    int deaths;
+};
+
 class SaveManager{
 
 public:
@@ -32,10 +43,13 @@ public:
         return saveManager;
     }
 
-    void markLevelCompleted(const std::string &map, float time){
+    void markLevelCompleted(const std::string &map, float time, int deaths){
         mLevelDataMap[map].completed = true;
         if ((time < mLevelDataMap[map].bestTime) || (mLevelDataMap[map].bestTime == 0.0f))
             mLevelDataMap[map].bestTime = time;
+        mLastCompletedData.deaths = deaths;
+        mLastCompletedData.map = map;
+        mLastCompletedData.time = time;
     }
 
     bool isLevelCompleted(const std::string &map){
@@ -60,6 +74,10 @@ public:
         return mLevelDataMap[map];
     }
 
+    LevelCompletionData getLastCompletedData(){
+        return mLastCompletedData;
+    }
+
 private:
     friend class boost::serialization::access;
     template<class Archive>
@@ -70,4 +88,5 @@ private:
     SaveManager(SaveManager const&){}
     void operator=(SaveManager const&){}
     std::map<std::string, LevelData> mLevelDataMap;
+    LevelCompletionData mLastCompletedData;
 };

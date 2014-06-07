@@ -35,6 +35,7 @@ Game::Game() :
     mTextureManager.load(TextureID::ButtonDisabled, "Resources/Textures/GUI/button_disabled.png");
     mTextureManager.load(TextureID::GreenButtonPressed, "Resources/Textures/GUI/green_button_pressed.png");
     mTextureManager.load(TextureID::PauseScreenPanel, "Resources/Textures/GUI/grey_panel.png");
+    mTextureManager.load(TextureID::LevelCompletionPanel, "Resources/Textures/GUI/grey_panel_medium.png");
     mTextureManager.load(TextureID::LevelSelectionPanel, "Resources/Textures/GUI/grey_panel_large.png");
     mTextureManager.load(TextureID::GreenContainerButton, "Resources/Textures/GUI/green_panel_button.png");
     mTextureManager.load(TextureID::GreenContainerButtonPressed, "Resources/Textures/GUI/green_panel_button_pressed.png");
