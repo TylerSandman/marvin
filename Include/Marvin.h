@@ -19,7 +19,8 @@ public:
         None,
         Walk,
         Jump,
-        Hurt
+        Hurt,
+        Fade
     };
     
 public:
@@ -32,17 +33,19 @@ public:
     void attachPlatform(GrassPlatform *platform);
     void detachPlatform();
     GrassPlatform* getAttachedPlatform() const;
-    bool isOnPlatform();
-    bool isOnGround();
+    bool isOnGround() const;
+    bool isFaded() const;
     void setNumFootContacts(int num);
     int getNumFootContacts();
     void turn(FacingDirection direction);
     void stopAnimation();
+    void fade();
 
 private:
     FacingDirection mCurrentFacingDirection;
     std::map<AnimationID, Animation> mAnimationMap;
     GrassPlatform *mAttachedPlatform;
     b2Vec2 mControlledVelocity;
+    bool mFading;
     int numFootContacts; //Ew. So...hacky. Gotta fix this.
 };

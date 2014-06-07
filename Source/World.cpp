@@ -31,6 +31,7 @@ World::World(sf::RenderWindow &window, const std::string &map) :
         mPlayerCharacter(nullptr),
         mResetRequested(false),
         mCompletionRequested(false),
+        mCompleted(false),
         mMapLoaded(false),
         mObjectsLoaded(false),
         mTexturesLoaded(false),
@@ -92,40 +93,51 @@ CommandQueue& World::getCommandQueue(){
 
 void World::update(sf::Time deltaTime){
 
-    mLevelTimeElapsed += deltaTime;
+    if (!mCompletionRequested){
+        mLevelTimeElapsed += deltaTime;
 
-    //It's important we advance our physics engine before updating
-    mBox2DWorld->Step(deltaTime.asSeconds(), 6, 2);
+        //It's important we advance our physics engine before updating
+        mBox2DWorld->Step(deltaTime.asSeconds(), 6, 2);
 
-    while (!mCommandQueue.empty()){
-        mSceneGraph.onCommand(mCommandQueue.front(), deltaTime);
-        mCommandQueue.pop();  
+        while (!mCommandQueue.empty()){
+            mSceneGraph.onCommand(mCommandQueue.front(), deltaTime);
+            mCommandQueue.pop();  
+        }
+
+        mSceneGraph.update(deltaTime);
+        centerPlayerView();
+
+        //Reposition and update our time
+        std::ostringstream timeStream;
+        timeStream << boost::math::round(
+            mLevelTimeElapsed.asSeconds() * 100.f) / 100.f;
+        mTimeText->setText(timeStream.str());  
+        mTimeText->setPosition(
+            mWorldView.getCenter().x + mWorldView.getSize().x / 2.f - 125.f,
+            mWorldView.getCenter().y - mWorldView.getSize().y / 2.f + 25.f);
+
+        if (mResetRequested)
+            reset();
     }
 
-    mSceneGraph.update(deltaTime);
-    centerPlayerView();
+    else if (!mPlayerCharacter->isFaded()){
+        mPlayerCharacter->update(deltaTime);
+    }
 
-    //Reposition and update our time
-    std::ostringstream timeStream;
-    timeStream << boost::math::round(
-        mLevelTimeElapsed.asSeconds() * 100.f) / 100.f;
-    mTimeText->setText(timeStream.str());  
-    mTimeText->setPosition(
-        mWorldView.getCenter().x + mWorldView.getSize().x / 2.f - 125.f,
-        mWorldView.getCenter().y - mWorldView.getSize().y / 2.f + 25.f);
-
-    if (mResetRequested)
-        reset();
+    else{
+        mCompleted = true;
+    }
 }
 
 void World::requestCompletion(){
     mCompletionRequested = true;
     std::ostringstream timeStream;
     mCompletionTime = boost::math::round(mLevelTimeElapsed.asSeconds() * 100.f) / 100.f;
+    mPlayerCharacter->fade();
 }
 
 bool World::isComplete(){
-    return mCompletionRequested;
+    return mCompleted;
 }
 
 float World::getAttemptTime(){

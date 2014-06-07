@@ -72,6 +72,7 @@ private:
     TextNode *mTimeText;
     bool mResetRequested;
     bool mCompletionRequested;
+    bool mCompleted;
     bool mMapLoaded;
     bool mObjectsLoaded;
     bool mTexturesLoaded;

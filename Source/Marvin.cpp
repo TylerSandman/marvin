@@ -7,7 +7,8 @@
 Marvin::Marvin(TextureManager &textureManager, b2Body *playerBody) : 
     Entity(playerBody),
     mAttachedPlatform(nullptr),
-    mControlledVelocity(getVelocity()){
+    mControlledVelocity(getVelocity()),
+    mFading(false){
 
     sf::Texture &spriteSheet = textureManager.get(TextureID::PlayerSpriteSheet);
     
@@ -28,6 +29,16 @@ Marvin::Marvin(TextureManager &textureManager, b2Body *playerBody) :
     hurtAnimation.addFrame(sf::IntRect(280, 0, 70, 100));
     mAnimationMap[AnimationID::Hurt] = hurtAnimation;
 
+    Animation fadeAnimation;
+    fadeAnimation.setSpriteSheet(spriteSheet);
+    fadeAnimation.addFrame(sf::IntRect(0, 100, 70, 100));
+    fadeAnimation.addFrame(sf::IntRect(70, 100, 70, 100));
+    fadeAnimation.addFrame(sf::IntRect(140, 100, 70, 100));
+    fadeAnimation.addFrame(sf::IntRect(210, 100, 70, 100));
+    fadeAnimation.addFrame(sf::IntRect(280, 100, 70, 100));
+    fadeAnimation.addFrame(sf::IntRect(350, 100, 70, 100));
+    mAnimationMap[AnimationID::Fade] = fadeAnimation;
+
     mSprite = AnimatedSprite(sf::seconds(0.1f));
     mSprite.setAnimation(walkingAnimation);
     sf::FloatRect bounds = mSprite.getLocalBounds();
@@ -42,7 +53,8 @@ unsigned int Marvin::getCategory(){
 }
 
 void Marvin::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const{
-    target.draw(mSprite, states);
+    if (!isFaded())
+        target.draw(mSprite, states);
 }
 
 void Marvin::updateCurrent(sf::Time deltaTime){
@@ -53,9 +65,9 @@ void Marvin::updateCurrent(sf::Time deltaTime){
     float mapHeight = previousRenderPos.y + mPreviousPosition.y * 70.f;
     mSprite.setPosition(physPos.x * 70.f, mapHeight - physPos.y * 70.f);
     mPreviousPosition = physPos;
-    if (isOnGround())
+    if (isOnGround() && !mFading)
         mSprite.play(mAnimationMap[Marvin::AnimationID::Walk]);
-    else
+    else if (!mFading)
         mSprite.play(mAnimationMap[Marvin::AnimationID::Jump]);
     mSprite.update(deltaTime);
 }
@@ -80,8 +92,12 @@ GrassPlatform* Marvin::getAttachedPlatform() const{
     return mAttachedPlatform;
 }
 
-bool Marvin::isOnGround(){
+bool Marvin::isOnGround() const{
     return (numFootContacts > 0);
+}
+
+bool Marvin::isFaded() const{
+    return (mFading && !mSprite.isPlaying());
 }
 
 void Marvin::setNumFootContacts(int num){
@@ -111,6 +127,13 @@ void Marvin::stopAnimation(){
     //we may try to stop non-existant animations due
     //to player resetting
     if ((mSprite.getAnimation()->getSize() > 0) &&
-        (mSprite.getAnimation()->getSize() < 10))
+        (mSprite.getAnimation()->getSize() < 10) &&
+        (mSprite.isLooped()))
         mSprite.stop();
+}
+
+void Marvin::fade(){
+    mFading = true;
+    mSprite.play(mAnimationMap[AnimationID::Fade]);
+    mSprite.setLooped(false);
 }
