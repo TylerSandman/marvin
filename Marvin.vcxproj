@@ -36,6 +36,7 @@
     <ClInclude Include="Include\LevelSelectState.h" />
     <ClInclude Include="Include\Logger.h" />
     <ClInclude Include="Include\MenuState.h" />
+    <ClInclude Include="Include\MusicPlayer.h" />
     <ClInclude Include="Include\Panel.h" />
     <ClInclude Include="Include\ContainerButton.h" />
     <ClInclude Include="Include\PauseState.h" />
@@ -85,6 +86,7 @@
     <ClCompile Include="Source\LevelSelectState.cpp" />
     <ClCompile Include="Source\Logger.cpp" />
     <ClCompile Include="Source\MenuState.cpp" />
+    <ClCompile Include="Source\MusicPlayer.cpp" />
     <ClCompile Include="Source\Panel.cpp" />
     <ClCompile Include="Source\ContainerButton.cpp" />
     <ClCompile Include="Source\PauseState.cpp" />
@@ -209,8 +211,8 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>Lib/Box2D;Lib/SFML;</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-audio.lib;sfml-graphics.lib;sfml-main.lib;sfml-network.lib;sfml-system.lib;sfml-window.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>Lib/Box2D;Lib/SFML;Lib/Serialization</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-audio.lib;sfml-graphics.lib;sfml-main.lib;sfml-network.lib;sfml-system.lib;sfml-window.lib;Box2D.lib;libboost_serialization-vc110-mt-1_55.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

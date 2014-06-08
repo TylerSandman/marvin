@@ -7,6 +7,7 @@
 #include "ResourceManager.h"
 #include "LevelManager.h"
 #include "SaveManager.h"
+#include "MusicPlayer.h"
 
 class Game{
 
@@ -28,5 +29,6 @@ private:
     TextureManager mTextureManager;
     FontManager mFontManager;
     LevelManager mLevelManager;
+    MusicPlayer mMusicPlayer;
     StateStack mStateStack;    
 };

@@ -111,6 +111,11 @@ MenuState::MenuState(StateStack &stack, Context context) :
     mTitleText.setOrigin(
         mTitleText.getGlobalBounds().width / 2.f,
         mTitleText.getGlobalBounds().height / 2.f);
+
+    //Music - check to see if theme is already playing so
+    //we don't re-loop it each time we enter the main menu
+    if (!context.musicPlayer->isPlaying())
+        context.musicPlayer->play(MusicID::MainTheme);
 }
 
 void MenuState::draw(){

@@ -101,6 +101,9 @@ bool LevelCompletionState::handleEvent(const sf::Event &event){
         if (event.key.code == sf::Keyboard::Escape || event.key.code == sf::Keyboard::Return){
             requestStackClear();
             requestStackPush(ID::LevelSelect);
+
+            //Stop music so main theme will play
+            getContext().musicPlayer->stop();
         }
     }
     mGUIContainer.handleEvent(event);

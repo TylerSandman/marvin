@@ -40,6 +40,9 @@ PauseState::PauseState(StateStack &stack, Context context) :
     exitButton->setPosition(
         sf::Vector2f(windowSize.x * 0.5f, windowSize.y * 0.5f + 35));
     mGUIContainer.add(exitButton);
+
+    //Music
+    context.musicPlayer->setPaused(true);
 }
 
 void PauseState::draw(){

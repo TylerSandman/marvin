@@ -41,6 +41,9 @@ LevelLoadingState::LevelLoadingState(StateStack &stack, Context context, const s
     context.levelManager->insert(mMap);
     mWorld = context.levelManager->get(mMap);
     mLoadingThread.launch();   
+
+    //Stop music while loading
+    context.musicPlayer->stop();
 }
 
 void LevelLoadingState::draw(){

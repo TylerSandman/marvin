@@ -40,6 +40,10 @@ LevelSelectState::LevelSelectState(StateStack &stack, Context context) :
 
     //Panel to display levels
     buildLevelPanel();
+
+    //Play main theme if we didn't get here from the menu state
+    if (!context.musicPlayer->isPlaying())
+        context.musicPlayer->play(MusicID::MainTheme);
 }
 
 void LevelSelectState::draw(){
@@ -60,7 +64,7 @@ bool LevelSelectState::handleEvent(const sf::Event &event){
     if (event.type == sf::Event::KeyPressed){
         mGUIContainer.handleEvent(event);
         if (event.key.code == sf::Keyboard::Escape){
-            requestStackClear();
+            requestStackPop();
             requestStackPush(ID::Menu);
         }
     }

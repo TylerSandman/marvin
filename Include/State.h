@@ -3,6 +3,7 @@
 #include "ResourceManager.h"
 #include "LevelManager.h"
 #include "Player.h"
+#include "MusicPlayer.h"
 
 class StateStack;
 class World;
@@ -17,16 +18,19 @@ public:
             TextureManager &textureManager, 
             FontManager &fontManager,
             LevelManager &levelManager,
+            MusicPlayer &musicPlayer,
             Player &player) : 
                 window(&window), 
                 textureManager(&textureManager), 
                 fontManager(&fontManager), 
                 levelManager(&levelManager),
+                musicPlayer(&musicPlayer),
                 player(&player){}
         sf::RenderWindow *window;
         TextureManager *textureManager;
         FontManager *fontManager;
         LevelManager *levelManager;
+        MusicPlayer *musicPlayer;
         Player *player;
     };
     enum ID{

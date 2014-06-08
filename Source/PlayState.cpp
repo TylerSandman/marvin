@@ -7,6 +7,7 @@ PlayState::PlayState(StateStack &stack, Context context, const std::string &map)
         mMapName(map){
     
     mWorld.reset(context.levelManager->get(mMapName));
+    context.musicPlayer->play(MusicID::LevelTheme);
 }
 
 void PlayState::draw(){
@@ -24,8 +25,7 @@ bool PlayState::update(sf::Time deltaTime){
     }
     CommandQueue &commands = mWorld->getCommandQueue();
     mPlayer.handleRealtimeInput(commands);  
-
-    
+  
     return false;
 }
 

@@ -15,6 +15,8 @@
 #include "State.h"
 #include "Constants.h"
 #include "SaveManager.h"
+#include "MusicPlayer.h"
+
 
 Game::Game() : 
         mWindow(sf::RenderWindow(sf::VideoMode(1024,768), "Marvin", sf::Style::Close)),
@@ -22,7 +24,8 @@ Game::Game() :
         mTextureManager(),
         mFontManager(),
         mLevelManager(mWindow),
-        mStateStack(State::Context(mWindow, mTextureManager, mFontManager, mLevelManager, mPlayer)){
+        mMusicPlayer(),
+        mStateStack(State::Context(mWindow, mTextureManager, mFontManager, mLevelManager, mMusicPlayer, mPlayer)){
 
     mWindow.setVerticalSyncEnabled(true);
 
