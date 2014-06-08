@@ -11,7 +11,7 @@
 
 LevelCompletionState::LevelCompletionState(StateStack &stack, Context context) : 
         State(stack, context),
-        mGUIContainer(context.window->getDefaultView()){
+        mGUIContainer(context, context.window->getDefaultView()){
 
     sf::Vector2u windowSize = context.window->getSize();
     LevelCompletionData data = SaveManager::getInstance().getLastCompletedData();

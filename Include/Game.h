@@ -30,5 +30,6 @@ private:
     FontManager mFontManager;
     LevelManager mLevelManager;
     MusicPlayer mMusicPlayer;
+    SoundPlayer mSoundPlayer;
     StateStack mStateStack;    
 };

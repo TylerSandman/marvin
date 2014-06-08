@@ -4,7 +4,8 @@
 
 namespace GUI{
 
-Container::Container(sf::View view) : 
+Container::Container(State::Context context, sf::View view) : 
+    mSoundPlayer(*context.soundPlayer),
     mChildren(),
     mSelectedChild(-1),
     mView(view){}
@@ -20,10 +21,12 @@ void Container::handleEvent(const sf::Event &event){
     }
     else if (event.type == sf::Event::KeyPressed){
         if (event.key.code == sf::Keyboard::W || event.key.code == sf::Keyboard::Up){
-            selectPrevious();
+            mSoundPlayer.play(SoundEffectID::Switch);
+            selectPrevious();           
         }
         else if (event.key.code == sf::Keyboard::S || event.key.code == sf::Keyboard::Down){
-            selectNext();
+            mSoundPlayer.play(SoundEffectID::Switch);
+            selectNext();          
         }
         else if (event.key.code == sf::Keyboard::Space || event.key.code == sf::Keyboard::Return){
             if (hasSelection())
@@ -123,5 +126,9 @@ void Container::selectPrevious(){
         mView.move(0.f, viewOffset);
     }
     select(prev);
+}
+
+void Container::setView(sf::View view){
+    mView = view;
 }
 }

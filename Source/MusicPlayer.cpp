@@ -2,7 +2,7 @@
 
 MusicPlayer::MusicPlayer() : 
         mMusic(),
-        mVolume(100.f){
+        mVolume(25.f){
 
     mFileMap[MainTheme] = "Resources/Audio/Music/menu_loop.ogg";
     mFileMap[LevelTheme] = "Resources/Audio/Music/level_theme.ogg";

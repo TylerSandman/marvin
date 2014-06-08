@@ -51,6 +51,7 @@
     <ClInclude Include="Include\SceneNode.h" />
     <ClInclude Include="Include\Slime.h" />
     <ClInclude Include="Include\SnakeSlime.h" />
+    <ClInclude Include="Include\SoundPlayer.h" />
     <ClInclude Include="Include\SpriteNode.h" />
     <ClInclude Include="Include\State.h" />
     <ClInclude Include="Include\StateStack.h" />
@@ -97,6 +98,7 @@
     <ClCompile Include="Source\SceneNode.cpp" />
     <ClCompile Include="Source\Slime.cpp" />
     <ClCompile Include="Source\SnakeSlime.cpp" />
+    <ClCompile Include="Source\SoundPlayer.cpp" />
     <ClCompile Include="Source\SpriteNode.cpp" />
     <ClCompile Include="Source\State.cpp" />
     <ClCompile Include="Source\StateStack.cpp" />

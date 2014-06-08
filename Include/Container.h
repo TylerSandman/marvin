@@ -3,6 +3,7 @@
 #include <vector>
 #include <memory>
 #include "Component.h"
+#include "State.h"
 
 namespace GUI{
 
@@ -12,10 +13,11 @@ public:
     typedef std::shared_ptr<Container> Ptr;
 
 public:
-    Container(sf::View view);
+    Container(State::Context context, sf::View view);
     virtual bool isSelectable();
     virtual void handleEvent(const sf::Event &event);
     virtual void add(Component::Ptr component);
+     void setView(sf::View view);
 
 private:
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
@@ -23,8 +25,9 @@ private:
     void select(std::size_t index);
     void selectNext();
     void selectPrevious();
-
+  
 protected:
+    SoundPlayer &mSoundPlayer;
     std::vector<Component::Ptr> mChildren;
     int mSelectedChild;
     sf::View mView;

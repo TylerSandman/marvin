@@ -51,6 +51,7 @@
     <ClInclude Include="Include\GrassPlatform.h" />
     <ClInclude Include="Include\LevelCompletionState.h" />
     <ClInclude Include="Include\MusicPlayer.h" />
+    <ClInclude Include="Include\SoundPlayer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Box2DTiledLoader.cpp" />
@@ -94,6 +95,7 @@
     <ClCompile Include="Source\GrassPlatform.cpp" />
     <ClCompile Include="Source\LevelCompletionState.cpp" />
     <ClCompile Include="Source\MusicPlayer.cpp" />
+    <ClCompile Include="Source\SoundPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\GUI\Sample Level Selection.png" />

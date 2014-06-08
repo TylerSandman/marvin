@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML\Graphics.hpp>
+#include <SFML\Audio.hpp>
 #include <map>
 #include <memory>
 #include <string>
@@ -32,6 +33,13 @@ enum FontID{
     Thin
 };
 
+enum SoundEffectID{
+    PlayerDie,
+    PlayerFade,
+    Switch,
+    GemPickup
+};
+
 template <typename Identifier, typename Resource>
 class ResourceManager {
 
@@ -45,7 +53,7 @@ private:
 //Typedefs for ease of use
 typedef ResourceManager<TextureID, sf::Texture> TextureManager;
 typedef ResourceManager<FontID, sf::Font> FontManager;
-
+typedef ResourceManager<SoundEffectID, sf::SoundBuffer> SoundBufferManager;
 //Function Definitions
 
 template <typename Identifier, typename Resource>

@@ -6,7 +6,7 @@
 
 PauseState::PauseState(StateStack &stack, Context context) : 
         State(stack, context),
-        mGUIContainer(context.window->getDefaultView()){
+        mGUIContainer(context, context.window->getDefaultView()){
 
     //Background panel where our button list will be displayed
     sf::Vector2f windowSize(context.window->getSize());

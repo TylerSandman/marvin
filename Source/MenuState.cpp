@@ -6,7 +6,7 @@
 
 MenuState::MenuState(StateStack &stack, Context context) : 
         State(stack, context),
-        mGUIContainer(context.window->getDefaultView()),
+        mGUIContainer(context, context.window->getDefaultView()),
         mGrass(),
         mBackground(){
 

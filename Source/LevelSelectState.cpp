@@ -11,7 +11,7 @@
 
 LevelSelectState::LevelSelectState(StateStack &stack, Context context) : 
         State(stack, context),
-        mGUIContainer(context.window->getDefaultView()),
+        mGUIContainer(context, context.window->getDefaultView()),
         numLevels(0){
 
     sf::Vector2u windowSize = context.window->getSize();
@@ -173,8 +173,7 @@ void LevelSelectState::buildLevelPanel(){
         bgPanelTexture.getSize().x / windowSize.x,
         bgPanelTexture.getSize().y / windowSize.y - 0.02f));
 
-    mGUIContainer = GUI::Container(levelPanelView);
-
+    mGUIContainer.setView(levelPanelView);
 
     SaveManager &saveManager = SaveManager::getInstance();
 
