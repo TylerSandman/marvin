@@ -147,6 +147,13 @@ void World::requestCompletion(){
     std::ostringstream timeStream;
     mCompletionTime = boost::math::round(mLevelTimeElapsed.asSeconds() * 100.f) / 100.f;
     mPlayerCharacter->fade();
+    Command fadeSoundCommand;
+    fadeSoundCommand.category = Category::SoundEffect;
+    fadeSoundCommand.action = [](SceneNode &node, sf::Time deltaTime){
+        SoundNode &sound = static_cast<SoundNode&>(node);
+        sound.play(SoundEffectID::PlayerFade);
+    };
+    mCommandQueue.push(fadeSoundCommand);
 }
 
 bool World::isComplete(){
