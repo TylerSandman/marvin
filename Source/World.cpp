@@ -9,6 +9,7 @@
 #include "SpriteNode.h"
 #include "TextNode.h"
 #include "TilemapNode.h"
+#include "SoundNode.h"
 #include "ResourceManager.h"
 #include "TiledJSONLoader.h"
 #include "Box2DTiledLoader.h"
@@ -19,11 +20,12 @@
 #include "World.h"
 
 
-World::World(sf::RenderWindow &window, const std::string &map) :
+World::World(sf::RenderWindow &window, SoundPlayer &soundPlayer, const std::string &map) :
         mWindow(window),
         mWorldView(mWindow.getDefaultView()),
         mTextureManager(TextureManager()),
         mFontManager(FontManager()),
+        mSoundPlayer(soundPlayer),
         mMapLoader(TiledJSONLoader("Resources/Maps/", "Resources/Textures/Tileset/")),
         mWorldLoader(Box2DTiledLoader()),
         mCollisionHandler(CollisionHandler(*this)),
@@ -87,6 +89,13 @@ void World::reset(){
 
 void World::requestReset(){
     mResetRequested = true;
+    Command resetSoundCommand;
+    resetSoundCommand.category = Category::SoundEffect;
+    resetSoundCommand.action = [](SceneNode &node, sf::Time deltaTime){
+        SoundNode &sound = static_cast<SoundNode&>(node);
+        sound.play(SoundEffectID::PlayerDie);
+    };
+    mCommandQueue.push(resetSoundCommand);
 }
 
 CommandQueue& World::getCommandQueue(){
@@ -129,6 +138,8 @@ void World::update(sf::Time deltaTime){
     else{
         mCompleted = true;
     }
+
+    mSoundPlayer.removeStoppedSounds();
 }
 
 void World::requestCompletion(){
@@ -193,6 +204,7 @@ void World::loadResources(){
 
     //Load entities
     mTextureManager.load(TextureID::EnemiesSpriteSheet, "Resources/Textures/Enemy/enemies_spritesheet.png");
+    
     //Load fonts
     mFontManager.load(FontID::Thin, "Resources/Fonts/kenvector_future_thin.ttf");
 }
@@ -245,6 +257,10 @@ void World::buildScene(){
     mTimeText = timeText.get();
     mTimeText->setColor(sf::Color::Black);
     mSceneLayers[HUD]->attachChild(std::move(timeText));
+
+    //Sound Effects
+    std::unique_ptr<SoundNode> soundEffects(new SoundNode(mSoundPlayer));
+    mSceneLayers[Sounds]->attachChild(std::move(soundEffects));
 }
 
 void World::spawnPlayer(sf::Vector2f position){

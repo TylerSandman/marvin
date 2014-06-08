@@ -12,13 +12,14 @@
 #include "CollisionHandler.h"
 #include "Command.h"
 #include "TextNode.h"
+#include "SoundPlayer.h"
 
 class Marvin;
 
 class World{
 
 public:
-    World(sf::RenderWindow &window, const std::string &map);
+    World(sf::RenderWindow &window, SoundPlayer &soundPlayer, const std::string &map);
     CommandQueue& getCommandQueue();
     void initialize();
     void update(sf::Time deltaTime);
@@ -48,6 +49,7 @@ private:
         Tilemap,
         Object,
         HUD,
+        Sounds,
         LayerCount
     };
     
@@ -57,6 +59,7 @@ private:
     CommandQueue mCommandQueue;
     TextureManager mTextureManager;
     FontManager mFontManager;
+    SoundPlayer &mSoundPlayer;
     TiledJSONLoader mMapLoader;
     Box2DTiledLoader mWorldLoader;
     GameObjectFactory mGameObjectFactory;

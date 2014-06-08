@@ -15,6 +15,7 @@ unsigned int SceneNode::getCategory(){
 }
 
 void SceneNode::onCommand(const Command &command, sf::Time deltaTime){
+
     if (command.category & getCategory())
         command.action(*this, deltaTime);
 

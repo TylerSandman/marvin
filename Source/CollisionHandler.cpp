@@ -4,6 +4,7 @@
 #include "GrassPlatform.h"
 #include "Logger.h"
 #include "World.h"
+#include "SoundNode.h"
 
 CollisionHandler::CollisionHandler(World &world) : 
     mWorld(world){}
@@ -76,8 +77,6 @@ void CollisionHandler::BeginContact(b2Contact *contact){
         mWorld.requestReset();
     }
 
-
-
     //Terrain collisions.
     else if (matchesCategories(collisionPair, Category::Type::Player, Category::Type::Walkable)){
         
@@ -96,6 +95,13 @@ void CollisionHandler::BeginContact(b2Contact *contact){
 
     else if (matchesCategories(collisionPair, Category::Type::Player, Category::Type::Exit)){
         mWorld.requestCompletion();
+        Command fadeSoundCommand;
+        fadeSoundCommand.category = Category::SoundEffect;
+        fadeSoundCommand.action = [](SceneNode &node, sf::Time deltaTime){
+            SoundNode &sounds = static_cast<SoundNode&>(node);
+            sounds.play(SoundEffectID::PlayerFade);
+        };
+        commandQueue.push(fadeSoundCommand);
     }
 }
 

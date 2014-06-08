@@ -23,9 +23,9 @@ Game::Game() :
         mPlayer(),
         mTextureManager(),
         mFontManager(),
-        mLevelManager(mWindow),
         mMusicPlayer(),
         mSoundPlayer(),
+        mLevelManager(mWindow, mSoundPlayer),
         mStateStack(State::Context(mWindow, mTextureManager, mFontManager, mLevelManager, mMusicPlayer, mSoundPlayer, mPlayer)){
 
     mWindow.setVerticalSyncEnabled(true);

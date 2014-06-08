@@ -16,7 +16,7 @@ namespace Category{
         Pickup = 1 << 5, //Coins, powerups, etc
         Exit = 1 << 6, //End of level
         Damager = 1 << 7, //Spikes, lava, etc
-        Projectile = 1 << 8 //Bullet, fireball ,etc
+        SoundEffect = 1 << 8 //Effects
     };
 }
 

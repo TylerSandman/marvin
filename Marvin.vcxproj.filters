@@ -52,6 +52,7 @@
     <ClInclude Include="Include\LevelCompletionState.h" />
     <ClInclude Include="Include\MusicPlayer.h" />
     <ClInclude Include="Include\SoundPlayer.h" />
+    <ClInclude Include="Include\SoundNode.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Box2DTiledLoader.cpp" />
@@ -96,6 +97,7 @@
     <ClCompile Include="Source\LevelCompletionState.cpp" />
     <ClCompile Include="Source\MusicPlayer.cpp" />
     <ClCompile Include="Source\SoundPlayer.cpp" />
+    <ClCompile Include="Source\SoundNode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\GUI\Sample Level Selection.png" />
