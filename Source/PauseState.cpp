@@ -22,6 +22,7 @@ PauseState::PauseState(StateStack &stack, Context context) :
     resumeButton->setCallback(
         [this]() {
             requestStackPop();
+            getContext().musicPlayer->setPaused(false);
         });
     resumeButton->setText("Resume", sf::Color::Black);
     resumeButton->setPosition(
@@ -35,6 +36,9 @@ PauseState::PauseState(StateStack &stack, Context context) :
         [this]() {
             requestStackClear();
             requestStackPush(ID::LevelSelect);
+
+            //Stop music to main theme will play
+            getContext().musicPlayer->stop();
         });
     exitButton->setText("Levels", sf::Color::Black);
     exitButton->setPosition(
