@@ -64,8 +64,7 @@ MenuState::MenuState(StateStack &stack, Context context) :
          *getContext().fontManager);
     optionsButton->setCallback(
         [this]() {
-            requestStackClear();
-            requestStackPush(ID::LevelSelect);
+            requestStackPush(ID::Option);
         });
     optionsButton->setText("Options", sf::Color::Black);
     optionsButton->setPosition(

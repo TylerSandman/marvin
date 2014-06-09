@@ -45,6 +45,7 @@ public:
         LevelSelect,
         LevelCompletion,
         Loading,
+        Option,
         Menu
     };
 

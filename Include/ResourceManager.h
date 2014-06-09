@@ -23,6 +23,7 @@ enum TextureID{
     GreenContainerButtonPressed,
     ContainerButtonDisabled,
     PauseScreenPanel,
+    OptionScreenPanel,
     LevelCompletionPanel,
     LevelSelectionPanel,
     MenuGround
