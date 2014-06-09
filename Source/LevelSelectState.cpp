@@ -134,7 +134,8 @@ void LevelSelectState::addLevel(LevelData lData, const std::string &map, bool en
     levelButton->add(timeLabel);
     mGUIContainer.add(levelButton);
     float posX = windowSize.x * 0.5f;
-    float posY = static_cast<float>(125 + 100 * numLevels);
+    float firstButtonPadding = windowSize.y / 2.f - mLevelPanel.getGlobalBounds().height / 2.f + 100.f;
+    float posY = static_cast<float>(firstButtonPadding + 100 * numLevels);
     levelButton->setPosition(posX, posY);
 
     //Kind of a hacky way to center the text, but this

@@ -19,7 +19,7 @@
 
 
 Game::Game() : 
-        mWindow(sf::RenderWindow(sf::VideoMode(1024,768), "Marvin", sf::Style::Close)),
+        mWindow(sf::RenderWindow(sf::VideoMode(1920, 1080), "Marvin", sf::Style::Close)),
         mPlayer(),
         mTextureManager(),
         mFontManager(),
