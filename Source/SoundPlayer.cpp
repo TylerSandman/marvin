@@ -4,7 +4,7 @@ SoundPlayer::SoundPlayer() :
         mSoundManager(),
         mSounds(){
 
-    mSoundManager.load(SoundEffectID::Switch, "Resources/Audio/Effects/switch.wav");
+    mSoundManager.load(SoundEffectID::Switch, "Resources/Audio/Effects/switch.ogg");
     mSoundManager.load(SoundEffectID::PlayerFade, "Resources/Audio/Effects/player_fade.ogg");
     mSoundManager.load(SoundEffectID::PlayerDie, "Resources/Audio/Effects/player_die.ogg");
     mSoundManager.load(SoundEffectID::GemPickup, "Resources/Audio/Effects/gem_pickup.ogg");
