@@ -4,20 +4,23 @@
 #include <memory>
 #include "Component.h"
 #include "State.h"
+#include "Option.h"
 
 namespace GUI{
 
-class Container : public Component{
+class OptionContainer : public Component{
 
 public:
-    typedef std::shared_ptr<Container> Ptr;
+    typedef std::shared_ptr<OptionContainer> Ptr;
 
 public:
-    Container(State::Context context, sf::View view);
+    OptionContainer(State::Context context);
     virtual bool isSelectable();
     virtual void handleEvent(const sf::Event &event);
-    virtual void add(Component::Ptr component);
-    void setView(sf::View view);
+    virtual void add(Option::Ptr option);
+    virtual void activate();
+    virtual void deactivate();
+    void apply();
 
 protected:
     virtual bool hasSelection();
@@ -29,9 +32,8 @@ private:
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
   
 protected:
-    SoundPlayer &mSoundPlayer;
-    std::vector<Component::Ptr> mChildren;
+    std::vector<Option::Ptr> mChildren;
+    SoundPlayer &mSoundPlayer;   
     int mSelectedChild;
-    sf::View mView;
 };
 }

@@ -37,6 +37,8 @@
     <ClInclude Include="Include\Logger.h" />
     <ClInclude Include="Include\MenuState.h" />
     <ClInclude Include="Include\MusicPlayer.h" />
+    <ClInclude Include="Include\Option.h" />
+    <ClInclude Include="Include\OptionContainer.h" />
     <ClInclude Include="Include\OptionState.h" />
     <ClInclude Include="Include\Panel.h" />
     <ClInclude Include="Include\ContainerButton.h" />
@@ -90,6 +92,8 @@
     <ClCompile Include="Source\Logger.cpp" />
     <ClCompile Include="Source\MenuState.cpp" />
     <ClCompile Include="Source\MusicPlayer.cpp" />
+    <ClCompile Include="Source\Option.cpp" />
+    <ClCompile Include="Source\OptionContainer.cpp" />
     <ClCompile Include="Source\OptionState.cpp" />
     <ClCompile Include="Source\Panel.cpp" />
     <ClCompile Include="Source\ContainerButton.cpp" />

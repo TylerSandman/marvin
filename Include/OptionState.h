@@ -2,6 +2,7 @@
 #include "State.h"
 #include "World.h"
 #include "Container.h"
+#include "OptionContainer.h"
 
 class StateStack;
 
@@ -12,7 +13,9 @@ public:
     void draw();
     bool update(sf::Time deltaTime);
     bool handleEvent(const sf::Event &event);
+    void applyOptions();
 
 private:
     GUI::Container mGUIContainer;
+    GUI::OptionContainer::Ptr mOptionContainer;
 };
