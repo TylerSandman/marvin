@@ -6,7 +6,8 @@
 
 PauseState::PauseState(StateStack &stack, Context context) : 
         State(stack, context),
-        mGUIContainer(context, context.window->getDefaultView()){
+        mGUIContainer(context, context.window->getDefaultView()),
+        mID(ID::Pause){
 
     //Background panel where our button list will be displayed
     sf::Vector2f windowSize(context.window->getSize());
@@ -67,4 +68,8 @@ bool PauseState::handleEvent(const sf::Event &event){
     }
     mGUIContainer.handleEvent(event);
     return false;
+}
+
+State::ID PauseState::getID() const{
+    return mID;
 }

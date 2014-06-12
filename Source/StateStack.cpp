@@ -66,6 +66,10 @@ void StateStack::popState(){
 void StateStack::clearStates(){
     mPendingList.push_back(PendingChange(Clear));
 }
+
+void StateStack::reloadStates(){
+    mPendingList.push_back(PendingChange(Reload));
+}
     
 bool StateStack::isEmpty() const{
     return mStack.empty();
@@ -84,6 +88,15 @@ void StateStack::applyPendingChanges(){
             break;
         case(Action::Clear):
             mStack.clear();
+            break;
+        case(Action::Reload):
+            std::vector<State::ID> reloadIDs;
+            for (auto &state : mStack){
+                reloadIDs.push_back(state->getID());
+            }
+            for (auto &id : reloadIDs){
+                mStack.push_back(std::move(createState(id)));
+            }
             break;
         }
     }

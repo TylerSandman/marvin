@@ -18,4 +18,8 @@ void State::requestStackClear(){
     mStack->clearStates();
 }
 
+void State::requestStackReload(){
+    mStack->reloadStates();
+}
+
 State::Context State::getContext() const{ return mContext; }

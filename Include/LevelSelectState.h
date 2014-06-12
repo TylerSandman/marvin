@@ -13,6 +13,7 @@ public:
     void draw();
     bool update(sf::Time deltaTime);
     bool handleEvent(const sf::Event &event);
+    ID getID() const;
 
 private:
     void addLevel(LevelData lData, const std::string &map, bool enabled=true);
@@ -24,4 +25,5 @@ private:
     sf::Sprite mBackground;
     sf::Sprite mBackdrop;
     unsigned int numLevels;
+    ID mID;
 };

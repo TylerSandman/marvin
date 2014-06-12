@@ -4,7 +4,8 @@
 PlayState::PlayState(StateStack &stack, Context context, const std::string &map) : 
         State(stack, context),
         mPlayer(*context.player),
-        mMapName(map){
+        mMapName(map),
+        mID(ID::Play){
     
     mWorld.reset(context.levelManager->get(mMapName));
     context.musicPlayer->play(MusicID::LevelTheme);
@@ -39,4 +40,8 @@ bool PlayState::handleEvent(const sf::Event &event){
         requestStackPush(ID::Pause);
     }
     return false;
+}
+
+State::ID PlayState::getID() const{
+    return mID;
 }

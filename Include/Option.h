@@ -12,31 +12,24 @@ class Option : public Component{
 
 public:
     typedef std::shared_ptr<Option> Ptr;
-    typedef std::function<void(int)> Callback;
 
 public:
     Option(std::string name, FontManager &fontManager);
-    virtual void setCallback(Callback callback);
     virtual bool isSelectable();
     virtual void select();
     virtual void deselect();
     virtual bool hasSelection();
-    void selectNext();
-    void selectPrevious();
-    void select(std::size_t index);
-    virtual void activate();
-    virtual void deactivate();
+    virtual void selectNext() = 0;
+    virtual void selectPrevious() = 0;
+    virtual void select(std::size_t index) = 0;
+    virtual void activate() = 0;
+    virtual void deactivate() = 0;
     virtual void handleEvent(const sf::Event &event);
-    void addPair(std::pair<std::string, int> pair);
 
 protected:
-    Callback mCallback;
     int mSelectedChild;
     sf::Text mNameText;
     sf::Text mValueText;
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
-
-private:
-    std::vector<std::pair<std::string, int>> mOptionPairs;
 };
 }

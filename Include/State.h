@@ -55,11 +55,13 @@ public:
     virtual void draw() = 0;
     virtual bool update(sf::Time deltaTime) = 0;
     virtual bool handleEvent(const sf::Event &event) = 0;
+    virtual ID getID() const = 0;
 
 protected:
     void requestStackPush(ID stateID, const std::string &map="grasslands.json");
     void requestStackPop();
     void requestStackClear();
+    void requestStackReload();
     Context getContext() const;
 
 private:

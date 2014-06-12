@@ -33,6 +33,10 @@ void MusicPlayer::setVolume(float volume){
     mMusic.setVolume(mVolume);
 }
 
+float MusicPlayer::getVolume(){
+    return mVolume;
+}
+
 bool MusicPlayer::isPlaying(){
     sf::Music::Status status = mMusic.getStatus();
     if (status == sf::Music::Status::Playing)

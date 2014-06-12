@@ -11,9 +11,11 @@ public:
     void draw();
     bool update(sf::Time deltaTime);
     bool handleEvent(const sf::Event &event);
+    ID getID() const;
 
 private:
     std::unique_ptr<World> mWorld;
     Player &mPlayer;
     std::string mMapName;
+    ID mID;
 };

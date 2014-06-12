@@ -8,7 +8,8 @@ MenuState::MenuState(StateStack &stack, Context context) :
         State(stack, context),
         mGUIContainer(context, context.window->getDefaultView()),
         mGrass(),
-        mBackground(){
+        mBackground(),
+        mID(ID::Menu){
 
     sf::Vector2f windowSize(context.window->getSize());
 
@@ -153,4 +154,8 @@ bool MenuState::update(sf::Time deltaTime){
 bool MenuState::handleEvent(const sf::Event &event){
     mGUIContainer.handleEvent(event);
     return false;
+}
+
+State::ID MenuState::getID() const{
+    return mID;
 }

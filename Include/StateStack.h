@@ -7,7 +7,8 @@ public:
     enum Action{
         Push,
         Pop,
-        Clear
+        Clear,
+        Reload
     };
 
 public:
@@ -19,6 +20,7 @@ public:
     void pushState(State::ID stateID, const std::string &map="grasslands.json");
     void popState();
     void clearStates();
+    void reloadStates();
     bool isEmpty() const;
 
 private:

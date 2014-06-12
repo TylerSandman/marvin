@@ -13,6 +13,7 @@ public:
     void draw();
     bool update(sf::Time deltaTime);
     bool handleEvent(const sf::Event &event);
+    ID getID() const;
 
 private:
     GUI::Container mGUIContainer;
@@ -22,4 +23,5 @@ private:
     sf::Sprite mBackdrop;
     Animation mCharacterAnimation;
     AnimatedSprite mCharacter;
+    ID mID;
 };
