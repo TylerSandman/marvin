@@ -8,7 +8,7 @@ public:
         Push,
         Pop,
         Clear,
-        Reload
+        Resolution
     };
 
 public:
@@ -20,7 +20,7 @@ public:
     void pushState(State::ID stateID, const std::string &map="grasslands.json");
     void popState();
     void clearStates();
-    void reloadStates();
+    void onResolutionChange();
     bool isEmpty() const;
 
 private:

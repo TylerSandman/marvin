@@ -18,8 +18,8 @@ void State::requestStackClear(){
     mStack->clearStates();
 }
 
-void State::requestStackReload(){
-    mStack->reloadStates();
+void State::triggerResolutionChange(){
+    mStack->onResolutionChange();
 }
 
 State::Context State::getContext() const{ return mContext; }

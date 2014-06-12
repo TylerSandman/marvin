@@ -12,8 +12,8 @@ public:
     void draw();
     bool update(sf::Time deltaTime);
     bool handleEvent(const sf::Event &event);
-    ID getID() const;
-
+    void onResolutionChange();
+    
 private:
     bool levelLoaded();
     void setLoadingText(const std::string &text);
@@ -30,6 +30,5 @@ private:
     std::string mMap;
     bool mMapLoaded;
     bool mObjectsLoaded;
-    bool mTexturesLoaded;
-    ID mID;
+    bool mTexturesLoaded;   
 };

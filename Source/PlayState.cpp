@@ -4,8 +4,7 @@
 PlayState::PlayState(StateStack &stack, Context context, const std::string &map) : 
         State(stack, context),
         mPlayer(*context.player),
-        mMapName(map),
-        mID(ID::Play){
+        mMapName(map){
     
     mWorld.reset(context.levelManager->get(mMapName));
     context.musicPlayer->play(MusicID::LevelTheme);
@@ -42,6 +41,6 @@ bool PlayState::handleEvent(const sf::Event &event){
     return false;
 }
 
-State::ID PlayState::getID() const{
-    return mID;
+void PlayState::onResolutionChange(){
+    mWorld->onResolutionChange();
 }

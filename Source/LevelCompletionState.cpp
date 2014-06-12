@@ -11,8 +11,7 @@
 
 LevelCompletionState::LevelCompletionState(StateStack &stack, Context context) : 
         State(stack, context),
-        mGUIContainer(context, context.window->getDefaultView()),
-        mID(ID::LevelCompletion){
+        mGUIContainer(context, context.window->getDefaultView()){
 
     sf::Vector2u windowSize = context.window->getSize();
     LevelCompletionData data = SaveManager::getInstance().getLastCompletedData();
@@ -111,6 +110,4 @@ bool LevelCompletionState::handleEvent(const sf::Event &event){
     return false;
 }
 
-State::ID LevelCompletionState::getID() const{
-    return mID;
-}
+void LevelCompletionState::onResolutionChange(){}

@@ -14,10 +14,9 @@ public:
     bool update(sf::Time deltaTime);
     bool handleEvent(const sf::Event &event);
     void applyOptions();
-    ID getID() const;
+    void onResolutionChange();
 
 private:
     GUI::Container mGUIContainer;
-    GUI::OptionContainer::Ptr mOptionContainer;
-    ID mID;
+    GUI::OptionContainer::Ptr mOptionContainer;   
 };

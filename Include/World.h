@@ -29,6 +29,7 @@ public:
     bool isComplete();
     float getAttemptTime();
     int getNumDeaths();
+    void onResolutionChange();
 
     //Querying functions for loading screen
     bool mapLoaded();

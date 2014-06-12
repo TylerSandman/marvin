@@ -9,7 +9,8 @@ MenuState::MenuState(StateStack &stack, Context context) :
         mGUIContainer(context, context.window->getDefaultView()),
         mGrass(),
         mBackground(),
-        mID(ID::Menu){
+        mBackdrop(),
+        mCharacter(){
 
     sf::Vector2f windowSize(context.window->getSize());
 
@@ -56,8 +57,6 @@ MenuState::MenuState(StateStack &stack, Context context) :
             requestStackPush(ID::LevelSelect);
         });
     playButton->setText("Play", sf::Color::Black);
-    playButton->setPosition(
-        sf::Vector2f(windowSize.x * 0.5f, windowSize.y * 0.5f - 70));
     mGUIContainer.add(playButton);
     
     auto optionsButton = std::make_shared<GUI::Button>(
@@ -68,8 +67,6 @@ MenuState::MenuState(StateStack &stack, Context context) :
             requestStackPush(ID::Option);
         });
     optionsButton->setText("Options", sf::Color::Black);
-    optionsButton->setPosition(
-        sf::Vector2f(windowSize.x * 0.5f, windowSize.y * 0.5f));
     mGUIContainer.add(optionsButton);
 
     auto exitButton = std::make_shared<GUI::Button>(
@@ -80,9 +77,11 @@ MenuState::MenuState(StateStack &stack, Context context) :
             exit(0);
         });
     exitButton->setText("Exit", sf::Color::Black);
-    exitButton->setPosition(
-        sf::Vector2f(windowSize.x * 0.5f, windowSize.y * 0.5f + 70));
     mGUIContainer.add(exitButton);
+
+    mGUIContainer.setPosition(windowSize * 0.5f);
+    playButton->move(0.f, -70.f);
+    exitButton->move(0.f, 70.f);
 
     //Player Animation
     sf::Texture &spriteSheet = context.textureManager->get(TextureID::PlayerSpriteSheet);
@@ -121,6 +120,7 @@ MenuState::MenuState(StateStack &stack, Context context) :
 void MenuState::draw(){
     sf::RenderWindow &window = *getContext().window;
     window.setView(window.getDefaultView());
+    mGUIContainer.setView(getContext().window->getDefaultView());
     window.draw(mBackground);
     window.draw(mBackdrop);
     window.draw(mGrass);
@@ -130,6 +130,7 @@ void MenuState::draw(){
 }
 
 bool MenuState::update(sf::Time deltaTime){
+
     sf::RenderWindow &window = *getContext().window;
     sf::Vector2u windowSize = window.getSize();
 
@@ -156,6 +157,47 @@ bool MenuState::handleEvent(const sf::Event &event){
     return false;
 }
 
-State::ID MenuState::getID() const{
-    return mID;
+void MenuState::onResolutionChange(){
+
+    sf::Vector2f windowSize(getContext().window->getSize());
+    mGUIContainer.setPosition(windowSize * 0.5f);
+
+    sf::Texture &groundTexture = getContext().textureManager->get(TextureID::MenuGround);
+    float numRepeats = std::ceil(windowSize.x / groundTexture.getSize().x);
+    groundTexture.setRepeated(true);
+    mGrass.setTexture(groundTexture);
+    mGrass.setTextureRect(
+        sf::IntRect(
+            0, 0, 
+            static_cast<int>(groundTexture.getSize().x * numRepeats * 2), 
+            groundTexture.getSize().y));
+    float yOffset = mGrass.getGlobalBounds().height;
+    mGrass.setPosition(0, windowSize.y - yOffset);
+
+    sf::Texture &bgTexture = getContext().textureManager->get(TextureID::Background);
+    bgTexture.setRepeated(true);
+    mBackground.setTexture(bgTexture);
+    mBackground.setTextureRect(sf::IntRect(
+        0, 0, 
+        static_cast<int>(windowSize.x),
+        static_cast<int>(windowSize.y)));
+
+    sf::Texture &backdropTexture = getContext().textureManager->get(TextureID::GrasslandsBackground);
+    numRepeats = std::ceil(windowSize.x / backdropTexture.getSize().x);
+    backdropTexture.setRepeated(true);
+    mBackdrop.setTexture(backdropTexture);
+    mBackdrop.setTextureRect(
+        sf::IntRect(
+        0, 0,
+        static_cast<int>(backdropTexture.getSize().x * numRepeats * 2),
+        (backdropTexture.getSize().y)));
+    yOffset = mGrass.getGlobalBounds().height + mBackdrop.getGlobalBounds().height;
+    mBackdrop.setPosition(0, windowSize.y - yOffset);
+
+    mTitleText.setPosition(
+    windowSize.x / 2.f,
+    windowSize.y / 4.f);
+
+    yOffset = mGrass.getGlobalBounds().height + mCharacter.getGlobalBounds().height;
+    mCharacter.setPosition(windowSize.x / 4.f, windowSize.y - yOffset);
 }

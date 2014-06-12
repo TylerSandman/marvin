@@ -339,6 +339,17 @@ void World::renderStaticBodyFixtures(){
     }
 }
 
+void World::onResolutionChange(){
+
+    mWorldView.setSize(sf::Vector2f(
+        mWindow.getSize().x,
+        mWindow.getSize().y));
+    centerPlayerView();
+    mTimeText->setPosition(
+        mWorldView.getCenter().x + mWorldView.getSize().x / 2.f - 125.f,
+        mWorldView.getCenter().y - mWorldView.getSize().y / 2.f + 25.f);
+}
+
 bool World::mapLoaded(){ return mMapLoaded; }
 
 bool World::objectsLoaded(){ return mObjectsLoaded; }

@@ -13,9 +13,8 @@ public:
     void draw();
     bool update(sf::Time deltaTime);
     bool handleEvent(const sf::Event &event);
-    ID getID() const;
+    void onResolutionChange(); 
 
 private:
     GUI::Container mGUIContainer;
-    ID mID;
 };

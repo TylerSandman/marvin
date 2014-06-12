@@ -12,8 +12,7 @@
 LevelSelectState::LevelSelectState(StateStack &stack, Context context) : 
         State(stack, context),
         mGUIContainer(context, context.window->getDefaultView()),
-        numLevels(0),
-        mID(ID::LevelSelect){
+        numLevels(0){
 
     sf::Vector2u windowSize = context.window->getSize();
 
@@ -224,6 +223,4 @@ void LevelSelectState::buildLevelPanel(){
     addLevel(data, "dangahzone3.json", previousData.completed);
 }
 
-State::ID LevelSelectState::getID() const{
-    return mID;
-}
+void LevelSelectState::onResolutionChange(){}

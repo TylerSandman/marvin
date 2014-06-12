@@ -11,8 +11,7 @@
 
 OptionState::OptionState(StateStack &stack, Context context) : 
         State(stack, context),
-        mGUIContainer(context, context.window->getDefaultView()),
-        mID(ID::Option){
+        mGUIContainer(context, context.window->getDefaultView()){
 
     //Background panel where our button list will be displayed
     sf::Vector2f windowSize(context.window->getSize());
@@ -85,7 +84,8 @@ OptionState::OptionState(StateStack &stack, Context context) :
             if (!mode.isValid()) return;
             fullscreen ? getContext().window->create(sf::VideoMode(windowSize.x, windowSize.y), "Marvin", sf::Style::Fullscreen) : 
                          getContext().window->create(sf::VideoMode(windowSize.x, windowSize.y), "Marvin", sf::Style::Close);
-        requestStackReload();
+        requestStackPop();
+        requestStackPush(ID::Option);
     });
     optionsContainer->add(fullscreenOption);
 
@@ -120,8 +120,7 @@ bool OptionState::handleEvent(const sf::Event &event){
 
 void OptionState::applyOptions(){
     mOptionContainer->apply();
+    triggerResolutionChange();
 }
 
-State::ID OptionState::getID() const{
-    return mID;
-}
+void OptionState::onResolutionChange(){}

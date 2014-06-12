@@ -11,8 +11,7 @@ LevelLoadingState::LevelLoadingState(StateStack &stack, Context context, const s
         mMap(map),
         mMapLoaded(false),
         mObjectsLoaded(false),
-        mTexturesLoaded(false),
-        mID(ID::Loading){
+        mTexturesLoaded(false){
 
     context.textureManager->load(TextureID::SpinnerSpriteSheet, "Resources/Textures/Enemy/spinner_spritesheet.png");
     sf::Texture &bgTexture = context.textureManager->get(TextureID::CastleBackground);
@@ -100,6 +99,4 @@ void LevelLoadingState::setLoadingText(const std::string &text){
         mLoadingText.getGlobalBounds().height / 2.f);
 }
 
-State::ID LevelLoadingState::getID() const{
-    return mID;
-}
+void LevelLoadingState::onResolutionChange(){}

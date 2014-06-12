@@ -6,14 +6,12 @@
 
 PauseState::PauseState(StateStack &stack, Context context) : 
         State(stack, context),
-        mGUIContainer(context, context.window->getDefaultView()),
-        mID(ID::Pause){
+        mGUIContainer(context, context.window->getDefaultView()){
 
     //Background panel where our button list will be displayed
     sf::Vector2f windowSize(context.window->getSize());
     auto backgroundPanel = std::make_shared<GUI::Image>(
         getContext().textureManager->get(TextureID::PauseScreenPanel));
-    backgroundPanel->setPosition(windowSize * 0.5f);
     mGUIContainer.add(backgroundPanel);
 
     //Buttons
@@ -26,14 +24,12 @@ PauseState::PauseState(StateStack &stack, Context context) :
             getContext().musicPlayer->setPaused(false);
         });
     resumeButton->setText("Resume", sf::Color::Black);
-    resumeButton->setPosition(
-        sf::Vector2f(windowSize.x * 0.5f, windowSize.y * 0.5f - 35));
     mGUIContainer.add(resumeButton);
     
-    auto exitButton = std::make_shared<GUI::Button>(
+    auto levelsButton = std::make_shared<GUI::Button>(
          *getContext().textureManager,
          *getContext().fontManager);
-    exitButton->setCallback(
+    levelsButton->setCallback(
         [this]() {
             requestStackClear();
             requestStackPush(ID::LevelSelect);
@@ -41,10 +37,22 @@ PauseState::PauseState(StateStack &stack, Context context) :
             //Stop music to main theme will play
             getContext().musicPlayer->stop();
         });
-    exitButton->setText("Levels", sf::Color::Black);
-    exitButton->setPosition(
-        sf::Vector2f(windowSize.x * 0.5f, windowSize.y * 0.5f + 35));
-    mGUIContainer.add(exitButton);
+    levelsButton->setText("Levels", sf::Color::Black);
+    mGUIContainer.add(levelsButton);
+
+    auto optionsButton = std::make_shared<GUI::Button>(
+         *getContext().textureManager,
+         *getContext().fontManager);
+    optionsButton->setCallback(
+        [this]() {
+            requestStackPush(ID::Option);
+        });
+    optionsButton->setText("Options", sf::Color::Black);
+    mGUIContainer.add(optionsButton);
+
+    mGUIContainer.setPosition(windowSize * 0.5f);
+    resumeButton->move(0.f, -70.f);
+    optionsButton->move(0.f, 70.f);
 
     //Music
     context.musicPlayer->setPaused(true);
@@ -53,6 +61,7 @@ PauseState::PauseState(StateStack &stack, Context context) :
 void PauseState::draw(){
     sf::RenderWindow &window = *getContext().window;
     window.setView(window.getDefaultView());
+    mGUIContainer.setView(getContext().window->getDefaultView());
     window.draw(mGUIContainer);
 }
 
@@ -70,6 +79,8 @@ bool PauseState::handleEvent(const sf::Event &event){
     return false;
 }
 
-State::ID PauseState::getID() const{
-    return mID;
+void PauseState::onResolutionChange(){
+
+    sf::Vector2f windowSize(getContext().window->getSize());
+    mGUIContainer.setPosition(windowSize * 0.5f);
 }
