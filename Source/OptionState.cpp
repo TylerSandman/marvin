@@ -87,11 +87,13 @@ OptionState::OptionState(StateStack &stack, Context context) :
         requestStackPop();
         requestStackPush(ID::Option);
     });
+    fullscreenOption->select(1);
     optionsContainer->add(fullscreenOption);
 
-    soundOption->move(0.f, -100.f);
-    fxOption->move(0.f, -50.f);
-    fullscreenOption->move(0.f, 50.f);
+    soundOption->move(0.f, -85.f);
+    fxOption->move(0.f, -35.f);
+    resolutionOption->move(0.f, 15.f);
+    fullscreenOption->move(0.f, 65.f);
     
     mOptionContainer = optionsContainer;
 }

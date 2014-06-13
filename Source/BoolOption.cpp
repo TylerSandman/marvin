@@ -16,7 +16,7 @@ void BoolOption::selectNext(){
         return;
 
     mSelectedChild = (mSelectedChild + 1) % mOptionPairs.size();
-    mValueText.setString(mOptionPairs[mSelectedChild].first);
+    select(mSelectedChild);
 }
 
 void BoolOption::selectPrevious(){
@@ -25,12 +25,15 @@ void BoolOption::selectPrevious(){
         return;
 
     mSelectedChild = (mSelectedChild - 1) % mOptionPairs.size();
-    mValueText.setString(mOptionPairs[mSelectedChild].first);
+    select(mSelectedChild);
 }
 
 void BoolOption::select(std::size_t index){
     mSelectedChild = index; 
     mValueText.setString(mOptionPairs[mSelectedChild].first);
+    mValueText.setOrigin(
+        mValueText.getGlobalBounds().width / 2.f,
+        mNameText.getGlobalBounds().height / 2.f);
 }
 
 void BoolOption::activate(){

@@ -16,7 +16,7 @@ void VectorOption::selectNext(){
         return;
 
     mSelectedChild = (mSelectedChild + 1) % mOptionPairs.size();
-    mValueText.setString(mOptionPairs[mSelectedChild].first);
+    select(mSelectedChild);
 }
 
 void VectorOption::selectPrevious(){
@@ -25,12 +25,15 @@ void VectorOption::selectPrevious(){
         return;
 
     mSelectedChild = (mSelectedChild - 1) % mOptionPairs.size();
-    mValueText.setString(mOptionPairs[mSelectedChild].first);
+    select(mSelectedChild);
 }
 
 void VectorOption::select(std::size_t index){
     mSelectedChild = index; 
     mValueText.setString(mOptionPairs[mSelectedChild].first);
+    mValueText.setOrigin(
+        mValueText.getGlobalBounds().width / 2.f,
+        mNameText.getGlobalBounds().height / 2.f);
 }
 
 void VectorOption::activate(){

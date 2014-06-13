@@ -16,7 +16,7 @@ void IntOption::selectNext(){
         return;
 
     mSelectedChild = (mSelectedChild + 1) % mOptionPairs.size();
-    mValueText.setString(mOptionPairs[mSelectedChild].first);
+    select(mSelectedChild);
 }
 
 void IntOption::selectPrevious(){
@@ -25,12 +25,15 @@ void IntOption::selectPrevious(){
         return;
 
     mSelectedChild = (mSelectedChild + mOptionPairs.size() - 1) % mOptionPairs.size();
-    mValueText.setString(mOptionPairs[mSelectedChild].first);
+    select(mSelectedChild);
 }
 
 void IntOption::select(std::size_t index){
     mSelectedChild = index; 
     mValueText.setString(mOptionPairs[mSelectedChild].first);
+    mValueText.setOrigin(
+        mValueText.getGlobalBounds().width / 2.f,
+        mNameText.getGlobalBounds().height / 2.f);
 }
 
 void IntOption::activate(){
