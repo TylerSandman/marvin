@@ -24,7 +24,7 @@ void VectorOption::selectPrevious(){
     if (!hasSelection())
         return;
 
-    mSelectedChild = (mSelectedChild - 1) % mOptionPairs.size();
+    mSelectedChild = (mSelectedChild  + mOptionPairs.size() - 1) % mOptionPairs.size();
     select(mSelectedChild);
 }
 

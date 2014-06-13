@@ -62,7 +62,23 @@ OptionState::OptionState(StateStack &stack, Context context) :
 
     auto resolutionOption = std::make_shared<GUI::VectorOption>(
         "Resolution", *getContext().fontManager);
+    resolutionOption->addPair(std::make_pair("800 x 600", sf::Vector2f(800, 600)));
     resolutionOption->addPair(std::make_pair("1024 x 768", sf::Vector2f(1024, 768)));
+    resolutionOption->addPair(std::make_pair("1152 x 648", sf::Vector2f(1152, 648)));
+    resolutionOption->addPair(std::make_pair("1152 x 864", sf::Vector2f(1152, 864)));
+    resolutionOption->addPair(std::make_pair("1280 x 720", sf::Vector2f(1280, 720)));
+    resolutionOption->addPair(std::make_pair("1280 x 800", sf::Vector2f(1280, 800)));
+    resolutionOption->addPair(std::make_pair("1280 x 960", sf::Vector2f(1280, 960)));
+    resolutionOption->addPair(std::make_pair("1280 x 1024", sf::Vector2f(1280, 1024)));
+    resolutionOption->addPair(std::make_pair("1360 x 768", sf::Vector2f(1360, 768)));
+    resolutionOption->addPair(std::make_pair("1360 x 1024", sf::Vector2f(1360, 1024)));
+    resolutionOption->addPair(std::make_pair("1366 x 768", sf::Vector2f(1366, 768)));
+    resolutionOption->addPair(std::make_pair("1400 x 1050", sf::Vector2f(1400, 1050)));
+    resolutionOption->addPair(std::make_pair("1440 x 900", sf::Vector2f(1440, 900)));
+    resolutionOption->addPair(std::make_pair("1600 x 900", sf::Vector2f(1600, 900)));
+    resolutionOption->addPair(std::make_pair("1600 x 1200", sf::Vector2f(1600, 1200)));
+    resolutionOption->addPair(std::make_pair("1680 x 1050", sf::Vector2f(1680, 1050)));
+    resolutionOption->addPair(std::make_pair("1776 x 1000", sf::Vector2f(1776, 1000)));
     resolutionOption->addPair(std::make_pair("1920 x 1080", sf::Vector2f(1920, 1080)));
     resolutionOption->setCallback(
         [this](sf::Vector2f resolution){
