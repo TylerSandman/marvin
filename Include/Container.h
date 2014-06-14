@@ -18,6 +18,7 @@ public:
     virtual void handleEvent(const sf::Event &event);
     virtual void add(Component::Ptr component);
     void setView(sf::View view);
+    sf::View getView();
 
 protected:
     virtual bool hasSelection();

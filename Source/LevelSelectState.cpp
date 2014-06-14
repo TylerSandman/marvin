@@ -13,6 +13,7 @@
 LevelSelectState::LevelSelectState(StateStack &stack, Context context) : 
         State(stack, context),
         mGUIContainer(context, context.window->getDefaultView()),
+        mLevelContainer(std::make_shared<GUI::Container>(context, context.window->getDefaultView())),
         numLevels(0){
 
     sf::Vector2u windowSize = context.window->getSize();
@@ -42,6 +43,27 @@ LevelSelectState::LevelSelectState(StateStack &stack, Context context) :
     //Panel to display levels
     buildLevelPanel();
 
+    //Gem tracking
+    sf::Texture &HUDTexture = context.textureManager->get(TextureID::HUDSpriteSheet);
+    GUI::Image::Ptr cross = std::make_shared<GUI::Image>(
+        HUDTexture, sf::IntRect(0, 239, 30, 28));
+    GUI::Number::Ptr numGems = std::make_shared<GUI::Number>(
+        *context.textureManager, getCollectedGems());
+    GUI::Image::Ptr gem = std::make_shared<GUI::Image>(
+        HUDTexture, sf::IntRect(98, 185, 46, 36));
+    sf::Vector2f panelTopRight(
+        windowSize.x * 0.5f + mLevelPanel.getGlobalBounds().width / 2.f,
+        windowSize.y * 0.5f - mLevelPanel.getGlobalBounds().height / 2.f);
+    mGUIContainer.add(cross);
+    mGUIContainer.add(numGems);
+    mGUIContainer.add(gem);
+    cross->setPosition(panelTopRight);
+    numGems->setPosition(panelTopRight);
+    gem->setPosition(panelTopRight);
+    cross->move(-135.f, 20);
+    numGems->move(-90.f, 20);
+    gem->move(-30.f, 20);
+
     //Play main theme if we didn't get here from the menu state
     if (!context.musicPlayer->isPlaying())
         context.musicPlayer->play(MusicID::MainTheme);
@@ -63,7 +85,7 @@ bool LevelSelectState::update(sf::Time deltaTime){
 bool LevelSelectState::handleEvent(const sf::Event &event){
     
     if (event.type == sf::Event::KeyPressed){
-        mGUIContainer.handleEvent(event);
+        mLevelContainer->handleEvent(event);
         if (event.key.code == sf::Keyboard::Escape){
             requestStackPop();
             requestStackPush(ID::Menu);
@@ -130,10 +152,20 @@ void LevelSelectState::addLevel(LevelData lData, const std::string &map, bool en
             32,
             *getContext().fontManager);
     }
+
+    GUI::Number::Ptr numGems = std::make_shared<GUI::Number>(
+        *getContext().textureManager, lData.requiredGems);
+
+    sf::Texture &gemTexture = getContext().textureManager->get(TextureID::HUDSpriteSheet);
+    sf::IntRect rect = sf::IntRect(98, 185, 46, 36);
+    GUI::Image::Ptr gem = std::make_shared<GUI::Image>(
+        gemTexture, rect);
     
     levelButton->add(levelLabel);
     levelButton->add(timeLabel);
-    mGUIContainer.add(levelButton);
+    levelButton->add(numGems);
+    levelButton->add(gem);
+    mLevelContainer->add(levelButton);
     float posX = windowSize.x * 0.5f;
     float firstButtonPadding = windowSize.y / 2.f - mLevelPanel.getGlobalBounds().height / 2.f + 100.f;
     float posY = static_cast<float>(firstButtonPadding + 100 * numLevels);
@@ -144,6 +176,8 @@ void LevelSelectState::addLevel(LevelData lData, const std::string &map, bool en
     levelLabel->move(20, -10);
     timeLabel->move(20, -10);
     timeLabel->move(300, 0);
+    numGems->move(-300, 0);
+    gem->move(-240, 0);
 
     ++numLevels;
 }
@@ -175,9 +209,10 @@ void LevelSelectState::buildLevelPanel(){
         bgPanelTexture.getSize().x / windowSize.x,
         bgPanelTexture.getSize().y / windowSize.y - 0.02f));
 
-    mGUIContainer.setView(levelPanelView);
+    mLevelContainer->setView(levelPanelView);
 
     SaveManager &saveManager = SaveManager::getInstance();
+    int collectedGems = getCollectedGems();
 
     //Level selection buttons
     LevelData data = saveManager.getLevelData("grasslands.json");
@@ -185,43 +220,67 @@ void LevelSelectState::buildLevelPanel(){
 
     LevelData previousData = data;
     data = saveManager.getLevelData("testmap.json");   
-    addLevel(data, "testmap.json", previousData.completed);
+    addLevel(data, "testmap.json", (previousData.completed) && (collectedGems >= data.requiredGems));
 
     previousData = data;
     data = saveManager.getLevelData("waterboy.json");
-    addLevel(data, "waterboy.json", previousData.completed);
+    addLevel(data, "waterboy.json", (previousData.completed) && (collectedGems >= data.requiredGems));
 
     previousData = data;
     data = saveManager.getLevelData("clearwalk.json");
-    addLevel(data, "clearwalk.json", previousData.completed);
+    addLevel(data, "clearwalk.json", (previousData.completed) && (collectedGems >= data.requiredGems));
 
     previousData = data;
     data = saveManager.getLevelData("gofast.json");
-    addLevel(data, "gofast.json", previousData.completed);
+    addLevel(data, "gofast.json", (previousData.completed) && (collectedGems >= data.requiredGems));
 
     previousData = data;
     data = saveManager.getLevelData("slowdown.json");
-    addLevel(data, "slowdown.json", previousData.completed);
+    addLevel(data, "slowdown.json", (previousData.completed) && (collectedGems >= data.requiredGems));
 
     previousData = data;
     data = saveManager.getLevelData("highheights.json");
-    addLevel(data, "highheights.json", previousData.completed);
+    addLevel(data, "highheights.json", (previousData.completed) && (collectedGems >= data.requiredGems));
 
     previousData = data;
     data = saveManager.getLevelData("hotpursuit.json");
-    addLevel(data, "hotpursuit.json", previousData.completed);
+    addLevel(data, "hotpursuit.json", (previousData.completed) && (collectedGems >= data.requiredGems));
 
     previousData = data;
     data = saveManager.getLevelData("dangahzone.json");
-    addLevel(data, "dangahzone.json", previousData.completed);
+    addLevel(data, "dangahzone.json", (previousData.completed) && (collectedGems >= data.requiredGems));
 
     previousData = data;
     data = saveManager.getLevelData("dangahzone2.json");
-    addLevel(data, "dangahzone2.json", previousData.completed);
+    addLevel(data, "dangahzone2.json", (previousData.completed) && (collectedGems >= data.requiredGems));
 
     previousData = data;
     data = saveManager.getLevelData("dangahzone3.json");
-    addLevel(data, "dangahzone3.json", previousData.completed);
+    addLevel(data, "dangahzone3.json", (previousData.completed) && (collectedGems >= data.requiredGems));
+    
+    mGUIContainer.add(mLevelContainer);
 }
 
+int LevelSelectState::getCollectedGems(){
+
+    SaveManager &saveManager = SaveManager::getInstance();
+    int collectedGems = 0;
+    std::vector<std::string> levelPaths;
+    levelPaths.push_back("grasslands.json");
+    levelPaths.push_back("testmap.json");
+    levelPaths.push_back("waterboy.json");
+    levelPaths.push_back("clearwalk.json");
+    levelPaths.push_back("gofast.json");
+    levelPaths.push_back("slowdown.json");
+    levelPaths.push_back("highheights.json");
+    levelPaths.push_back("hotpursuit.json");
+    levelPaths.push_back("dangahzone.json");
+    levelPaths.push_back("dangahzone2.json");
+    levelPaths.push_back("dangahzone3.json");
+    for (auto &path : levelPaths){
+        if (saveManager.getLevelData(path).collectedGem)
+            ++collectedGems;
+    }
+    return collectedGems;
+}
 void LevelSelectState::onResolutionChange(){}

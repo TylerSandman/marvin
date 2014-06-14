@@ -131,4 +131,8 @@ void Container::selectPrevious(){
 void Container::setView(sf::View view){
     mView = view;
 }
+
+sf::View Container::getView(){
+    return mView;
+}
 }

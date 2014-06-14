@@ -9,17 +9,21 @@
 struct LevelData{
     std::string name;
     bool completed;
+    bool collectedGem;
     float bestTime;
+    unsigned int requiredGems;
 
     LevelData(){}
-    LevelData(const std::string &name, bool completed, float bestTime) : 
-        name(name), completed(completed), bestTime(bestTime){}
+    LevelData(const std::string &name, bool completed, bool collectedGem, float bestTime, unsigned int requiredGems) : 
+        name(name), completed(completed), collectedGem(collectedGem), bestTime(bestTime), requiredGems(requiredGems) {}
 
     template<class Archive>
     void serialize(Archive &ar, const unsigned int version){
         ar & name;
         ar & completed;
+        ar & collectedGem;
         ar & bestTime;
+        ar & requiredGems;
     }
 };
 
@@ -57,17 +61,17 @@ public:
     }
 
     void makeNewSave(){
-        mLevelDataMap["grasslands.json"] = LevelData("Grasslands", false, 0.0f);
-        mLevelDataMap["testmap.json"] = LevelData("Test Map", false, 0.0f);
-        mLevelDataMap["waterboy.json"] = LevelData("Waterboy", false, 0.0f);
-        mLevelDataMap["clearwalk.json"] = LevelData("Clear Walk", false, 0.0f);
-        mLevelDataMap["gofast.json"] = LevelData("Go Fast", false, 0.0f);
-        mLevelDataMap["slowdown.json"] = LevelData("Slow Down", false, 0.0f);
-        mLevelDataMap["highheights.json"] = LevelData("High Heights", false, 0.0f);
-        mLevelDataMap["hotpursuit.json"] = LevelData("Hot Pursuit", false, 0.0f);
-        mLevelDataMap["dangahzone.json"] = LevelData("Dangah Zone", false, 0.0f);
-        mLevelDataMap["dangahzone2.json"] = LevelData("Dangah Zone 2", false, 0.0f);
-        mLevelDataMap["dangahzone3.json"] = LevelData("Dangah Zone 3", false, 0.0f);
+        mLevelDataMap["grasslands.json"] = LevelData("Grasslands", false, false, 0.0f, 0);
+        mLevelDataMap["testmap.json"] = LevelData("Test Map", false, false, 0.0f, 0);
+        mLevelDataMap["waterboy.json"] = LevelData("Waterboy", false, false,  0.0f, 0);
+        mLevelDataMap["clearwalk.json"] = LevelData("Clear Walk", false, false,  0.0f, 1);
+        mLevelDataMap["gofast.json"] = LevelData("Go Fast", false, false,  0.0f, 1);
+        mLevelDataMap["slowdown.json"] = LevelData("Slow Down", false, false,  0.0f, 3);
+        mLevelDataMap["highheights.json"] = LevelData("High Heights", false, false,  0.0f, 4);
+        mLevelDataMap["hotpursuit.json"] = LevelData("Hot Pursuit", false, false,  0.0f, 4);
+        mLevelDataMap["dangahzone.json"] = LevelData("Dangah Zone", false, false,  0.0f, 5);
+        mLevelDataMap["dangahzone2.json"] = LevelData("Dangah Zone 2", false, false,  0.0f, 5);
+        mLevelDataMap["dangahzone3.json"] = LevelData("Dangah Zone 3", false, false, 0.0f, 6);
     }
 
     LevelData getLevelData(const std::string &map){

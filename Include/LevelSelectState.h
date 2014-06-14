@@ -18,9 +18,11 @@ public:
 private:
     void addLevel(LevelData lData, const std::string &map, bool enabled=true);
     void buildLevelPanel();
+    int getCollectedGems();
 
 private:
     GUI::Container mGUIContainer;
+    GUI::Container::Ptr mLevelContainer;
     sf::Sprite mLevelPanel;
     sf::Sprite mBackground;
     sf::Sprite mBackdrop;
