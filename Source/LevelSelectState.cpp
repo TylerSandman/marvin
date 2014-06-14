@@ -6,6 +6,7 @@
 #include "Image.h"
 #include "Button.h"
 #include "Label.h"
+#include "Number.h"
 #include "ContainerButton.h"
 #include "SaveManager.h"
 

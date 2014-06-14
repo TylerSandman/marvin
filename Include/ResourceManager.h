@@ -15,6 +15,7 @@ enum TextureID{
     PlayerSpriteSheet,
     EnemiesSpriteSheet,
     SpinnerSpriteSheet,
+    HUDSpriteSheet,
     PlayerStanding,
     ButtonDisabled,
     GreenButton,
