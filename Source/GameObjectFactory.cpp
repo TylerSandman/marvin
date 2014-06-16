@@ -73,11 +73,6 @@ b2Body* GameObjectFactory::createPhysicsBody(tiled::Object &object){
             bounds.width / 70.f / 2,
             0.01f);
     }
-    else if (type == "Gem"){
-        boundingBox.SetAsBox(
-            bounds.width / 70.f / 4,
-            bounds.height / 70.f / 4*objectSize.y);
-    }
     else{
         boundingBox.SetAsBox(
             bounds.width / 70.f / 2,

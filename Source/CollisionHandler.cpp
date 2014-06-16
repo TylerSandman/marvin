@@ -124,6 +124,10 @@ void CollisionHandler::PreSolve(b2Contact *contact, const b2Manifold *oldManifol
         }
     }
 
+    //Ignore all other gem collisions
+    if (firstNode->getCategory() & Category::Type::Gem || secondNode->getCategory() & Category::Type::Gem)
+        contact->SetEnabled(false);
+
 }
 
 void CollisionHandler::EndContact(b2Contact *contact){

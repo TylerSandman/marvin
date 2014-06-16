@@ -53,7 +53,7 @@ void World::initialize(){
     mMapData.tileLayers = mMapLoader.getTileLayers();
     mMapData.objectGroups = mMapLoader.getObjectGroups();
 
-    mWorldLoader.load(mMapLoader.getTileLayers()[0].tiles);
+    mWorldLoader.load(mMapLoader.getTileLayers().back().tiles);
     mObjectsLoaded = mWorldLoader.isWorldLoaded();
     assert(mWorldLoader.isWorldLoaded());
     mBox2DWorld = std::unique_ptr<b2World>(mWorldLoader.getWorld());
@@ -74,7 +74,7 @@ void World::reset(){
     mCompletionTime = 0.0f;
     mPlayerCharacter = nullptr;
     mPlayerBody = nullptr;
-    mWorldLoader.load(mMapData.tileLayers[0].tiles);
+    mWorldLoader.load(mMapData.tileLayers.back().tiles);
     assert(mWorldLoader.isWorldLoaded());
     mBox2DWorld = std::unique_ptr<b2World>(mWorldLoader.getWorld());
     mBox2DWorld->SetContactListener(&mCollisionHandler);

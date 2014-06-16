@@ -81,6 +81,10 @@ public:
         return mLevelDataMap[map];
     }
 
+    std::vector<std::string> getLevelPaths(){
+        return mLevelPaths;
+    }
+
     LevelCompletionData getLastCompletedData(){
         return mLastCompletedData;
     }
@@ -91,9 +95,22 @@ private:
     void serialize(Archive &ar, const unsigned int version){
         ar & mLevelDataMap;
     }
-    SaveManager(){}
+    SaveManager(){
+        mLevelPaths.push_back("grasslands.json");
+        mLevelPaths.push_back("testmap.json");
+        mLevelPaths.push_back("waterboy.json");
+        mLevelPaths.push_back("clearwalk.json");
+        mLevelPaths.push_back("gofast.json");
+        mLevelPaths.push_back("slowdown.json");
+        mLevelPaths.push_back("highheights.json");
+        mLevelPaths.push_back("hotpursuit.json");
+        mLevelPaths.push_back("dangahzone.json");
+        mLevelPaths.push_back("dangahzone2.json");
+        mLevelPaths.push_back("dangahzone2.json");       
+    }
     SaveManager(SaveManager const&){}
     void operator=(SaveManager const&){}
     std::map<std::string, LevelData> mLevelDataMap;
+    std::vector<std::string> mLevelPaths;
     LevelCompletionData mLastCompletedData;
 };

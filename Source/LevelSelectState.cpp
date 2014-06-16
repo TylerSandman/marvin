@@ -215,48 +215,15 @@ void LevelSelectState::buildLevelPanel(){
     int collectedGems = getCollectedGems();
 
     //Level selection buttons
-    LevelData data = saveManager.getLevelData("grasslands.json");
-    addLevel(data, "grasslands.json", true);
-
-    LevelData previousData = data;
-    data = saveManager.getLevelData("testmap.json");   
-    addLevel(data, "testmap.json", (previousData.completed) && (collectedGems >= data.requiredGems));
-
-    previousData = data;
-    data = saveManager.getLevelData("waterboy.json");
-    addLevel(data, "waterboy.json", (previousData.completed) && (collectedGems >= data.requiredGems));
-
-    previousData = data;
-    data = saveManager.getLevelData("clearwalk.json");
-    addLevel(data, "clearwalk.json", (previousData.completed) && (collectedGems >= data.requiredGems));
-
-    previousData = data;
-    data = saveManager.getLevelData("gofast.json");
-    addLevel(data, "gofast.json", (previousData.completed) && (collectedGems >= data.requiredGems));
-
-    previousData = data;
-    data = saveManager.getLevelData("slowdown.json");
-    addLevel(data, "slowdown.json", (previousData.completed) && (collectedGems >= data.requiredGems));
-
-    previousData = data;
-    data = saveManager.getLevelData("highheights.json");
-    addLevel(data, "highheights.json", (previousData.completed) && (collectedGems >= data.requiredGems));
-
-    previousData = data;
-    data = saveManager.getLevelData("hotpursuit.json");
-    addLevel(data, "hotpursuit.json", (previousData.completed) && (collectedGems >= data.requiredGems));
-
-    previousData = data;
-    data = saveManager.getLevelData("dangahzone.json");
-    addLevel(data, "dangahzone.json", (previousData.completed) && (collectedGems >= data.requiredGems));
-
-    previousData = data;
-    data = saveManager.getLevelData("dangahzone2.json");
-    addLevel(data, "dangahzone2.json", (previousData.completed) && (collectedGems >= data.requiredGems));
-
-    previousData = data;
-    data = saveManager.getLevelData("dangahzone3.json");
-    addLevel(data, "dangahzone3.json", (previousData.completed) && (collectedGems >= data.requiredGems));
+    std::vector<std::string> lPaths = saveManager.getLevelPaths();
+    LevelData data = saveManager.getLevelData(lPaths[0]);
+    addLevel(data, lPaths[0], true);
+    LevelData previousData;
+    for (auto it = lPaths.begin() + 1; it != lPaths.end(); ++it){
+        previousData = data;
+        data = saveManager.getLevelData(*it);
+        addLevel(data, (*it), (previousData.completed) && (collectedGems >= data.requiredGems));
+    }
     
     mGUIContainer.add(mLevelContainer);
 }
@@ -265,22 +232,11 @@ int LevelSelectState::getCollectedGems(){
 
     SaveManager &saveManager = SaveManager::getInstance();
     int collectedGems = 0;
-    std::vector<std::string> levelPaths;
-    levelPaths.push_back("grasslands.json");
-    levelPaths.push_back("testmap.json");
-    levelPaths.push_back("waterboy.json");
-    levelPaths.push_back("clearwalk.json");
-    levelPaths.push_back("gofast.json");
-    levelPaths.push_back("slowdown.json");
-    levelPaths.push_back("highheights.json");
-    levelPaths.push_back("hotpursuit.json");
-    levelPaths.push_back("dangahzone.json");
-    levelPaths.push_back("dangahzone2.json");
-    levelPaths.push_back("dangahzone3.json");
-    for (auto &path : levelPaths){
+    for (auto &path : saveManager.getLevelPaths()){
         if (saveManager.getLevelData(path).collectedGem)
             ++collectedGems;
     }
     return collectedGems;
 }
+
 void LevelSelectState::onResolutionChange(){}

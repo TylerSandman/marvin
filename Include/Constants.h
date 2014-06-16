@@ -1,4 +1,5 @@
 #pragma once
+#include "SaveManager.h"
 namespace phys{
 
     const float MIN_JUMP_HEIGHT = 1.f;
