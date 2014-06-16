@@ -40,6 +40,20 @@ PauseState::PauseState(StateStack &stack, Context context) :
     levelsButton->setText("Levels", sf::Color::Black);
     mGUIContainer.add(levelsButton);
 
+    auto menuButton = std::make_shared<GUI::Button>(
+         *getContext().textureManager,
+         *getContext().fontManager);
+    menuButton->setCallback(
+        [this]() {
+            requestStackClear();
+            requestStackPush(ID::Menu);
+
+            //Stop music to main theme will play
+            getContext().musicPlayer->stop();
+        });
+    menuButton->setText("Main", sf::Color::Black);
+    mGUIContainer.add(menuButton);
+
     auto optionsButton = std::make_shared<GUI::Button>(
          *getContext().textureManager,
          *getContext().fontManager);
@@ -51,8 +65,10 @@ PauseState::PauseState(StateStack &stack, Context context) :
     mGUIContainer.add(optionsButton);
 
     mGUIContainer.setPosition(windowSize * 0.5f);
-    resumeButton->move(0.f, -70.f);
-    optionsButton->move(0.f, 70.f);
+    resumeButton->move(0.f, -88.f);
+    levelsButton->move(0.f, -28.f);
+    menuButton->move(0.f, 32.f);
+    optionsButton->move(0.f, 92.f);
 
     //Music
     context.musicPlayer->setPaused(true);
