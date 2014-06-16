@@ -47,13 +47,16 @@ public:
         return saveManager;
     }
 
-    void markLevelCompleted(const std::string &map, float time, int deaths){
+    void markLevelCompleted(const std::string &map, float time, int deaths, bool gemCollected){
         mLevelDataMap[map].completed = true;
         if ((time < mLevelDataMap[map].bestTime) || (mLevelDataMap[map].bestTime == 0.0f))
             mLevelDataMap[map].bestTime = time;
+        if (gemCollected)
+            mLevelDataMap[map].collectedGem = true;
         mLastCompletedData.deaths = deaths;
         mLastCompletedData.map = map;
         mLastCompletedData.time = time;
+
     }
 
     bool isLevelCompleted(const std::string &map){

@@ -18,6 +18,7 @@
 #include "EntityFactory.h"
 #include "CollisionHandler.h"
 #include "World.h"
+#include "SaveManager.h"
 
 
 World::World(sf::RenderWindow &window, SoundPlayer &soundPlayer, const std::string &map) :
@@ -32,6 +33,7 @@ World::World(sf::RenderWindow &window, SoundPlayer &soundPlayer, const std::stri
         mSceneGraph(SceneNode()),
         mPlayerCharacter(nullptr),
         numDeaths(0),
+        mGemCollected(false),
         mResetRequested(false),
         mCompletionRequested(false),
         mCompleted(false),
@@ -115,6 +117,7 @@ void World::update(sf::Time deltaTime){
             mCommandQueue.pop();  
         }
 
+        mSceneGraph.removeChildren();
         mSceneGraph.update(deltaTime);
         centerPlayerView();
 
@@ -168,6 +171,14 @@ int World::getNumDeaths(){
     return numDeaths;
 }
 
+bool World::isGemCollected(){
+    return mGemCollected;
+}
+
+void World::collectGem(){
+    mGemCollected = true;
+}
+
 void World::centerPlayerView(){
 
     //Make sure our view is inside map bounds
@@ -195,7 +206,6 @@ void World::centerPlayerView(){
 }
 
 void World::draw(){
-
     mWindow.setView(mWorldView);
     mWindow.draw(mSceneGraph);  
 }
@@ -241,6 +251,8 @@ void World::buildScene(){
     for(auto &objectGroup : mMapData.objectGroups){
         if (objectGroup.name == "Objects"){
             for (auto &object : objectGroup.objects){
+              if (object.type == "Gem" && SaveManager::getInstance().getLevelData(mMap).collectedGem)
+                  continue;
                 mSceneLayers[Object]->attachChild(
                     GameObject::Ptr(mGameObjectFactory.createGameObject(object)));
             }

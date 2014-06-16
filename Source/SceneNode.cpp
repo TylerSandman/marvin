@@ -8,7 +8,8 @@
 
 SceneNode::SceneNode(): 
     mChildren(),
-    mParent(nullptr){}
+    mParent(nullptr),
+    mFlaggedForRemoval(false){}
 
 unsigned int SceneNode::getCategory(){
     return Category::None;
@@ -48,9 +49,9 @@ void SceneNode::update(sf::Time deltaTime){
 void SceneNode::updateCurrent(sf::Time deltaTime){}
 
 void SceneNode::updateChildren(sf::Time deltaTime){
-    for (auto &child : mChildren){
+    for (auto &child : mChildren)
         child.get()->update(deltaTime);
-    }
+    
 }
 
 void SceneNode::draw(sf::RenderTarget &target, sf::RenderStates states) const{
@@ -65,5 +66,29 @@ void SceneNode::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) c
 void SceneNode::drawChildren(sf::RenderTarget &target, sf::RenderStates states) const{
 
     for (auto &child : mChildren)
-        child.get()->draw(target, states);
+        child->draw(target, states);   
+}
+
+void SceneNode::flagForRemoval(){
+    mFlaggedForRemoval = true;
+}
+
+bool SceneNode::isFlaggedForRemoval() const{
+    return mFlaggedForRemoval;
+}
+
+void SceneNode::remove(){}
+
+void SceneNode::removeChildren(){
+
+    for (auto &child : mChildren){
+        if (child->isFlaggedForRemoval())
+            child->remove();
+    }
+    auto wreckfieldBegin = std::remove_if(mChildren.begin(),
+    mChildren.end(), std::mem_fn(&SceneNode::isFlaggedForRemoval));
+    mChildren.erase(wreckfieldBegin, mChildren.end());  
+    for (auto &child : mChildren){
+        child->removeChildren();
+    }
 }

@@ -9,6 +9,7 @@ class CollisionHandler : public b2ContactListener{
 public:
     CollisionHandler(World &world);
     void BeginContact(b2Contact *contact);
+    void PreSolve(b2Contact *contact, const b2Manifold *oldManifold);
     void EndContact(b2Contact *contact);
 
 private:

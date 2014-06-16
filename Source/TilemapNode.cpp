@@ -56,12 +56,4 @@ void TilemapNode::drawCurrent(sf::RenderTarget &target, sf::RenderStates states)
             }
         }
     }
-
-    //Culling logic only needed when we have a large amount of tiled objects
-    for(auto &group : mMapData.objectGroups){
-        for(auto &object : group.objects){
-            if (object.sprite.getTexture()) 
-                target.draw(object.sprite);
-        }
-    }
 }

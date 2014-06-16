@@ -21,7 +21,7 @@ bool PlayState::update(sf::Time deltaTime){
     else{
         //TODO stats display etc
         requestStackPush(ID::LevelCompletion);
-        SaveManager::getInstance().markLevelCompleted(mMapName, mWorld->getAttemptTime(), mWorld->getNumDeaths());
+        SaveManager::getInstance().markLevelCompleted(mMapName, mWorld->getAttemptTime(), mWorld->getNumDeaths(), mWorld->isGemCollected());
     }
     CommandQueue &commands = mWorld->getCommandQueue();
     mPlayer.handleRealtimeInput(commands);  

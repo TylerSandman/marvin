@@ -29,6 +29,10 @@ GameObject* GameObjectFactory::createGameObject(tiled::Object &object){
         newObject = new GameObject(
             Category::Type::Exit, object.sprite, objectBody);
     }
+    else if (type.compare("Gem") == 0){
+        newObject = new GameObject(
+            Category::Type::Gem, object.sprite, objectBody);
+    }
     objectBody->SetUserData(newObject);
     return newObject;
 }
@@ -68,6 +72,11 @@ b2Body* GameObjectFactory::createPhysicsBody(tiled::Object &object){
         boundingBox.SetAsBox(
             bounds.width / 70.f / 2,
             0.01f);
+    }
+    else if (type == "Gem"){
+        boundingBox.SetAsBox(
+            bounds.width / 70.f / 4,
+            bounds.height / 70.f / 4*objectSize.y);
     }
     else{
         boundingBox.SetAsBox(

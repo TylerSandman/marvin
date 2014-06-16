@@ -29,6 +29,8 @@ public:
     bool isComplete();
     float getAttemptTime();
     int getNumDeaths();
+    bool isGemCollected();
+    void collectGem();
     void onResolutionChange();
 
     //Querying functions for loading screen
@@ -76,6 +78,7 @@ private:
     float mCompletionTime;
     TextNode *mTimeText;
     int numDeaths;
+    bool mGemCollected;
     bool mResetRequested;
     bool mCompletionRequested;
     bool mCompleted;

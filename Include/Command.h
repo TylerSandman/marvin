@@ -13,7 +13,7 @@ namespace Category{
         Enemy = 1 << 2, //Enemy
         GrassBlock = 1 << 3, //GrassBlock entity
         GrassPlatform = 1 << 4, //GrassPlatform entity
-        Pickup = 1 << 5, //Coins, powerups, etc
+        Gem = 1 << 5, //Level gem
         Exit = 1 << 6, //End of level
         Damager = 1 << 7, //Spikes, lava, etc
         SoundEffect = 1 << 8 //Effects

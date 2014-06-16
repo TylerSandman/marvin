@@ -17,6 +17,10 @@ public:
     void attachChild(Ptr child);
     Ptr detachChild(const SceneNode &node);
     void update(sf::Time deltaTime);
+    virtual void flagForRemoval();
+    virtual bool isFlaggedForRemoval() const;
+    virtual void remove();
+    virtual void removeChildren();
 
 private:
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
@@ -28,4 +32,5 @@ private:
 private:
     std::vector<Ptr> mChildren;
     SceneNode *mParent;
+    bool mFlaggedForRemoval;
 };
