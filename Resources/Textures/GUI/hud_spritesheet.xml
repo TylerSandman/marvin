@@ -12,6 +12,7 @@
 	<SubTexture name="hud_coins.png" x="55" y="0" width="47" height="47"/>
 	<SubTexture name="hud_gem_blue.png" x="104" y="0" width="46" height="36"/>
 	<SubTexture name="hud_gem_green.png" x="98" y="185" width="46" height="36"/>
+	<SubTexture name="hud_gem_green_disabled.png" x="98" y="97" width="46" height="36"/>
 	<SubTexture name="hud_gem_red.png" x="98" y="147" width="46" height="36"/>
 	<SubTexture name="hud_gem_yellow.png" x="98" y="223" width="46" height="36"/>
 	<SubTexture name="hud_heartEmpty.png" x="0" y="47" width="53" height="45"/>
