@@ -107,11 +107,13 @@ void Player::handleRealtimeInput(CommandQueue &commandQueue){
     Command animateCommand;
     animateCommand.category = Category::Player;
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
+    if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D) ||
+        (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)))){
         moveCommand.action = PlayerMoveAccelerator(phys::MAX_RUN_SPEED);
         animateCommand.action = PlayerAnimator(MovementDirection::Right);
     }
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
+    else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::A) ||
+             (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)))){
         moveCommand.action = PlayerMoveAccelerator(-1 * (phys::MAX_RUN_SPEED));
         animateCommand.action = PlayerAnimator(MovementDirection::Left);
     }
@@ -119,7 +121,8 @@ void Player::handleRealtimeInput(CommandQueue &commandQueue){
         moveCommand.action = PlayerMoveAccelerator(0);
         animateCommand.action = PlayerAnimator(MovementDirection::None);
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
+    if ((sf::Keyboard::isKeyPressed(sf::Keyboard::W) ||
+        (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)))){
         jumpCommand.action = PlayerJumpAccelerator(true);
     }
     else{
