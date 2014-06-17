@@ -176,6 +176,13 @@ bool World::isGemCollected(){
 }
 
 void World::collectGem(){
+    Command gemSoundCommand;
+    gemSoundCommand.category = Category::SoundEffect;
+    gemSoundCommand.action = [](SceneNode &node, sf::Time deltaTime){
+        SoundNode &sound = static_cast<SoundNode&>(node);
+        sound.play(SoundEffectID::GemPickup);
+    };
+    mCommandQueue.push(gemSoundCommand);
     mGemCollected = true;
 }
 
