@@ -83,7 +83,7 @@ std::function<void(SceneNode&, sf::Time)> PlayerAnimator(MovementDirection input
 void Player::handleEvent(const sf::Event &event, CommandQueue &commandQueue){
 
     if (event.type == sf::Event::KeyPressed){
-        if (event.key.code == sf::Keyboard::W){
+        if (event.key.code == sf::Keyboard::Space){
             Command jumpCommand;
             jumpCommand.category = Category::Player;
             jumpCommand.action = PlayerJumpInitiator();

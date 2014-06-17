@@ -145,7 +145,8 @@ bool OptionState::handleEvent(const sf::Event &event){
     if (event.type == sf::Event::KeyPressed){
         if (event.key.code == sf::Keyboard::Escape)
             requestStackPop();
-        else if (event.key.code == sf::Keyboard::Return)
+        else if ((event.key.code == sf::Keyboard::Return) ||
+                 (event.key.code == sf::Keyboard::Space))
             applyOptions();
     }
     mGUIContainer.handleEvent(event);

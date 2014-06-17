@@ -88,7 +88,8 @@ bool PauseState::update(sf::Time deltaTime){
 bool PauseState::handleEvent(const sf::Event &event){
     
     if (event.type == sf::Event::KeyPressed){
-        if (event.key.code == sf::Keyboard::P)
+        if ((event.key.code == sf::Keyboard::P) ||
+            (event.key.code == sf::Keyboard::Escape))
             requestStackPop();
     }
     mGUIContainer.handleEvent(event);

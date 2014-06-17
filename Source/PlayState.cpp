@@ -35,7 +35,7 @@ bool PlayState::handleEvent(const sf::Event &event){
     mPlayer.handleEvent(event, commands);
 
     if ((event.type == sf::Event::KeyPressed) && 
-        (event.key.code == sf::Keyboard::P)){
+        ((event.key.code == sf::Keyboard::P) || (event.key.code == sf::Keyboard::Escape))){
         requestStackPush(ID::Pause);
     }
     return false;
