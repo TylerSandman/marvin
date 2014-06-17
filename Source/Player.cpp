@@ -121,8 +121,7 @@ void Player::handleRealtimeInput(CommandQueue &commandQueue){
         moveCommand.action = PlayerMoveAccelerator(0);
         animateCommand.action = PlayerAnimator(MovementDirection::None);
     }
-    if ((sf::Keyboard::isKeyPressed(sf::Keyboard::W) ||
-        (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)))){
+    if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Space))){
         jumpCommand.action = PlayerJumpAccelerator(true);
     }
     else{
