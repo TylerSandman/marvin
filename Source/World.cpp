@@ -208,6 +208,7 @@ void World::centerPlayerView(){
 void World::draw(){
     mWindow.setView(mWorldView);
     mWindow.draw(mSceneGraph);  
+    renderStaticBodyFixtures();
 }
 
 void World::loadResources(){
@@ -329,7 +330,7 @@ void World::renderStaticBodyFixtures(){
 
     for (b2Body *b = mBox2DWorld->GetBodyList(); b; b = b->GetNext()){
 
-        if (b->GetType() == b2_staticBody){
+        if (static_cast<SceneNode*>(b->GetUserData())->getCategory() & Category::Type::Walkable){
             for (b2Fixture *fixture = b->GetFixtureList(); fixture; fixture = fixture->GetNext()){
 
                 //We know it's a chain shape
