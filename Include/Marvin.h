@@ -42,6 +42,7 @@ public:
     void fade();
 
 private:
+    void debugDraw(sf::RenderTarget &target, sf::RenderStates states) const;
     FacingDirection mCurrentFacingDirection;
     std::map<AnimationID, Animation> mAnimationMap;
     GrassPlatform *mAttachedPlatform;

@@ -317,10 +317,10 @@ void World::spawnPlayer(sf::Vector2f position){
     //Special foot sensor to manage jumping/movement
     b2PolygonShape footShape; 
     b2Vec2 footVertices[4];
-    footVertices[0] = b2Vec2(-bounds.width / 70.f / 2 + 0.2f, -bounds.height / 70.f / 2 - 0.04f);
-    footVertices[1] = b2Vec2(-bounds.width / 70.f / 2 + 0.2f, -bounds.height / 70.f / 2 + 0.05f);
-    footVertices[2] = b2Vec2(bounds.width / 70.f / 2 - 0.2f, -bounds.height / 70.f / 2 + 0.05f);
-    footVertices[3] = b2Vec2(bounds.width / 70.f / 2 - 0.2f, -bounds.height / 70.f / 2 - 0.04f);
+    footVertices[0] = b2Vec2(-bounds.width / 70.f / 2 + 0.15f, -bounds.height / 70.f / 2 - 0.04f);
+    footVertices[1] = b2Vec2(-bounds.width / 70.f / 2 + 0.15f, -bounds.height / 70.f / 2 + 0.05f);
+    footVertices[2] = b2Vec2(bounds.width / 70.f / 2 - 0.15f, -bounds.height / 70.f / 2 + 0.05f);
+    footVertices[3] = b2Vec2(bounds.width / 70.f / 2 - 0.15f, -bounds.height / 70.f / 2 - 0.04f);
     footShape.Set(footVertices,4);
     b2FixtureDef footFixture;
     footFixture.isSensor = true;

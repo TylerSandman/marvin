@@ -53,8 +53,10 @@ unsigned int Marvin::getCategory(){
 }
 
 void Marvin::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const{
-    if (!isFaded())
+    if (!isFaded()){
         target.draw(mSprite, states);
+        debugDraw(target, states);
+    }
 }
 
 void Marvin::updateCurrent(sf::Time deltaTime){
@@ -136,4 +138,27 @@ void Marvin::fade(){
     mFading = true;
     mSprite.play(mAnimationMap[AnimationID::Fade]);
     mSprite.setLooped(false);
+}
+
+void Marvin::debugDraw(sf::RenderTarget &target, sf::RenderStates states) const{
+
+    b2Vec2 position = mB2Body->GetPosition();
+    b2PolygonShape *footShape = static_cast<b2PolygonShape*>(mB2Body->GetFixtureList()->GetShape());
+    b2Vec2 v1 = footShape->GetVertex(0);
+    b2Vec2 v2 = footShape->GetVertex(1);
+    b2Vec2 v3 = footShape->GetVertex(2);
+    b2Vec2 v4 = footShape->GetVertex(3);
+
+    sf::Vector2f previousRenderPos = mSprite.getPosition();
+    float mapHeight = previousRenderPos.y + mPreviousPosition.y * 70.f;
+    sf::Vertex renderV1(sf::Vector2f(position.x * 70.f + v1.x * 70.f, mapHeight - (position.y * 70.f + v1.y * 70.f)), sf::Color::Blue); 
+    sf::Vertex renderV2(sf::Vector2f(position.x * 70.f + v2.x * 70.f, mapHeight - (position.y * 70.f + v2.y * 70.f)), sf::Color::Blue); 
+    sf::Vertex renderV3(sf::Vector2f(position.x * 70.f + v3.x * 70.f, mapHeight - (position.y * 70.f + v3.y * 70.f)), sf::Color::Blue); 
+    sf::Vertex renderV4(sf::Vector2f(position.x * 70.f + v4.x * 70.f, mapHeight - (position.y * 70.f + v4.y * 70.f)), sf::Color::Blue); 
+    sf::VertexArray lines(sf::PrimitiveType::Lines);
+    lines.append(renderV1);
+    lines.append(renderV2);
+    lines.append(renderV3);
+    lines.append(renderV4);
+    target.draw(lines, states);
 }
