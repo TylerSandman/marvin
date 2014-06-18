@@ -55,7 +55,7 @@ unsigned int Marvin::getCategory(){
 void Marvin::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const{
     if (!isFaded()){
         target.draw(mSprite, states);
-        debugDraw(target, states);
+        //debugDraw(target, states);
     }
 }
 
