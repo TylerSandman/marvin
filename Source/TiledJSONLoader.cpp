@@ -166,7 +166,7 @@ tiled::Tile TiledJSONLoader::loadTile(json_spirit::mValue &tileVal, tiled::Tiles
         (std::floor(static_cast<float>
             (tileset.imageWidth-tileset.margin) / (mTileWidth + tileset.spacing)));
     int tilesetRow = static_cast<int>
-        (std::ceil(static_cast<float>(GID-tileset.firstGID) / tilesPerRow));
+        (std::ceil(static_cast<float>(GID-tileset.firstGID+1) / tilesPerRow));
     int tilesetCol = tilesPerRow * (1 - tilesetRow) + (GID-tileset.firstGID+1);
     sf::Vector2i spriteSheetPos(
         ((tilesetCol-1) * (mTileWidth + tileset.spacing) + tileset.margin - 1),

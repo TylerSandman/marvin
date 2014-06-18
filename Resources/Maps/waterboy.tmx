@@ -13,12 +13,12 @@
  </layer>
  <layer name="Platforms" width="30" height="40">
   <data encoding="base64" compression="zlib">
-   eJzt1LENwCAMBVEvlAEYgAHYIishMSzQ09gytqLcl6716zxEZCQVPVxc3H+7Lcm1DDfWraty6LnsRg/3/lqSKw6u5Ud6uNbh4uJ+232Vnaa9sevKPG4QkU8TC6bR/g==
+   eJzt1LENwCAMBVHX7MIADJBdshISwwI9jS1jK8p96Vq/zkNERlLRw8XF/bdbklzLcGPdZ9UO1ctu9HDvryS54uBafqSHax0uLu633VfZadobu67M4wYR+TQBMuPRKQ==
   </data>
  </layer>
  <objectgroup name="Spawns" width="30" height="40">
   <object name="Player" type="Player" x="770" y="2100" width="70" height="70"/>
-  <object name="GrassBlock" type="GrassBlock" x="980" y="2170" width="70" height="70">
+  <object name="GrassBlock" type="GrassBlock" x="980" y="1890" width="70" height="70">
    <properties>
     <property name="jumpHeight" value="10"/>
    </properties>
