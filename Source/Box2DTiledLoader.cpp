@@ -213,6 +213,8 @@ void Box2DTiledLoader::createStaticBody(std::vector<b2Vec2>& chainVertices){
     vertices[0] = chainVertices[0];
 
     for (int i = 0; i < numVertices/7; ++i){
+        if (i*8 >= numVertices)
+            continue;
         for (int j = 1; j < 8; ++ j){
             vertices[j] = chainVertices[i*8 + (j-i)];
         }

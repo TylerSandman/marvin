@@ -98,7 +98,7 @@ bool LevelCompletionState::update(sf::Time deltaTime){
 bool LevelCompletionState::handleEvent(const sf::Event &event){
     
     if (event.type == sf::Event::KeyPressed){
-        if (event.key.code == sf::Keyboard::Escape || event.key.code == sf::Keyboard::Return){
+        if (event.key.code == sf::Keyboard::Escape || event.key.code == sf::Keyboard::Return || event.key.code == sf::Keyboard::Space){
             requestStackClear();
             requestStackPush(ID::LevelSelect);
 

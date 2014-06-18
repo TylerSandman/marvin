@@ -215,6 +215,7 @@ void World::centerPlayerView(){
 void World::draw(){
     mWindow.setView(mWorldView);
     mWindow.draw(mSceneGraph);  
+    renderStaticBodyFixtures();
 }
 
 void World::loadResources(){
