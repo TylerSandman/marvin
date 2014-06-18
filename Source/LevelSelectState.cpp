@@ -183,14 +183,12 @@ void LevelSelectState::addLevel(LevelData lData, const std::string &map, bool en
     float posY = static_cast<float>(firstButtonPadding + 100 * numLevels);
     levelButton->setPosition(posX, posY);
 
-    //Kind of a hacky way to center the text, but this
-    //is to compensate for the padding the selection arrow gives
-    levelLabel->move(20, -10);
-    timeLabel->move(20, -10);
-    timeLabel->move(300, 0);
-    numGems->move(-240, 0);
-    key->move(-300, 0);
-    gem->move(200, 0);
+    levelLabel->move(0, -10);
+    timeLabel->move(0, -10);
+    timeLabel->move(280, 0);
+    numGems->move(-280, 0);
+    key->move(-330, 0);
+    gem->move(180, 0);
 
     ++numLevels;
 }

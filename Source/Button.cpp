@@ -82,6 +82,7 @@ void Button::activate(){
 
     if (!mIsToggle)
         deactivate();
+    
 }
 
 void Button::deactivate(){

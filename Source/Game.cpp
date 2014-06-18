@@ -44,6 +44,7 @@ Game::Game() :
     mTextureManager.load(TextureID::LevelSelectionPanel, "Resources/Textures/GUI/grey_panel_large.png");
     mTextureManager.load(TextureID::GreenContainerButton, "Resources/Textures/GUI/green_panel_button.png");
     mTextureManager.load(TextureID::GreenContainerButtonPressed, "Resources/Textures/GUI/green_panel_button_pressed.png");
+    mTextureManager.load(TextureID::GreenContainerButtonPointer, "Resources/Textures/GUI/green_panel_button_pointer.png");
     mTextureManager.load(TextureID::ContainerButtonDisabled, "Resources/Textures/GUI/panel_button_disabled.png");
     mTextureManager.load(TextureID::PlayerSpriteSheet, "Resources/Textures/Player/player_spritesheet.png");
     mTextureManager.load(TextureID::EnemiesSpriteSheet, "Resources/Textures/Enemy/enemies_spritesheet.png");
