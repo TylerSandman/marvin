@@ -131,6 +131,7 @@ void LevelSelectState::addLevel(LevelData lData, const std::string &map, bool en
             *getContext().fontManager);
         levelButton->disable();
     }  
+    levelLabel->setOrigin(0.f, levelLabel->getOrigin().y);
 
     GUI::Label::Ptr timeLabel;
 
@@ -182,11 +183,11 @@ void LevelSelectState::addLevel(LevelData lData, const std::string &map, bool en
     float firstButtonPadding = windowSize.y / 2.f - mLevelPanel.getGlobalBounds().height / 2.f + 100.f;
     float posY = static_cast<float>(firstButtonPadding + 100 * numLevels);
     levelButton->setPosition(posX, posY);
-
-    levelLabel->move(0, -10);
+    
+    levelLabel->move(-220.f, -10);
     timeLabel->move(0, -10);
     timeLabel->move(280, 0);
-    numGems->move(-280, 0);
+    numGems->move(-270, 0);
     key->move(-330, 0);
     gem->move(180, 0);
 

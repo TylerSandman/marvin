@@ -74,7 +74,7 @@ public:
         mLevelDataMap["hotpursuit.json"] = LevelData("Hot Pursuit", false, false,  0.0f, 4);
         mLevelDataMap["dangahzone.json"] = LevelData("Dangah Zone", false, false,  0.0f, 5);
         mLevelDataMap["dangahzone2.json"] = LevelData("Dangah Zone 2", false, false,  0.0f, 5);
-        mLevelDataMap["dangahzone3.json"] = LevelData("Dangah Zone 3", false, false, 0.0f, 6);
+        mLevelDataMap["dangahzone3.json"] = LevelData("Dangah Zone 3", false, false, 0.0f, 17);
     }
 
     LevelData getLevelData(const std::string &map){
@@ -106,7 +106,7 @@ private:
         mLevelPaths.push_back("hotpursuit.json");
         mLevelPaths.push_back("dangahzone.json");
         mLevelPaths.push_back("dangahzone2.json");
-        mLevelPaths.push_back("dangahzone2.json");       
+        mLevelPaths.push_back("dangahzone3.json");       
     }
     SaveManager(SaveManager const&){}
     void operator=(SaveManager const&){}

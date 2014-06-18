@@ -27,4 +27,12 @@ void Label::draw(sf::RenderTarget& target, sf::RenderStates states) const{
 void Label::setText(const std::string& text){
     mText.setString(text);
 }
+
+void Label::setOrigin(float x, float y){
+    mText.setOrigin(x, y);
+}
+
+sf::Vector2f Label::getOrigin(){
+    return mText.getOrigin();
+}
 }

@@ -14,6 +14,8 @@ public:
     Label(const std::string &text, sf::Color color, unsigned int size, FontManager &fontManager);
     virtual bool isSelectable();
     void setText(const std::string &text);
+    void setOrigin(float x, float y);
+    sf::Vector2f getOrigin();
     virtual void handleEvent(const sf::Event &event);
 
 private:
