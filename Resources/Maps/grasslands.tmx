@@ -1836,6 +1836,16 @@
     <property name="jumpHeight" value="2"/>
    </properties>
   </object>
+  <object name="Barnacle1" type="Barnacle" x="140" y="840" width="70" height="70">
+   <properties>
+    <property name="flipped" value="true"/>
+   </properties>
+  </object>
+  <object name="Barnacle1" type="Barnacle" x="70" y="840" width="70" height="70">
+   <properties>
+    <property name="flipped" value="false"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="Objects" width="30" height="20">
   <object name="Exit" type="Exit" gid="65" x="1820" y="1120"/>

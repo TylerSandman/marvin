@@ -4,7 +4,7 @@
 #include "ResourceManager.h"
 #include "Command.h"
 
-Barnacle::Barnacle(TextureManager &textureManager, b2Body *enemyBody) : 
+Barnacle::Barnacle(TextureManager &textureManager, b2Body *enemyBody, bool flipped) : 
     Entity(enemyBody){
 
     sf::Texture &spriteSheet = textureManager.get(TextureID::EnemiesSpriteSheet);
@@ -19,6 +19,10 @@ Barnacle::Barnacle(TextureManager &textureManager, b2Body *enemyBody) :
     mSprite.setAnimation(mAnimation);
     sf::FloatRect bounds = mSprite.getLocalBounds();
     mSprite.setOrigin(bounds.width/2, bounds.height/2);
+
+    if (flipped){
+        mSprite.setScale(1.f, -1.f);
+    }
 }
 
 unsigned int Barnacle::getCategory(){

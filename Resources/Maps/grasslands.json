@@ -153,6 +153,32 @@
                  "width":70,
                  "x":910,
                  "y":1050
+                }, 
+                {
+                 "height":70,
+                 "name":"Barnacle1",
+                 "properties":
+                    {
+                     "flipped":"true"
+                    },
+                 "type":"Barnacle",
+                 "visible":true,
+                 "width":70,
+                 "x":140,
+                 "y":840
+                }, 
+                {
+                 "height":70,
+                 "name":"Barnacle1",
+                 "properties":
+                    {
+                     "flipped":"false"
+                    },
+                 "type":"Barnacle",
+                 "visible":true,
+                 "width":70,
+                 "x":70,
+                 "y":840
                 }],
          "opacity":1,
          "type":"objectgroup",

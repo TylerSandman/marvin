@@ -47,8 +47,18 @@ Entity* EntityFactory::createEntity(tiled::Object &object){
             mTextureManager, objectBody);
     }
     if (type.compare("Barnacle") == 0){
+        
+        bool flipped = false;
+        if (object.properties.find("flipped") != object.properties.end()){
+            std::string flippedJSON = object.properties["flipped"].get_str();
+            json_spirit::mValue flippedValue;
+            json_spirit::read_string(flippedJSON, flippedValue);
+            flipped = flippedValue.get_bool();
+            if (flipped)
+                renderPos = renderPos - sf::Vector2f(0.f, (mMapData.tileHeight - bounds.height + 1.f));
+        }        
         newEntity = new Barnacle(
-            mTextureManager, objectBody);
+            mTextureManager, objectBody, flipped);
     }
     if (type.compare("Slime") == 0){
         newEntity = new Slime(
@@ -89,30 +99,51 @@ b2Body* EntityFactory::createPhysicsBody(tiled::Object &object){
 
     sf::Texture &spriteSheet = mTextureManager.get(TextureID::EnemiesSpriteSheet);
     sf::Sprite enemySprite(spriteSheet);
+    sf::FloatRect bounds;
+    sf::Vector2f renderPos;
     if (type == "SnakeSlime"){
         enemySprite.setTextureRect(sf::IntRect(424, 187, 53, 147));
+        bounds = enemySprite.getGlobalBounds();
+        renderPos = object.position + sf::Vector2f(mMapData.tileWidth / 2.f, (mMapData.tileHeight - bounds.height / 2.f));
     }
     if (type == "Barnacle"){
+        bool flipped = false;
+        if (object.properties.find("flipped") != object.properties.end()){
+            std::string flippedJSON = object.properties["flipped"].get_str();
+            json_spirit::mValue flippedValue;
+            json_spirit::read_string(flippedJSON, flippedValue);
+            flipped = flippedValue.get_bool();
+        }
         enemySprite.setTextureRect(sf::IntRect(318, 239, 51, 57));
+        bounds = enemySprite.getGlobalBounds();
+        renderPos = object.position + sf::Vector2f(mMapData.tileWidth / 2.f, (mMapData.tileHeight - bounds.height / 2.f));
+        if (flipped){
+            enemySprite.move(0.f, - (mMapData.tileHeight - enemySprite.getGlobalBounds().height));
+            renderPos = object.position + sf::Vector2f(mMapData.tileWidth / 2.f , 0.f);
+        }       
     }
     if (type == "Slime"){
         enemySprite.setTextureRect(sf::IntRect(140, 65, 49, 34));
+        bounds = enemySprite.getGlobalBounds();
+        renderPos = object.position + sf::Vector2f(mMapData.tileWidth / 2.f, (mMapData.tileHeight - bounds.height / 2.f));
     }
     if (type == "GrassBlock"){
         enemySprite.setTextureRect(sf::IntRect(0, 141, 71, 70));
+        bounds = enemySprite.getGlobalBounds();
+        renderPos = object.position + sf::Vector2f(mMapData.tileWidth / 2.f, (mMapData.tileHeight - bounds.height / 2.f));
     }
     if (type == "GrassPlatform"){
+        bounds = enemySprite.getGlobalBounds();
+        renderPos = object.position + sf::Vector2f(mMapData.tileWidth / 2.f, (mMapData.tileHeight - bounds.height / 2.f));
         enemySprite.setTextureRect(sf::IntRect(579, 272, 209, 39));
     }
-    sf::FloatRect bounds = enemySprite.getGlobalBounds();
-    sf::Vector2f renderPos = object.position + sf::Vector2f(mMapData.tileWidth / 2.f, (mMapData.tileHeight - bounds.height / 2.f));
     sf::Vector2f centerEntityPos = sf::Vector2f(
         renderPos.x,
         mMapData.mapHeight*70.f - renderPos.y);
 
     b2BodyDef entityDef;
     entityDef.fixedRotation = true;
-    if (type == "GrassPlatform")
+    if (type == "GrassPlatform" || type == "Barnacle")
         entityDef.type = b2_kinematicBody;
     else
         entityDef.type = b2_dynamicBody;

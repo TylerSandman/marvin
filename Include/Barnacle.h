@@ -9,7 +9,7 @@
 class Barnacle : public Entity{
     
 public:
-    Barnacle(TextureManager &textureManager, b2Body *enemyBody);
+    Barnacle(TextureManager &textureManager, b2Body *enemyBody, bool flipped=false);
     unsigned int getCategory();
     virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
     virtual void updateCurrent(sf::Time deltaTime);
