@@ -81,12 +81,6 @@ void GrassPlatform::updateCurrent(sf::Time deltaTime){
             directionVector.y * mMoveVelocity);
         setVelocity(movementVector);
     }
-
-
-
-    
-    
-
 }
 
 void GrassPlatform::activate(){

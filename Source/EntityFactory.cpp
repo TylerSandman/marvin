@@ -132,10 +132,10 @@ b2Body* EntityFactory::createPhysicsBody(tiled::Object &object){
         bounds = enemySprite.getGlobalBounds();
         renderPos = object.position + sf::Vector2f(mMapData.tileWidth / 2.f, (mMapData.tileHeight - bounds.height / 2.f));
     }
-    if (type == "GrassPlatform"){
-        bounds = enemySprite.getGlobalBounds();
-        renderPos = object.position + sf::Vector2f(mMapData.tileWidth / 2.f, (mMapData.tileHeight - bounds.height / 2.f));
+    if (type == "GrassPlatform"){       
         enemySprite.setTextureRect(sf::IntRect(579, 272, 209, 39));
+        bounds = enemySprite.getGlobalBounds();
+        renderPos = object.position + sf::Vector2f(mMapData.tileWidth / 2.f, (mMapData.tileHeight - bounds.height / 2.f));      
     }
     sf::Vector2f centerEntityPos = sf::Vector2f(
         renderPos.x,
@@ -143,10 +143,10 @@ b2Body* EntityFactory::createPhysicsBody(tiled::Object &object){
 
     b2BodyDef entityDef;
     entityDef.fixedRotation = true;
-    if (type == "GrassPlatform" || type == "Barnacle")
-        entityDef.type = b2_kinematicBody;
-    else
+    if (type == "GrassBlock" || type == "Slime")
         entityDef.type = b2_dynamicBody;
+    else
+        entityDef.type = b2_kinematicBody;
     entityDef.position.Set(centerEntityPos.x / 70.f, centerEntityPos.y / 70.f);
     b2Body *entityBody = mWorld->CreateBody(&entityDef);
 
@@ -159,7 +159,7 @@ b2Body* EntityFactory::createPhysicsBody(tiled::Object &object){
     playerFixture.shape = &boundingBox;
     entityBody->CreateFixture(&playerFixture);
 
-        //Bottom sensor for GrassBlock
+    //Bottom sensor for GrassBlock
     if (type == "GrassBlock"){
         b2PolygonShape blockSensor; 
         b2Vec2 footVertices[4];
@@ -178,6 +178,5 @@ b2Body* EntityFactory::createPhysicsBody(tiled::Object &object){
         grassMassData.mass = static_cast<float>(UINT_MAX);
         entityBody->SetMassData(&grassMassData);
     }
-
     return entityBody;
 }
