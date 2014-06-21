@@ -64,12 +64,12 @@ public:
     }
 
     void makeNewSave(){
-        mLevelDataMap["grasslands.json"] = LevelData("Grasslands", false, false, 0.0f, 0);
-        mLevelDataMap["testmap.json"] = LevelData("Test Map", false, false, 0.0f, 0);
-        mLevelDataMap["waterboy.json"] = LevelData("Waterboy", false, false,  0.0f, 0);
-        mLevelDataMap["clearwalk.json"] = LevelData("Clear Walk", false, false,  0.0f, 1);
-        mLevelDataMap["gofast.json"] = LevelData("Go Fast", false, false,  0.0f, 1);
-        mLevelDataMap["slowdown.json"] = LevelData("Slow Down", false, false,  0.0f, 3);
+        mLevelDataMap["grasslands.json"] = LevelData("Grasslands", true, true, 0.0f, 0);
+        mLevelDataMap["theclimb.json"] = LevelData("The Climb", true, true, 0.0f, 0);
+        mLevelDataMap["boing.json"] = LevelData("Boing", true, true,  0.0f, 2);
+        mLevelDataMap["spelunking.json"] = LevelData("Spelunking", true, true,  0.0f, 2);
+        mLevelDataMap["ohbarnacles.json"] = LevelData("Oh Barnacles", true, true,  0.0f, 3);
+        mLevelDataMap["vertigo.json"] = LevelData("Vertigo", false, false,  0.0f, 3);
         mLevelDataMap["highheights.json"] = LevelData("High Heights", false, false,  0.0f, 4);
         mLevelDataMap["hotpursuit.json"] = LevelData("Hot Pursuit", false, false,  0.0f, 4);
         mLevelDataMap["dangahzone.json"] = LevelData("Dangah Zone", false, false,  0.0f, 5);
@@ -97,11 +97,11 @@ private:
     }
     SaveManager(){
         mLevelPaths.push_back("grasslands.json");
-        mLevelPaths.push_back("testmap.json");
-        mLevelPaths.push_back("waterboy.json");
-        mLevelPaths.push_back("clearwalk.json");
-        mLevelPaths.push_back("gofast.json");
-        mLevelPaths.push_back("slowdown.json");
+        mLevelPaths.push_back("theclimb.json");
+        mLevelPaths.push_back("boing.json");
+        mLevelPaths.push_back("spelunking.json");
+        mLevelPaths.push_back("ohbarnacles.json");
+        mLevelPaths.push_back("vertigo.json");
         mLevelPaths.push_back("highheights.json");
         mLevelPaths.push_back("hotpursuit.json");
         mLevelPaths.push_back("dangahzone.json");

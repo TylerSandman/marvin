@@ -212,24 +212,26 @@ void Box2DTiledLoader::createStaticBody(std::vector<b2Vec2>& chainVertices){
     b2Vec2 vertices[8];
     vertices[0] = chainVertices[0];
 
-    for (int i = 0; i < numVertices/7; ++i){
-        if (i*8 >= numVertices)
-            continue;
-        for (int j = 1; j < 8; ++ j){
-            vertices[j] = chainVertices[i*8 + (j-i)];
-        }
-        b2ChainShape chain;
-        chain.CreateChain(vertices,8);
-        b2Fixture *contourFixture = platform->CreateFixture(&chain,0);
-        contourFixture ->SetFriction(1.f);
+    if (numVertices >=8){
+        for (int i = 0; i < numVertices/7; ++i){
+            if (i*8 >= numVertices)
+                continue;
+            for (int j = 1; j < 8; ++ j){
+                vertices[j] = chainVertices[i*8 + (j-i)];
+            }
+            b2ChainShape chain;
+            chain.CreateChain(vertices,8);
+            b2Fixture *contourFixture = platform->CreateFixture(&chain,0);
+            contourFixture ->SetFriction(1.f);
 
-        //Make sure all edges are connected
-        vertices[0] = vertices[7];
+            //Make sure all edges are connected
+            vertices[0] = vertices[7];
+        }
     }
 
     //Have to construct our last chain separately since 
     //it may be shorter than our predetermined length
-    int lastChainLength = numVertices % 7;
+    int lastChainLength = (numVertices < 8) ? numVertices : numVertices % 7;
 
     if (numVertices < 8){
         for (int i = 0; i < numVertices; ++i)
