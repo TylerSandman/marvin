@@ -13,6 +13,7 @@
 #include "Slime.h"
 #include "GrassBlock.h"
 #include "GrassPlatform.h"
+#include "Bee.h"
 
 EntityFactory::EntityFactory(TextureManager &textureManager, MapData data, b2World *world) : 
         mTextureManager(textureManager), mMapData(data), mWorld(world){}
@@ -39,6 +40,9 @@ Entity* EntityFactory::createEntity(tiled::Object &object){
     }
     if (type == "GrassPlatform"){
         enemySprite.setTextureRect(sf::IntRect(579, 272, 209, 39));
+    }
+    if (type == "Bee"){
+        enemySprite.setTextureRect(sf::IntRect(315, 353, 56, 48));
     }
     sf::FloatRect bounds = enemySprite.getGlobalBounds();
     sf::Vector2f renderPos = object.position + sf::Vector2f(mMapData.tileWidth / 2.f, (mMapData.tileHeight - bounds.height / 2.f + 1.f));
@@ -84,6 +88,26 @@ Entity* EntityFactory::createEntity(tiled::Object &object){
             waypoints.push_back(waypoint);
         }
         newEntity = new GrassPlatform(
+            mTextureManager, objectBody, stof(object.properties["velocity"].get_str()), waypoints);
+    }
+    if (type.compare("Bee") == 0){
+
+        //Parse waypoints
+        std::vector<sf::Vector2f> waypoints;
+        if (object.properties.find("waypoints") != object.properties.end()){
+            std::string waypointsJSON = object.properties["waypoints"].get_str();
+            json_spirit::mValue waypointsValue;
+            json_spirit::read_string(waypointsJSON, waypointsValue);
+            json_spirit::mArray waypointsArray = waypointsValue.get_array();
+            for (auto &waypoint : waypointsArray){
+                json_spirit::mObject waypointObj = waypoint.get_obj();
+                sf::Vector2f waypoint(
+                    waypointObj["x"].get_real() * 70.f,
+                    waypointObj["y"].get_real() * 70.f);
+                waypoints.push_back(waypoint);
+            }
+        }
+        newEntity = new Bee(
             mTextureManager, objectBody, stof(object.properties["velocity"].get_str()), waypoints);
     }
 
@@ -136,6 +160,11 @@ b2Body* EntityFactory::createPhysicsBody(tiled::Object &object){
         enemySprite.setTextureRect(sf::IntRect(579, 272, 209, 39));
         bounds = enemySprite.getGlobalBounds();
         renderPos = object.position + sf::Vector2f(mMapData.tileWidth / 2.f, (mMapData.tileHeight - bounds.height / 2.f));      
+    }
+    if (type == "Bee"){
+        enemySprite.setTextureRect(sf::IntRect(315, 353, 56, 48));
+        bounds = enemySprite.getGlobalBounds();
+        renderPos = object.position + sf::Vector2f(mMapData.tileWidth / 2.f, (mMapData.tileHeight - bounds.height / 2.f));
     }
     sf::Vector2f centerEntityPos = sf::Vector2f(
         renderPos.x,

@@ -60,6 +60,7 @@
     <ClInclude Include="Include\IntOption.h" />
     <ClInclude Include="Include\VectorOption.h" />
     <ClInclude Include="Include\Number.h" />
+    <ClInclude Include="Include\Bee.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Box2DTiledLoader.cpp" />
@@ -112,6 +113,7 @@
     <ClCompile Include="Source\IntOption.cpp" />
     <ClCompile Include="Source\VectorOption.cpp" />
     <ClCompile Include="Source\Number.cpp" />
+    <ClCompile Include="Source\Bee.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\GUI\Sample Level Selection.png" />

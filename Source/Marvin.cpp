@@ -43,8 +43,8 @@ Marvin::Marvin(TextureManager &textureManager, b2Body *playerBody) :
     mSprite.setAnimation(walkingAnimation);
     sf::FloatRect bounds = mSprite.getLocalBounds();
     mSprite.setOrigin(bounds.width/2, bounds.height/2);
-    mCurrentFacingDirection = Marvin::FacingDirection::Left;
-    turn(Marvin::FacingDirection::Right);    
+    mCurrentFacingDirection = Entity::FacingDirection::Left;
+    turn(Entity::FacingDirection::Right);    
     numFootContacts = 0;
 }
 
@@ -110,16 +110,16 @@ int Marvin::getNumFootContacts(){
     return numFootContacts;
 }
 
-void Marvin::turn(Marvin::FacingDirection direction){
-    if ((mCurrentFacingDirection == Marvin::FacingDirection::Left) && 
-        (direction == Marvin::FacingDirection::Right)){
+void Marvin::turn(Entity::FacingDirection direction){
+    if ((mCurrentFacingDirection == Entity::FacingDirection::Left) && 
+        (direction == Entity::FacingDirection::Right)){
         mSprite.setScale(-1.f, 1.f);
-        mCurrentFacingDirection = Marvin::FacingDirection::Right;
+        mCurrentFacingDirection = Entity::FacingDirection::Right;
     }
-    else if ((mCurrentFacingDirection == Marvin::FacingDirection::Right) && 
-             (direction == Marvin::FacingDirection::Left)){
+    else if ((mCurrentFacingDirection == Entity::FacingDirection::Right) && 
+             (direction == Entity::FacingDirection::Left)){
         mSprite.setScale(1.f, 1.f);
-        mCurrentFacingDirection = Marvin::FacingDirection::Left;
+        mCurrentFacingDirection = Entity::FacingDirection::Left;
     }
     mSprite.play();
 }

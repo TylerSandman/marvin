@@ -7,6 +7,12 @@
 class Entity : public SceneNode{
 
 public:
+    
+    enum FacingDirection{
+        Left,
+        Right
+    };
+
     Entity(b2Body *entityBody);
     typedef std::unique_ptr<Entity> Ptr;
     sf::Vector2f getRenderPosition();

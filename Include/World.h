@@ -45,6 +45,7 @@ private:
     void renderStaticBodyFixtures(); //For debugging
     void reset();
     void centerPlayerView();
+    void updateSeekers();
 
 private:
     enum Layer{

@@ -10,11 +10,6 @@
 class Marvin : public Entity{
 
 public:
-    enum FacingDirection{
-        Left,
-        Right
-    };
-
     enum AnimationID{
         None,
         Walk,
@@ -43,7 +38,7 @@ public:
 
 private:
     void debugDraw(sf::RenderTarget &target, sf::RenderStates states) const;
-    FacingDirection mCurrentFacingDirection;
+    Entity::FacingDirection mCurrentFacingDirection;
     std::map<AnimationID, Animation> mAnimationMap;
     GrassPlatform *mAttachedPlatform;
     b2Vec2 mControlledVelocity;

@@ -69,10 +69,10 @@ std::function<void(SceneNode&, sf::Time)> PlayerAnimator(MovementDirection input
     return [=] (SceneNode& node, sf::Time deltaTime){
         Marvin &player = static_cast<Marvin&>(node);
         if (inputDirection == MovementDirection::Left){
-            player.turn(Marvin::FacingDirection::Left);
+            player.turn(Entity::FacingDirection::Left);
         }
         if (inputDirection == MovementDirection::Right){
-            player.turn(Marvin::FacingDirection::Right);
+            player.turn(Entity::FacingDirection::Right);
         }
         if (inputDirection == MovementDirection::None){
             player.stopAnimation();

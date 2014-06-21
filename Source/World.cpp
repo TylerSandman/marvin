@@ -19,6 +19,7 @@
 #include "CollisionHandler.h"
 #include "World.h"
 #include "SaveManager.h"
+#include "Bee.h"
 
 
 World::World(sf::RenderWindow &window, SoundPlayer &soundPlayer, const std::string &map) :
@@ -112,6 +113,7 @@ void World::update(sf::Time deltaTime){
         //It's important we advance our physics engine before updating
         mBox2DWorld->Step(deltaTime.asSeconds(), 6, 2);
 
+        updateSeekers();
         while (!mCommandQueue.empty()){
             mSceneGraph.onCommand(mCommandQueue.front(), deltaTime);
             mCommandQueue.pop();  
@@ -143,6 +145,17 @@ void World::update(sf::Time deltaTime){
     }
 
     mSoundPlayer.removeStoppedSounds();
+}
+
+void World::updateSeekers(){
+    Command seekCommand;
+    seekCommand.category = Category::Bee;
+    sf::Vector2f playerPos = mPlayerCharacter->getRenderPosition();
+    seekCommand.action = [playerPos](SceneNode &node, sf::Time deltaTime){
+        Bee &bee = static_cast<Bee&>(node);
+        bee.seek(playerPos);
+    };
+    mCommandQueue.push(seekCommand);
 }
 
 void World::requestCompletion(){

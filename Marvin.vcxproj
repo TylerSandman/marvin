@@ -14,6 +14,7 @@
     <ClInclude Include="Include\AnimatedSprite.h" />
     <ClInclude Include="Include\Animation.h" />
     <ClInclude Include="Include\Barnacle.h" />
+    <ClInclude Include="Include\Bee.h" />
     <ClInclude Include="Include\BoolOption.h" />
     <ClInclude Include="Include\Box2DTiledLoader.h" />
     <ClInclude Include="Include\Button.h" />
@@ -75,6 +76,7 @@
     <ClCompile Include="Source\AnimatedSprite.cpp" />
     <ClCompile Include="Source\Animation.cpp" />
     <ClCompile Include="Source\Barnacle.cpp" />
+    <ClCompile Include="Source\Bee.cpp" />
     <ClCompile Include="Source\BoolOption.cpp" />
     <ClCompile Include="Source\Box2DTiledLoader.cpp" />
     <ClCompile Include="Source\Button.cpp" />
