@@ -70,7 +70,7 @@ public:
         mLevelDataMap["spelunking.json"] = LevelData("Spelunking", true, true,  0.0f, 2);
         mLevelDataMap["ohbarnacles.json"] = LevelData("Oh Barnacles", true, true,  0.0f, 3);
         mLevelDataMap["vertigo.json"] = LevelData("Vertigo", true, true,  0.0f, 3);
-        mLevelDataMap["freefalling.json"] = LevelData("Freefalling", false, false,  0.0f, 4);
+        mLevelDataMap["landdownunder.json"] = LevelData("Land Down Under", false, false,  0.0f, 4);
         mLevelDataMap["hotpursuit.json"] = LevelData("Hot Pursuit", false, false,  0.0f, 4);
         mLevelDataMap["dangahzone.json"] = LevelData("Dangah Zone", false, false,  0.0f, 5);
         mLevelDataMap["dangahzone2.json"] = LevelData("Dangah Zone 2", false, false,  0.0f, 5);
@@ -102,7 +102,7 @@ private:
         mLevelPaths.push_back("spelunking.json");
         mLevelPaths.push_back("ohbarnacles.json");
         mLevelPaths.push_back("vertigo.json");
-        mLevelPaths.push_back("freefalling.json");
+        mLevelPaths.push_back("landdownunder.json");
         mLevelPaths.push_back("hotpursuit.json");
         mLevelPaths.push_back("dangahzone.json");
         mLevelPaths.push_back("dangahzone2.json");

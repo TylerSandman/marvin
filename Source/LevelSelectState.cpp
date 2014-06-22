@@ -111,7 +111,7 @@ void LevelSelectState::addLevel(LevelData lData, const std::string &map, bool en
         levelLabel = std::make_shared<GUI::Label>(
             lData.name,
             sf::Color::Black,
-            32,
+            28,
             *getContext().fontManager);
 
         GUI::Label::Ptr timeLabel;

@@ -10,6 +10,7 @@ unsigned int GameObject::getCategory(){
 }
 
 void GameObject::drawCurrent(sf::RenderTarget & target, sf::RenderStates states) const{
+    auto boundingBox = static_cast<b2PolygonShape*>(mBody->GetFixtureList()->GetShape());
     target.draw(mSprite, states);
 }
 
