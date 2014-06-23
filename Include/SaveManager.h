@@ -64,17 +64,16 @@ public:
     }
 
     void makeNewSave(){
-        mLevelDataMap["grasslands.json"] = LevelData("Grasslands", true, true, 0.0f, 0);
-        mLevelDataMap["theclimb.json"] = LevelData("The Climb", true, true, 0.0f, 0);
-        mLevelDataMap["boing.json"] = LevelData("Boing", true, true,  0.0f, 2);
-        mLevelDataMap["spelunking.json"] = LevelData("Spelunking", true, true,  0.0f, 2);
+        mLevelDataMap["easypeasy.json"] = LevelData("Easy Peasy", true, true,  0.0f, 0);
+        mLevelDataMap["grasslands.json"] = LevelData("Grasslands", true, true, 0.0f, 1);
+        mLevelDataMap["theclimb.json"] = LevelData("The Climb", true, true, 0.0f, 1);
+        mLevelDataMap["boing.json"] = LevelData("Boing", true, true,  0.0f, 3);
+        mLevelDataMap["spelunking.json"] = LevelData("Spelunking", true, true,  0.0f, 3);
         mLevelDataMap["ohbarnacles.json"] = LevelData("Oh Barnacles", true, true,  0.0f, 3);
-        mLevelDataMap["vertigo.json"] = LevelData("Vertigo", true, true,  0.0f, 3);
-        mLevelDataMap["landdownunder.json"] = LevelData("Land Down Under", false, false,  0.0f, 4);
-        mLevelDataMap["hotpursuit.json"] = LevelData("Hot Pursuit", false, false,  0.0f, 4);
-        mLevelDataMap["dangahzone.json"] = LevelData("Dangah Zone", false, false,  0.0f, 5);
-        mLevelDataMap["dangahzone2.json"] = LevelData("Dangah Zone 2", false, false,  0.0f, 5);
-        mLevelDataMap["dangahzone3.json"] = LevelData("Dangah Zone 3", false, false, 0.0f, 17);
+        mLevelDataMap["vertigo.json"] = LevelData("Vertigo", true, true,  0.0f, 5);
+        mLevelDataMap["landdownunder.json"] = LevelData("Land Down Under", true, true,  0.0f, 7);       
+        mLevelDataMap["hivemind.json"] = LevelData("Hivemind", false, false,  0.0f, 7);
+        mLevelDataMap["hotpursuit.json"] = LevelData("Hot Pursuit", false, false,  0.0f, 8);
     }
 
     LevelData getLevelData(const std::string &map){
@@ -96,6 +95,7 @@ private:
         ar & mLevelDataMap;
     }
     SaveManager(){
+        mLevelPaths.push_back("easypeasy.json");
         mLevelPaths.push_back("grasslands.json");
         mLevelPaths.push_back("theclimb.json");
         mLevelPaths.push_back("boing.json");
@@ -103,10 +103,8 @@ private:
         mLevelPaths.push_back("ohbarnacles.json");
         mLevelPaths.push_back("vertigo.json");
         mLevelPaths.push_back("landdownunder.json");
-        mLevelPaths.push_back("hotpursuit.json");
-        mLevelPaths.push_back("dangahzone.json");
-        mLevelPaths.push_back("dangahzone2.json");
-        mLevelPaths.push_back("dangahzone3.json");       
+        mLevelPaths.push_back("hivemind.json");
+        mLevelPaths.push_back("hotpursuit.json");      
     }
     SaveManager(SaveManager const&){}
     void operator=(SaveManager const&){}

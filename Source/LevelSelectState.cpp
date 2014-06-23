@@ -159,12 +159,6 @@ void LevelSelectState::addLevel(LevelData lData, const std::string &map, bool en
 
     sf::Texture &HUDTexture = getContext().textureManager->get(TextureID::HUDSpriteSheet);
     sf::IntRect rect;
-    if (enabled)
-        rect = sf::IntRect(192, 122, 44, 40);
-    else
-        rect = sf::IntRect(104, 38, 44, 40);
-    GUI::Image::Ptr key = std::make_shared<GUI::Image>(
-        HUDTexture, rect);
 
     if (lData.collectedGem)
         rect = sf::IntRect(98, 185, 46, 36);
@@ -176,7 +170,6 @@ void LevelSelectState::addLevel(LevelData lData, const std::string &map, bool en
     levelButton->add(levelLabel);
     levelButton->add(timeLabel);
     levelButton->add(numGems);
-    levelButton->add(key);
     levelButton->add(gem);
     mLevelContainer->add(levelButton);
     float posX = windowSize.x * 0.5f;
@@ -184,11 +177,10 @@ void LevelSelectState::addLevel(LevelData lData, const std::string &map, bool en
     float posY = static_cast<float>(firstButtonPadding + 100 * numLevels);
     levelButton->setPosition(posX, posY);
     
-    levelLabel->move(-220.f, -10);
+    levelLabel->move(-270.f, -10);
     timeLabel->move(0, -10);
     timeLabel->move(280, 0);
-    numGems->move(-270, 0);
-    key->move(-330, 0);
+    numGems->move(-330, 0);
     gem->move(180, 0);
 
     ++numLevels;
