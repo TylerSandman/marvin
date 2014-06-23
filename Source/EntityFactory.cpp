@@ -41,6 +41,9 @@ Entity* EntityFactory::createEntity(tiled::Object &object){
     if (type == "GrassPlatform"){
         enemySprite.setTextureRect(sf::IntRect(579, 272, 209, 39));
     }
+    if (type == "GrassPlatformLarge"){
+        enemySprite.setTextureRect(sf::IntRect(210, 0, 585, 39));
+    }
     if (type == "Bee"){
         enemySprite.setTextureRect(sf::IntRect(315, 353, 56, 48));
     }
@@ -72,7 +75,7 @@ Entity* EntityFactory::createEntity(tiled::Object &object){
         newEntity = new GrassBlock(
             mTextureManager, objectBody, stof(object.properties["jumpHeight"].get_str()));
     }
-    if (type.compare("GrassPlatform") == 0){
+    if (type.compare("GrassPlatform") == 0 || type.compare("GrassPlatformLarge") == 0){
 
         //Parse waypoints
         std::vector<sf::Vector2f> waypoints;
@@ -87,8 +90,13 @@ Entity* EntityFactory::createEntity(tiled::Object &object){
                 waypointObj["y"].get_real() * 70.f);
             waypoints.push_back(waypoint);
         }
-        newEntity = new GrassPlatform(
-            mTextureManager, objectBody, stof(object.properties["velocity"].get_str()), waypoints);
+        if (type.compare("GrassPlatform") == 0)
+            newEntity = new GrassPlatform(
+                mTextureManager, objectBody, stof(object.properties["velocity"].get_str()), waypoints);
+        else
+            newEntity = new GrassPlatform(
+                mTextureManager, objectBody, stof(object.properties["velocity"].get_str()), waypoints, true);
+
     }
     if (type.compare("Bee") == 0){
 
@@ -160,6 +168,11 @@ b2Body* EntityFactory::createPhysicsBody(tiled::Object &object){
         enemySprite.setTextureRect(sf::IntRect(579, 272, 209, 39));
         bounds = enemySprite.getGlobalBounds();
         renderPos = object.position + sf::Vector2f(mMapData.tileWidth / 2.f, (mMapData.tileHeight - bounds.height / 2.f));      
+    }
+    if (type == "GrassPlatformLarge"){
+        enemySprite.setTextureRect(sf::IntRect(210, 0, 585, 39));
+        bounds = enemySprite.getGlobalBounds();
+        renderPos = object.position + sf::Vector2f(mMapData.tileWidth / 2.f, (mMapData.tileHeight - bounds.height / 2.f));   
     }
     if (type == "Bee"){
         enemySprite.setTextureRect(sf::IntRect(315, 353, 56, 48));

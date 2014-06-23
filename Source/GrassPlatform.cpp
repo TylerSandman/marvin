@@ -6,7 +6,7 @@
 #include "Command.h"
 #include "Constants.h"
 
-GrassPlatform::GrassPlatform(TextureManager &textureManager, b2Body *enemyBody, float moveVelocity, std::vector<sf::Vector2f> waypoints) : 
+GrassPlatform::GrassPlatform(TextureManager &textureManager, b2Body *enemyBody, float moveVelocity, std::vector<sf::Vector2f> waypoints, bool large) : 
     Entity(enemyBody),
     mMoving(false),
     mMoveVelocity(moveVelocity){
@@ -14,7 +14,10 @@ GrassPlatform::GrassPlatform(TextureManager &textureManager, b2Body *enemyBody, 
     sf::Texture &spriteSheet = textureManager.get(TextureID::EnemiesSpriteSheet);
     Animation animation;
     animation.setSpriteSheet(spriteSheet);
-    animation.addFrame(sf::IntRect(579, 272, 209, 39));
+    if (large)
+        animation.addFrame(sf::IntRect(210, 0, 585, 39));
+    else
+        animation.addFrame(sf::IntRect(579, 272, 209, 39));
     mAnimation = animation;
     mSprite = AnimatedSprite();
     mSprite.setAnimation(mAnimation);
