@@ -6,9 +6,10 @@
 #include "Command.h"
 #include "Constants.h"
 
-Bee::Bee(TextureManager &textureManager, b2Body *enemyBody, float moveVelocity, std::vector<sf::Vector2f> waypoints) : 
+Bee::Bee(TextureManager &textureManager, b2Body *enemyBody, float moveVelocity, std::vector<sf::Vector2f> waypoints, float steering) : 
     Entity(enemyBody),
     mMoveVelocity(moveVelocity),
+    mSteering(steering),
     mSeeking(false){
 
     sf::Texture &spriteSheet = textureManager.get(TextureID::EnemiesSpriteSheet);
@@ -98,8 +99,8 @@ void Bee::seek(sf::Vector2f pos){
 
     //Steering behaviour
     b2Vec2 steeringVector(
-        (movementVector.x - currentVelocity.x) / 3.f,
-        (movementVector.y - currentVelocity.y) / 3.f);
+        (movementVector.x - currentVelocity.x) / mSteering,
+        (movementVector.y - currentVelocity.y) / mSteering);
 
     b2Vec2 seekVector(
         currentVelocity.x + steeringVector.x,

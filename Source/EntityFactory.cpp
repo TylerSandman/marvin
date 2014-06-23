@@ -115,8 +115,13 @@ Entity* EntityFactory::createEntity(tiled::Object &object){
                 waypoints.push_back(waypoint);
             }
         }
-        newEntity = new Bee(
-            mTextureManager, objectBody, stof(object.properties["velocity"].get_str()), waypoints);
+        if (object.properties.find("steering") != object.properties.end())
+            newEntity = new Bee(
+                mTextureManager, objectBody, stof(object.properties["velocity"].get_str()), waypoints, stof(object.properties["steering"].get_str()));
+        
+        else
+            newEntity = new Bee(
+                mTextureManager, objectBody, stof(object.properties["velocity"].get_str()), waypoints);
     }
 
     newEntity->setRenderPosition(renderPos);

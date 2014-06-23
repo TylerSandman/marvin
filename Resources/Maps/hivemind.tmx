@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="31" height="40" tilewidth="70" tileheight="70">
+ <tileset firstgid="1" name="BaseTiles" tilewidth="70" tileheight="70" spacing="2">
+  <image source="../Textures/Tileset/base_tiles_spritesheet.png" width="936" height="936"/>
+ </tileset>
+ <tileset firstgid="170" name="Items" tilewidth="70" tileheight="70" spacing="2">
+  <image source="../Textures/Tileset/items_spritesheet.png" width="576" height="576"/>
+ </tileset>
+ <layer name="Background" width="31" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20Hb6AAAAAAgNcAE2AAAQ==
+  </data>
+ </layer>
+ <layer name="Background2" width="31" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztzgENAAAIwKCns38kYzg3SEABX811AAAAAGgBWVwARw==
+  </data>
+ </layer>
+ <layer name="Platforms" width="31" height="40">
+  <data encoding="base64" compression="zlib">
+   eJzt2LENACEMA8CMzFJfsCUt1StuoOAsWel8fWZVzQut7Z4Mm/2SPYJ2kux9QTtJ9thsNpvNZrPZbDabzf5r53eV7C1Y6eQ/
+  </data>
+ </layer>
+ <objectgroup name="Spawns" width="31" height="40">
+  <object name="Player" type="Player" x="560" y="490" width="70" height="70"/>
+  <object name="GrassPlatformLarge" type="GrassPlatformLarge" x="1050" y="560" width="70" height="70">
+   <properties>
+    <property name="velocity" value="2.5"/>
+    <property name="waypoints" value="[{&quot;x&quot;:15,&quot;y&quot;:8},{&quot;x&quot;:15,&quot;y&quot;:35}]"/>
+   </properties>
+  </object>
+  <object name="Bee" type="Bee" x="140" y="1190" width="70" height="70">
+   <properties>
+    <property name="steering" value="3"/>
+    <property name="velocity" value="7"/>
+   </properties>
+  </object>
+  <object name="Bee" type="Bee" x="1890" y="1330" width="70" height="70">
+   <properties>
+    <property name="steering" value="50"/>
+    <property name="velocity" value="20"/>
+   </properties>
+  </object>
+  <object name="Bee" type="Bee" x="140" y="70" width="70" height="70">
+   <properties>
+    <property name="steering" value="20"/>
+    <property name="velocity" value="10"/>
+   </properties>
+  </object>
+  <object name="Bee" type="Bee" x="2030" y="140" width="70" height="70">
+   <properties>
+    <property name="steering" value="12"/>
+    <property name="velocity" value="6"/>
+   </properties>
+  </object>
+  <object name="Bee" type="Bee" x="70" y="1400" width="70" height="70">
+   <properties>
+    <property name="steering" value="47"/>
+    <property name="velocity" value="18"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Objects" width="31" height="40">
+  <object name="Gem" type="Gem" gid="204" x="1400" y="560"/>
+  <object name="Exit" type="Exit" gid="65" x="1610" y="560"/>
+ </objectgroup>
+</map>

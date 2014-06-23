@@ -10,7 +10,7 @@
 class Bee : public Entity{
     
 public:
-    Bee(TextureManager &textureManager, b2Body *enemyBody, float moveVelocity, std::vector<sf::Vector2f> waypoints);
+    Bee(TextureManager &textureManager, b2Body *enemyBody, float moveVelocity, std::vector<sf::Vector2f> waypoints, float steering = 3.f);
     unsigned int getCategory();
     virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
     virtual void updateCurrent(sf::Time deltaTime);
@@ -24,6 +24,7 @@ private:
     std::vector<sf::Vector2f>::iterator mCurrentWaypoint;
     Animation mAnimation;
     float mMoveVelocity;
+    float mSteering;
     bool mSeeking;
     Entity::FacingDirection mCurrentFacingDirection;
 };
