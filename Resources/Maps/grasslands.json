@@ -143,16 +143,17 @@
                 }, 
                 {
                  "height":70,
-                 "name":"Slime",
+                 "name":"Bee",
                  "properties":
                     {
-                     "jumpHeight":"2"
+                     "velocity":"6",
+                     "waypoints":"[{\"x\":13,\"y\":3},{\"x\":13,\"y\":9.5}]"
                     },
-                 "type":"Slime",
+                 "type":"Bee",
                  "visible":true,
                  "width":70,
                  "x":910,
-                 "y":1050
+                 "y":630
                 }],
          "opacity":1,
          "type":"objectgroup",

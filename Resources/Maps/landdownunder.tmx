@@ -13,12 +13,12 @@
  </layer>
  <layer name="Background2" width="100" height="30">
   <data encoding="base64" compression="zlib">
-   eJztmT0OwjAMRjuyMbIwsjBxC87Tk8DGAmsvwlIJZu5DIiphRQ2kjpu4yfekTxWVAyYvaflpGgDycDI5524CsLma3HI3EcGU/n/Vxq7jKX1gz8iw9LULymPpa/LACJiPFD6OIp3Wgbb98XCOpdOSWLT5kCb0syJnHmJj6UgkWQVGEsl7N3zoomYfW2fsXrgXDjX7yInvHggfeYCP+OvVzslm5JyvxkLfP3zo2h+U9n/J7Gj3kfL7oPQccNDgY+2MdR+nAj50AR+6gI8PuF590eBDC/ChCzoHl8ShPcAHkKYTCODzGo79EPgok7HfAXpPre98aI37WiHPF8rd5Bkxvrb/yUviDeI/m+8=
+   eJzt2TEOwjAMBdCObIwsjCxM3ILzcBLYWGDtRVgqwcx9SEUlLCtBaWLFbvKfZFVUCZj+tBToOgAdZ1cX7SYg2c3VXbuJDHP6/zc2dx3P6QPnjIylr12oD9YkLM1RuwFI9mTb2p1ItSD2XvGgUKOelKRVZEmS/OxGHra0nMeWzd0L95Ki5Tw00WPh2488ykIe+derHauNZ19ozIi+f+Rh6/ygLNzzW8+j5PdB6WOQwkIeazaXPy4FediCPGxBHl+4Xv1YyMMK5GELPQbXwkV7QB4grRcoSPeetsNUyKNOvt8BhsDY0P7YMfy1Yp4v1sPVK2N+a/+T1+QD33WSYw==
   </data>
  </layer>
  <layer name="Tilemap" width="100" height="30">
   <data encoding="base64" compression="zlib">
-   eJzt130KgzAMh2EvPPAyO0IZ3nLsv1IS7UfSpuz9QWADbWMfq3gdx3FR1ZWc6zcHqU8yGgMPm+ARK3jECh42OY3Ow8MmvetYnodHX6zuazxsYrWOreO8K8eUxp3h0fvcHo2Xx6fhXO3YfD+U/709LPa3xbwj38x5dvTI9wQecm8zPZLye2Z28fB6n2t7Ag+5N+/3uWaAh9yb9Kwa9ajZE3jIvXm8P2oM8JB700zOgXq6hqdjvOtuDSJ4WPVXew0rLXbwmL0WeMjBA49V8+KBhxY88MBDTzSPSLH0aKmeXv4hke4tPPbyeBXF82qth0eVxqsr0rXczfUF0t8XnA==
+   eJztmNEKwyAMRf3hwX5mnyCjfzn2ViRp05loXM+FC30Qc/WYWrqVUjZsdg32twayqzrNAQ8fwSOX4JFL8PDRs8N7wcNHPd887TyRWf6Vh3Su4TFP0j6O4PEyZtPyRfNoz+koRfF4X8igjW3nHtkfHv3tUffOPPY9AQ8520geVXkeqVV4RN3nWk/AQ84WfZ9rDOAhZ5PeVb08LD0BDzlbxP1hYQAPOZvGpOe/ztkazsZE+2gPMvDwymddw0wWK/AYvRfwkAUPeMyqCw94aIIHPOChKxuPTPLkccW/ZLmDMp0teKzF49GY99VcHhFuGc92prUc1foAxW4+0A==
   </data>
  </layer>
  <objectgroup name="Spawns" width="100" height="30">
@@ -149,12 +149,6 @@
   <object name="Slime" type="Slime" x="3570" y="1960" width="70" height="70">
    <properties>
     <property name="jumpHeight" value="3"/>
-   </properties>
-  </object>
-  <object name="GrassPlatform" type="GrassPlatform" x="4200" y="280" width="70" height="70">
-   <properties>
-    <property name="velocity" value="30"/>
-    <property name="waypoints" value="[{&quot;x&quot;:74,&quot;y&quot;:4},{&quot;x&quot;:74, &quot;y&quot;:100}]"/>
    </properties>
   </object>
   <object name="GrassPlatform" type="GrassPlatform" x="3920" y="1960" width="70" height="70">
@@ -406,6 +400,18 @@
     <property name="waypoints" value="[{&quot;x&quot;:25,&quot;y&quot;:7},{&quot;x&quot;:53,&quot;y&quot;:7}]"/>
    </properties>
   </object>
+  <object name="Bee" type="Bee" x="4060" y="280" width="70" height="70">
+   <properties>
+    <property name="velocity" value="15"/>
+    <property name="waypoints" value="[{&quot;x&quot;:58,&quot;y&quot;:4},{&quot;x&quot;:72,&quot;y&quot;:4}]"/>
+   </properties>
+  </object>
+  <object name="Bee" type="Bee" x="5040" y="280" width="70" height="70">
+   <properties>
+    <property name="velocity" value="15"/>
+    <property name="waypoints" value="[{&quot;x&quot;:72,&quot;y&quot;:4},{&quot;x&quot;:58,&quot;y&quot;:4}]"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="Objects" width="100" height="30">
   <object type="Water" gid="111" x="1750" y="700"/>
@@ -443,19 +449,6 @@
   <object type="Water" gid="111" x="1330" y="980"/>
   <object type="Water" gid="111" x="1400" y="980"/>
   <object type="Water" gid="111" x="1400" y="980"/>
-  <object type="Water" gid="111" x="4130" y="420"/>
-  <object type="Water" gid="111" x="4200" y="420"/>
-  <object type="Water" gid="111" x="4270" y="420"/>
-  <object type="Water" gid="111" x="4340" y="420"/>
-  <object type="Water" gid="111" x="4410" y="420"/>
-  <object type="Water" gid="111" x="4480" y="420"/>
-  <object type="Water" gid="111" x="4550" y="420"/>
-  <object type="Water" gid="111" x="4620" y="420"/>
-  <object type="Water" gid="111" x="4690" y="420"/>
-  <object type="Water" gid="111" x="4760" y="420"/>
-  <object type="Water" gid="111" x="4830" y="420"/>
-  <object type="Water" gid="111" x="4900" y="420"/>
-  <object type="Water" gid="111" x="4970" y="420"/>
   <object type="Water" gid="150" x="5390" y="700"/>
   <object type="Water" gid="150" x="5460" y="700"/>
   <object type="Water" gid="150" x="5530" y="700"/>

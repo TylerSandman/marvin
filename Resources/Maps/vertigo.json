@@ -1235,6 +1235,32 @@
                  "width":70,
                  "x":2520,
                  "y":490
+                }, 
+                {
+                 "height":70,
+                 "name":"Bee",
+                 "properties":
+                    {
+                     "velocity":"0"
+                    },
+                 "type":"Bee",
+                 "visible":true,
+                 "width":70,
+                 "x":1610,
+                 "y":1190
+                }, 
+                {
+                 "height":70,
+                 "name":"Bee",
+                 "properties":
+                    {
+                     "velocity":"0"
+                    },
+                 "type":"Bee",
+                 "visible":true,
+                 "width":70,
+                 "x":1400,
+                 "y":1120
                 }],
          "opacity":1,
          "type":"objectgroup",
