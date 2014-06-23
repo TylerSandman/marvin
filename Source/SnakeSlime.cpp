@@ -12,7 +12,7 @@ SnakeSlime::SnakeSlime(TextureManager &textureManager, b2Body *enemyBody) :
     Animation wiggleAnimation;
     wiggleAnimation.setSpriteSheet(spriteSheet);
     wiggleAnimation.addFrame(sf::IntRect(424, 187, 53, 147));
-    wiggleAnimation.addFrame(sf::IntRect(425, 0, 52, 147));
+    wiggleAnimation.addFrame(sf::IntRect(425, 40, 52, 147));
     mAnimation = wiggleAnimation;
 
     mSprite = AnimatedSprite(sf::seconds(0.15f));

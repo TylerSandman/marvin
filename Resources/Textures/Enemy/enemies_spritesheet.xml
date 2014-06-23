@@ -37,6 +37,7 @@
 	<SubTexture name="grassBlock_hit.png" x="0" y="441" width="71" height="70"/>
 	<SubTexture name="grassBlock_jump.png" x="0" y="211" width="71" height="70"/>
 	<SubTexture name="grassPlatform.png" x="579" y="272" width="209" height="39"/>
+	<SubTexture name="grassPlatformLarge.png" x="210" y="0" width="585" height="39"/>
 	<SubTexture name="ladyBug.png" x="141" y="248" width="58" height="34"/>
 	<SubTexture name="ladyBug_fly.png" x="201" y="293" width="59" height="42"/>
 	<SubTexture name="ladyBug_hit.png" x="257" y="390" width="58" height="34"/>
@@ -76,7 +77,7 @@
 	<SubTexture name="snakeLava_ani.png" x="477" y="0" width="52" height="147"/>
 	<SubTexture name="snakeLava_dead.png" x="424" y="334" width="53" height="147"/>
 	<SubTexture name="snakeLava_hit.png" x="371" y="239" width="53" height="147"/>
-	<SubTexture name="snakeSlime.png" x="424" y="187" width="53" height="147"/>
+	<SubTexture name="snakeSlime.png" x="425" y="40" width="53" height="147"/>
 	<SubTexture name="snakeSlime_ani.png" x="425" y="0" width="52" height="147"/>
 	<SubTexture name="snakeSlime_dead.png" x="319" y="92" width="53" height="147"/>
 	<SubTexture name="snakeSlime_hit.png" x="371" y="239" width="53" height="147"/>
