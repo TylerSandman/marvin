@@ -18,7 +18,7 @@
  </layer>
  <layer name="Tilemap" width="30" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMApGASWAiww9BRRgSsxbSgHGBigxbzjbCwD9PDtS
+   eJxbycDAsHKAML3BqL2j9o7aO2rvqL2j9tLCXi4y7C2gAGMDxOpdSgHGBigxbzjbCwAm02Lu
   </data>
  </layer>
  <objectgroup name="Spawns" width="30" height="20">

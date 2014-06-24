@@ -58,8 +58,7 @@ b2Body* GameObjectFactory::createPhysicsBody(tiled::Object &object){
     //Get object size scale relative to a single tile
     //Assumes object is centered on its tile's x-axis
     b2Vec2 objectSize = getObjectSize(object);
-
-    
+   
     bodyDef.position = b2Vec2(
         position.x / 70.f, 
         (mapHeightPixels - position.y) / 70.f - objectSize.y/2); 
@@ -68,16 +67,9 @@ b2Body* GameObjectFactory::createPhysicsBody(tiled::Object &object){
 
     //Exits are only activated at the bottom of the object (i.e. exit sign)
     b2PolygonShape boundingBox;
-    if (type == "Exit"){
-        boundingBox.SetAsBox(
-            bounds.width / 70.f / 2,
-            0.01f);
-    }
-    else{
-        boundingBox.SetAsBox(
-            bounds.width / 70.f / 2,
-            bounds.height / 70.f / 2*objectSize.y);
-    }
+    boundingBox.SetAsBox(
+        bounds.width / 70.f / 2,
+        bounds.height / 70.f / 2*objectSize.y);
     
     b2FixtureDef objectFixture;
     objectFixture.shape = &boundingBox;
