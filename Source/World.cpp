@@ -241,7 +241,8 @@ void World::loadResources(){
 
     //Load entities
     mTextureManager.load(TextureID::EnemiesSpriteSheet, "Resources/Textures/Enemy/enemies_spritesheet.png");
-    
+    mTextureManager.load(TextureID::Boss, "Resources/Textures/Enemy/giant_slime.png");
+
     //Load fonts
     mFontManager.load(FontID::Thin, "Resources/Fonts/kenvector_future_thin.ttf");
 }

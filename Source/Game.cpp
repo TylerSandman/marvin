@@ -49,6 +49,7 @@ Game::Game() :
     mTextureManager.load(TextureID::ContainerButtonDisabled, "Resources/Textures/GUI/panel_button_disabled.png");
     mTextureManager.load(TextureID::PlayerSpriteSheet, "Resources/Textures/Player/player_spritesheet.png");
     mTextureManager.load(TextureID::EnemiesSpriteSheet, "Resources/Textures/Enemy/enemies_spritesheet.png");
+    mTextureManager.load(TextureID::Boss, "Resources/Textures/Enemy/giant_slime.png");
     mTextureManager.load(TextureID::HUDSpriteSheet, "Resources/Textures/GUI/hud_spritesheet.png");
     mFontManager.load(FontID::Main, "Resources/Fonts/kenvector_future.ttf");
     mFontManager.load(FontID::Thin, "Resources/Fonts/kenvector_future_thin.ttf");

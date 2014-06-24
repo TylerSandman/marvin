@@ -62,6 +62,7 @@
     <ClInclude Include="Include\Number.h" />
     <ClInclude Include="Include\Bee.h" />
     <ClInclude Include="Include\HelpState.h" />
+    <ClInclude Include="Include\BossSlime.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Box2DTiledLoader.cpp" />
@@ -116,6 +117,7 @@
     <ClCompile Include="Source\Number.cpp" />
     <ClCompile Include="Source\Bee.cpp" />
     <ClCompile Include="Source\HelpState.cpp" />
+    <ClCompile Include="Source\BossSlime.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\GUI\Sample Level Selection.png" />

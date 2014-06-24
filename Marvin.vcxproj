@@ -16,6 +16,7 @@
     <ClInclude Include="Include\Barnacle.h" />
     <ClInclude Include="Include\Bee.h" />
     <ClInclude Include="Include\BoolOption.h" />
+    <ClInclude Include="Include\BossSlime.h" />
     <ClInclude Include="Include\Box2DTiledLoader.h" />
     <ClInclude Include="Include\Button.h" />
     <ClInclude Include="Include\CollisionHandler.h" />
@@ -79,6 +80,7 @@
     <ClCompile Include="Source\Barnacle.cpp" />
     <ClCompile Include="Source\Bee.cpp" />
     <ClCompile Include="Source\BoolOption.cpp" />
+    <ClCompile Include="Source\BossSlime.cpp" />
     <ClCompile Include="Source\Box2DTiledLoader.cpp" />
     <ClCompile Include="Source\Button.cpp" />
     <ClCompile Include="Source\CollisionHandler.cpp" />

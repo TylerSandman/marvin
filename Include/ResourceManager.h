@@ -14,6 +14,7 @@ enum TextureID{
     GrasslandsBackground,
     PlayerSpriteSheet,
     EnemiesSpriteSheet,
+    Boss,
     SpinnerSpriteSheet,
     HUDSpriteSheet,
     PlayerStanding,

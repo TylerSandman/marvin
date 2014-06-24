@@ -14,6 +14,7 @@
 #include "GrassBlock.h"
 #include "GrassPlatform.h"
 #include "Bee.h"
+#include "BossSlime.h"
 
 EntityFactory::EntityFactory(TextureManager &textureManager, MapData data, b2World *world) : 
         mTextureManager(textureManager), mMapData(data), mWorld(world){}
@@ -25,7 +26,17 @@ Entity* EntityFactory::createEntity(tiled::Object &object){
 
     Entity *newEntity;
     sf::Texture &spriteSheet = mTextureManager.get(TextureID::EnemiesSpriteSheet);
-    sf::Sprite enemySprite(spriteSheet);
+    sf::Texture &bossSlime = mTextureManager.get(TextureID::Boss);
+
+    sf::Sprite enemySprite;
+
+    if (type == "BossSlime"){
+        enemySprite.setTexture(bossSlime);
+        enemySprite.setTextureRect(sf::IntRect(0, 216, 304, 184));
+    }
+    else
+        enemySprite.setTexture(spriteSheet);
+
     if (type == "SnakeSlime"){
         enemySprite.setTextureRect(sf::IntRect(424, 187, 53, 147));
     }
@@ -124,6 +135,11 @@ Entity* EntityFactory::createEntity(tiled::Object &object){
                 mTextureManager, objectBody, stof(object.properties["velocity"].get_str()), waypoints);
     }
 
+    if (type.compare("BossSlime") == 0){
+        newEntity = new BossSlime(
+            mTextureManager, objectBody, stof(object.properties["velocity"].get_str()));
+    }
+
     newEntity->setRenderPosition(renderPos);
     objectBody->SetUserData(newEntity);
     return newEntity;
@@ -135,9 +151,18 @@ b2Body* EntityFactory::createPhysicsBody(tiled::Object &object){
     int mapHeightPixels = mMapData.mapHeight * mMapData.tileHeight;
 
     sf::Texture &spriteSheet = mTextureManager.get(TextureID::EnemiesSpriteSheet);
+    sf::Texture &bossSlime = mTextureManager.get(TextureID::Boss);
+
     sf::Sprite enemySprite(spriteSheet);
     sf::FloatRect bounds;
     sf::Vector2f renderPos;
+
+    if (type == "BossSlime"){
+        enemySprite.setTexture(bossSlime);
+        enemySprite.setTextureRect(sf::IntRect(0, 216, 304, 184));
+        bounds = enemySprite.getGlobalBounds();
+        renderPos = object.position + sf::Vector2f(mMapData.tileWidth / 2.f, (mMapData.tileHeight - bounds.height / 2.f));
+    }
     if (type == "SnakeSlime"){
         enemySprite.setTextureRect(sf::IntRect(424, 187, 53, 147));
         bounds = enemySprite.getGlobalBounds();
