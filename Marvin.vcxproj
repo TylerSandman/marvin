@@ -30,6 +30,7 @@
     <ClInclude Include="Include\GameObjectFactory.h" />
     <ClInclude Include="Include\GrassBlock.h" />
     <ClInclude Include="Include\GrassPlatform.h" />
+    <ClInclude Include="Include\HelpState.h" />
     <ClInclude Include="Include\Image.h" />
     <ClInclude Include="Include\IntOption.h" />
     <ClInclude Include="Include\Label.h" />
@@ -90,6 +91,7 @@
     <ClCompile Include="Source\GameObjectFactory.cpp" />
     <ClCompile Include="Source\GrassBlock.cpp" />
     <ClCompile Include="Source\GrassPlatform.cpp" />
+    <ClCompile Include="Source\HelpState.cpp" />
     <ClCompile Include="Source\Image.cpp" />
     <ClCompile Include="Source\IntOption.cpp" />
     <ClCompile Include="Source\Label.cpp" />

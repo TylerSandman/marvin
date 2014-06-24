@@ -46,7 +46,8 @@ public:
         LevelCompletion,
         Loading,
         Option,
-        Menu
+        Menu,
+        Help
     };
 
 public:

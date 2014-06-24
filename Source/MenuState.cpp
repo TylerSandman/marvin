@@ -69,6 +69,16 @@ MenuState::MenuState(StateStack &stack, Context context) :
     optionsButton->setText("Options", sf::Color::Black);
     mGUIContainer.add(optionsButton);
 
+    auto helpButton = std::make_shared<GUI::Button>(
+         *getContext().textureManager,
+         *getContext().fontManager);
+    helpButton->setCallback(
+        [this]() {
+            requestStackPush(ID::Help);
+        });
+    helpButton->setText("Help", sf::Color::Black);
+    mGUIContainer.add(helpButton);
+
     auto exitButton = std::make_shared<GUI::Button>(
          *getContext().textureManager,
          *getContext().fontManager);
@@ -80,8 +90,10 @@ MenuState::MenuState(StateStack &stack, Context context) :
     mGUIContainer.add(exitButton);
 
     mGUIContainer.setPosition(windowSize * 0.5f);
-    playButton->move(0.f, -70.f);
-    exitButton->move(0.f, 70.f);
+    playButton->move(0.f, -90.f);
+    optionsButton->move(0.f, -30);
+    helpButton->move(0.f, 30);
+    exitButton->move(0.f, 90.f);
 
     //Player Animation
     sf::Texture &spriteSheet = context.textureManager->get(TextureID::PlayerSpriteSheet);

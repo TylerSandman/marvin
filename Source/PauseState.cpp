@@ -8,11 +8,7 @@ PauseState::PauseState(StateStack &stack, Context context) :
         State(stack, context),
         mGUIContainer(context, context.window->getDefaultView()){
 
-    //Background panel where our button list will be displayed
     sf::Vector2f windowSize(context.window->getSize());
-    auto backgroundPanel = std::make_shared<GUI::Image>(
-        getContext().textureManager->get(TextureID::PauseScreenPanel));
-    mGUIContainer.add(backgroundPanel);
 
     //Buttons
     auto resumeButton = std::make_shared<GUI::Button>(
@@ -64,11 +60,21 @@ PauseState::PauseState(StateStack &stack, Context context) :
     optionsButton->setText("Options", sf::Color::Black);
     mGUIContainer.add(optionsButton);
 
+    auto helpButton = std::make_shared<GUI::Button>(
+         *getContext().textureManager,
+         *getContext().fontManager);
+    helpButton->setCallback(
+        [this]() {
+            requestStackPush(ID::Help);
+        });
+    helpButton->setText("Help", sf::Color::Black);
+    mGUIContainer.add(helpButton);
+
     mGUIContainer.setPosition(windowSize * 0.5f);
-    resumeButton->move(0.f, -88.f);
-    levelsButton->move(0.f, -28.f);
-    menuButton->move(0.f, 32.f);
-    optionsButton->move(0.f, 92.f);
+    resumeButton->move(0.f, -120.f);
+    levelsButton->move(0.f, -60.f);
+    optionsButton->move(0.f, 60.f);
+    helpButton->move(0.f, 120.f);
 
     //Music
     context.musicPlayer->setPaused(true);

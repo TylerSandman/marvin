@@ -6,6 +6,7 @@
 #include "LevelCompletionState.h"
 #include "MenuState.h"
 #include "OptionState.h"
+#include "HelpState.h"
 
 StateStack::StateStack(State::Context context): mContext(context){}
 
@@ -50,6 +51,8 @@ State::Ptr StateStack::createState(State::ID stateID, const std::string &map){
         return std::unique_ptr<MenuState>(new MenuState(*this, mContext));
     case(State::ID::Option):
         return std::unique_ptr<OptionState>(new OptionState(*this, mContext));
+    case(State::ID::Help):
+        return std::unique_ptr<HelpState>(new HelpState(*this, mContext));
     default:
         return std::unique_ptr<MenuState>(new MenuState(*this, mContext));
     }
