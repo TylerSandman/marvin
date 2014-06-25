@@ -166,11 +166,19 @@ void LevelSelectState::addLevel(LevelData lData, const std::string &map, bool en
         rect = sf::IntRect(98, 97, 46, 36);
     GUI::Image::Ptr gem = std::make_shared<GUI::Image>(
         HUDTexture, rect);
+
+    if (lData.badgeEarned)
+        rect = sf::IntRect(54, 49, 48, 48);
+    else
+        rect = sf::IntRect(54, 0, 48, 48);
+    GUI::Image::Ptr badge = std::make_shared<GUI::Image>(
+        HUDTexture, rect);
     
     levelButton->add(levelLabel);
     levelButton->add(timeLabel);
     levelButton->add(numGems);
     levelButton->add(gem);
+    levelButton->add(badge);
     mLevelContainer->add(levelButton);
     float posX = windowSize.x * 0.5f;
     float firstButtonPadding = windowSize.y / 2.f - mLevelPanel.getGlobalBounds().height / 2.f + 100.f;
@@ -181,7 +189,8 @@ void LevelSelectState::addLevel(LevelData lData, const std::string &map, bool en
     timeLabel->move(0, -10);
     timeLabel->move(280, 0);
     numGems->move(-330, 0);
-    gem->move(180, 0);
+    gem->move(130, 0);
+    badge->move(180, 0);
 
     ++numLevels;
 }

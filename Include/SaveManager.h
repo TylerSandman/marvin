@@ -10,18 +10,22 @@ struct LevelData{
     std::string name;
     bool completed;
     bool collectedGem;
+    bool badgeEarned;
+    float badgeTime;
     float bestTime;
     unsigned int requiredGems;
 
     LevelData(){}
-    LevelData(const std::string &name, bool completed, bool collectedGem, float bestTime, unsigned int requiredGems) : 
-        name(name), completed(completed), collectedGem(collectedGem), bestTime(bestTime), requiredGems(requiredGems) {}
+    LevelData(const std::string &name, bool completed, bool collectedGem, bool badgeEarned, float badgeTime, float bestTime, unsigned int requiredGems) : 
+        name(name), completed(completed), collectedGem(collectedGem), badgeEarned(badgeEarned), badgeTime(badgeTime), bestTime(bestTime), requiredGems(requiredGems) {}
 
     template<class Archive>
     void serialize(Archive &ar, const unsigned int version){
         ar & name;
         ar & completed;
         ar & collectedGem;
+        ar & badgeEarned;
+        ar & badgeTime;
         ar & bestTime;
         ar & requiredGems;
     }
@@ -53,6 +57,8 @@ public:
             mLevelDataMap[map].bestTime = time;
         if (gemCollected)
             mLevelDataMap[map].collectedGem = true;
+        if (time <= mLevelDataMap[map].badgeTime)
+            mLevelDataMap[map].badgeEarned = true;
         mLastCompletedData.deaths = deaths;
         mLastCompletedData.map = map;
         mLastCompletedData.time = time;
@@ -64,16 +70,16 @@ public:
     }
 
     void makeNewSave(){
-        mLevelDataMap["easypeasy.json"] = LevelData("Easy Peasy", true, true,  0.0f, 0);
-        mLevelDataMap["grasslands.json"] = LevelData("Grasslands", true, true, 0.0f, 1);
-        mLevelDataMap["theclimb.json"] = LevelData("The Climb", true, true, 0.0f, 1);
-        mLevelDataMap["boing.json"] = LevelData("Boing", true, true,  0.0f, 3);
-        mLevelDataMap["spelunking.json"] = LevelData("Spelunking", true, true,  0.0f, 3);
-        mLevelDataMap["ohbarnacles.json"] = LevelData("Oh Barnacles", true, true,  0.0f, 3);
-        mLevelDataMap["vertigo.json"] = LevelData("Vertigo", true, true,  0.0f, 5);
-        mLevelDataMap["landdownunder.json"] = LevelData("Land Down Under", true, true,  0.0f, 7);       
-        mLevelDataMap["hivemind.json"] = LevelData("Hivemind", false, false,  0.0f, 7);
-        mLevelDataMap["hotpursuit.json"] = LevelData("Hot Pursuit", false, false,  0.0f, 8);
+        mLevelDataMap["easypeasy.json"] = LevelData("Easy Peasy", false, false, false, 2.5f, 0.0f, 0);
+        mLevelDataMap["grasslands.json"] = LevelData("Grasslands", false, false, false, 3.5f, 0.0f, 1);
+        mLevelDataMap["theclimb.json"] = LevelData("The Climb", false, false, false, 6.0f, 0.0f, 1);
+        mLevelDataMap["boing.json"] = LevelData("Boing", false, false,  false, 99.f, 3.2f, 3);
+        mLevelDataMap["spelunking.json"] = LevelData("Spelunking", false, false, false, 6.0f, 0.0f, 3);
+        mLevelDataMap["ohbarnacles.json"] = LevelData("Oh Barnacles", false, false, false, 12.5f, 0.0f, 3);
+        mLevelDataMap["vertigo.json"] = LevelData("Vertigo", false, false,  false, 30.f, 0.f, 5);
+        mLevelDataMap["landdownunder.json"] = LevelData("Land Down Under", false, false, false, 15.f, 0.0f, 7);       
+        mLevelDataMap["hivemind.json"] = LevelData("Hivemind", false, false, false, 28.f,  0.0f, 7);
+        mLevelDataMap["hotpursuit.json"] = LevelData("Hot Pursuit", false, false, false, 12.5f, 0.0f, 8);
     }
 
     LevelData getLevelData(const std::string &map){

@@ -459,6 +459,6 @@
   <object type="Water" gid="150" x="5880" y="700"/>
   <object type="Water" gid="150" x="5950" y="700"/>
   <object type="Water" gid="150" x="6020" y="700"/>
-  <object name="Exit" type="Exit" x="5880" y="455" width="70" height="70"/>
+  <object name="Exit" type="Exit" x="5880" y="560" width="70" height="70"/>
  </objectgroup>
 </map>
