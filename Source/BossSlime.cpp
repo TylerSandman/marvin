@@ -11,8 +11,8 @@ BossSlime::BossSlime(TextureManager &textureManager, b2Body *enemyBody, float ve
     
     Animation walkAnimation;
     walkAnimation.setSpriteSheet(spriteSheet);
-    walkAnimation.addFrame(sf::IntRect(0, 216, 304, 184));
-    walkAnimation.addFrame(sf::IntRect(0, 19, 304, 184));
+    walkAnimation.addFrame(sf::IntRect(0, 0, 295, 186));
+    walkAnimation.addFrame(sf::IntRect(0, 214, 295, 186));
     mAnimation = walkAnimation;
 
     mSprite = AnimatedSprite(sf::seconds(0.25f));

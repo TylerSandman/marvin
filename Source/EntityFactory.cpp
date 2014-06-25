@@ -32,7 +32,7 @@ Entity* EntityFactory::createEntity(tiled::Object &object){
 
     if (type == "BossSlime"){
         enemySprite.setTexture(bossSlime);
-        enemySprite.setTextureRect(sf::IntRect(0, 216, 304, 184));
+        enemySprite.setTextureRect(sf::IntRect(0, 214, 295, 186));
     }
     else
         enemySprite.setTexture(spriteSheet);
@@ -159,7 +159,7 @@ b2Body* EntityFactory::createPhysicsBody(tiled::Object &object){
 
     if (type == "BossSlime"){
         enemySprite.setTexture(bossSlime);
-        enemySprite.setTextureRect(sf::IntRect(0, 216, 304, 184));
+        enemySprite.setTextureRect(sf::IntRect(0, 214, 295, 186));
         bounds = enemySprite.getGlobalBounds();
         renderPos = object.position + sf::Vector2f(mMapData.tileWidth / 2.f, (mMapData.tileHeight - bounds.height / 2.f));
     }

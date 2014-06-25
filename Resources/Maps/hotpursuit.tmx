@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="30" tilewidth="70" tileheight="70">
+ <tileset firstgid="1" name="Tiles" tilewidth="70" tileheight="70" spacing="2">
+  <image source="../Textures/Tileset/base_tiles_spritesheet.png" width="936" height="936"/>
+ </tileset>
+ <tileset firstgid="170" name="Items" tilewidth="70" tileheight="70" spacing="2">
+  <image source="../Textures/Tileset/items_spritesheet.png" width="576" height="576"/>
+ </tileset>
+ <layer name="Background" width="100" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt1LEJAAAIBLHv3H9jVxAbERK4FS4BAAAAgB9qGMA1vwIAAAAAgJ0GOKoAjQ==
+  </data>
+ </layer>
+ <layer name="Background2" width="100" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20MH6AAAAAAAAAAAAAAAOBvLuAAAQ==
+  </data>
+ </layer>
+ <layer name="Tilemap" width="100" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt0cEJgEAQBMEN2aTucVmKCfgRpZEqmP9A75nZlhoNerTo0aJHix4terTo0aJHix4terTo0aJHix4terTo0XK1OCy1dVuML63Ro0SPFj1a9OhYo0eJHi16tOjRo0eLHi3rhX3592/e6GHPdgJycuLm
+  </data>
+ </layer>
+ <objectgroup name="Spawns" width="100" height="30">
+  <object name="Player" type="Player" x="980" y="1050" width="70" height="70"/>
+  <object name="BossSlime" type="BossSlime" x="280" y="980" width="70" height="70">
+   <properties>
+    <property name="velocity" value="7"/>
+   </properties>
+  </object>
+  <object name="BossSlime" type="BossSlime" x="280" y="770" width="70" height="70">
+   <properties>
+    <property name="velocity" value="7"/>
+   </properties>
+  </object>
+  <object name="Bee" type="Bee" x="70" y="0" width="70" height="70">
+   <properties>
+    <property name="velocity" value="7"/>
+    <property name="waypoints" value="[{&quot;x&quot;:100,&quot;y&quot;:0}]"/>
+   </properties>
+  </object>
+  <object name="Bee" type="Bee" x="70" y="70" width="70" height="70">
+   <properties>
+    <property name="velocity" value="7"/>
+    <property name="waypoints" value="[{&quot;x&quot;:100,&quot;y&quot;:1}]"/>
+   </properties>
+  </object>
+  <object name="Bee" type="Bee" x="70" y="140" width="70" height="70">
+   <properties>
+    <property name="velocity" value="7"/>
+    <property name="waypoints" value="[{&quot;x&quot;:100,&quot;y&quot;:2}]"/>
+   </properties>
+  </object>
+  <object name="Bee" type="Bee" x="70" y="210" width="70" height="70">
+   <properties>
+    <property name="velocity" value="7"/>
+    <property name="waypoints" value="[{&quot;x&quot;:100,&quot;y&quot;:3}]"/>
+   </properties>
+  </object>
+  <object name="Bee" type="Bee" x="70" y="280" width="70" height="70">
+   <properties>
+    <property name="velocity" value="7"/>
+    <property name="waypoints" value="[{&quot;x&quot;:100,&quot;y&quot;:4}]"/>
+   </properties>
+  </object>
+  <object name="Bee" type="Bee" x="70" y="350" width="70" height="70">
+   <properties>
+    <property name="velocity" value="7"/>
+    <property name="waypoints" value="[{&quot;x&quot;:100,&quot;y&quot;:5}]"/>
+   </properties>
+  </object>
+  <object name="Bee" type="Bee" x="70" y="420" width="70" height="70">
+   <properties>
+    <property name="velocity" value="7"/>
+    <property name="waypoints" value="[{&quot;x&quot;:100,&quot;y&quot;:6}]"/>
+   </properties>
+  </object>
+  <object name="Bee" type="Bee" x="70" y="490" width="70" height="70">
+   <properties>
+    <property name="velocity" value="7"/>
+    <property name="waypoints" value="[{&quot;x&quot;:100,&quot;y&quot;:7}]"/>
+   </properties>
+  </object>
+  <object name="Bee" type="Bee" x="70" y="560" width="70" height="70">
+   <properties>
+    <property name="velocity" value="7"/>
+    <property name="waypoints" value="[{&quot;x&quot;:100,&quot;y&quot;:8}]"/>
+   </properties>
+  </object>
+  <object name="Bee" type="Bee" x="70" y="630" width="70" height="70">
+   <properties>
+    <property name="velocity" value="7"/>
+    <property name="waypoints" value="[{&quot;x&quot;:100,&quot;y&quot;:9}]"/>
+   </properties>
+  </object>
+  <object name="Bee" type="Bee" x="70" y="700" width="70" height="70">
+   <properties>
+    <property name="velocity" value="7"/>
+    <property name="waypoints" value="[{&quot;x&quot;:100,&quot;y&quot;:10}]"/>
+   </properties>
+  </object>
+  <object name="Bee" type="Bee" x="70" y="770" width="70" height="70">
+   <properties>
+    <property name="velocity" value="7"/>
+    <property name="waypoints" value="[{&quot;x&quot;:100,&quot;y&quot;:11}]"/>
+   </properties>
+  </object>
+  <object name="Bee" type="Bee" x="70" y="840" width="70" height="70">
+   <properties>
+    <property name="velocity" value="7"/>
+    <property name="waypoints" value="[{&quot;x&quot;:100,&quot;y&quot;:12}]"/>
+   </properties>
+  </object>
+  <object name="Bee" type="Bee" x="70" y="910" width="70" height="70">
+   <properties>
+    <property name="velocity" value="7"/>
+    <property name="waypoints" value="[{&quot;x&quot;:100,&quot;y&quot;:13}]"/>
+   </properties>
+  </object>
+  <object name="Bee" type="Bee" x="70" y="980" width="70" height="70">
+   <properties>
+    <property name="velocity" value="7"/>
+    <property name="waypoints" value="[{&quot;x&quot;:100,&quot;y&quot;:14}]"/>
+   </properties>
+  </object>
+  <object name="Bee" type="Bee" x="70" y="1050" width="70" height="70">
+   <properties>
+    <property name="velocity" value="7"/>
+    <property name="waypoints" value="[{&quot;x&quot;:100,&quot;y&quot;:15}]"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Objects" width="100" height="30">
+  <object name="Exit" type="Exit" gid="65" x="4340" y="1120"/>
+  <object name="Gem" type="Gem" gid="204" x="3780" y="980"/>
+ </objectgroup>
+</map>
