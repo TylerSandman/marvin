@@ -6,6 +6,7 @@
 #include "Image.h"
 #include "Button.h"
 #include "Label.h"
+#include "Number.h"
 #include "ContainerButton.h"
 #include "SaveManager.h"
 
@@ -30,58 +31,62 @@ LevelCompletionState::LevelCompletionState(StateStack &stack, Context context) :
         36,
         *getContext().fontManager);
 
-    GUI::Label::Ptr bestTimeLabel;
-    float bestTime = SaveManager::getInstance().getLevelData(data.map).bestTime;
-    std::ostringstream bestTimeStream;
-    bestTimeStream << "Best: ";
-    bestTimeStream << bestTime;
-    if (data.time == bestTime)
-        bestTimeStream << " new!";
-    bestTimeLabel = std::make_shared<GUI::Label>(
-        bestTimeStream.str(),
-        (data.time == bestTime) ? sf::Color(111,196,169,255) : sf::Color::Black,
-        32,
-        *getContext().fontManager);
+    GUI::Image::Ptr clock = std::make_shared<GUI::Image>(
+        getContext().textureManager->get(TextureID::HUDSpriteSheet),
+        sf::IntRect(48, 140, 48, 48));
 
-    GUI::Label::Ptr completionTimeLabel;
-    std::ostringstream timeStream;
-    timeStream << "Time: ";
-    timeStream << data.time;
-    completionTimeLabel = std::make_shared<GUI::Label>(
-        timeStream.str(),
-        sf::Color::Black,
-        32,
-        *getContext().fontManager);
+    GUI::Number::Ptr time = std::make_shared<GUI::Number>(
+        *getContext().textureManager, static_cast<float>(data.time));
 
-    GUI::Label::Ptr deathsLabel;
-    std::ostringstream deathStream;
-    deathStream << "Deaths: ";
-    deathStream << data.deaths;
-    deathsLabel = std::make_shared<GUI::Label>(
-        deathStream.str(),
-        sf::Color::Black,
-        32,
-        *getContext().fontManager);
+    GUI::Image::Ptr badge = std::make_shared<GUI::Image>(
+        getContext().textureManager->get(TextureID::HUDSpriteSheet),
+        sf::IntRect(54, 49, 48, 48));
+
+    float mapBadgeTime = SaveManager::getInstance().getLevelData(data.map).badgeTime;
+    GUI::Number::Ptr badgeTime = std::make_shared<GUI::Number>(
+        *getContext().textureManager, static_cast<float>(mapBadgeTime));
+
+    GUI::Image::Ptr heart = std::make_shared<GUI::Image>(
+        getContext().textureManager->get(TextureID::HUDSpriteSheet),
+        sf::IntRect(0, 94, 53, 45));
+
+    GUI::Number::Ptr deaths = std::make_shared<GUI::Number>(
+        *getContext().textureManager, static_cast<unsigned int>(data.deaths));
 
     mGUIContainer.add(titleLabel);
-    mGUIContainer.add(completionTimeLabel);
-    mGUIContainer.add(bestTimeLabel);
-    mGUIContainer.add(deathsLabel);
+    mGUIContainer.add(clock);
+    mGUIContainer.add(time);
+    mGUIContainer.add(badge);
+    mGUIContainer.add(badgeTime);
+    mGUIContainer.add(deaths);
+    mGUIContainer.add(heart);
 
     titleLabel->setPosition(
         windowSize.x / 2.f,
         windowSize.y / 2.f - 200.f);
 
-    completionTimeLabel->setPosition(
-        windowSize.x / 2.f,
+    clock->setPosition(
+        windowSize.x / 2.f - 100.f,
         windowSize.y / 2.f);
 
-    bestTimeLabel->setPosition(
-        windowSize.x / 2.f,
+    time->setPosition(
+        windowSize.x / 2.f + 100.f,
+        windowSize.y / 2.f);
+
+    badge->setPosition(
+        windowSize.x / 2.f - 100.f,
+        windowSize.y / 2.f + 100.f);
+
+    badgeTime->setPosition(
+        windowSize.x / 2.f + 100.f,
         windowSize.y / 2.f + 100.f);
     
-    deathsLabel->setPosition(
-        windowSize.x / 2.f,
+    heart->setPosition(
+        windowSize.x / 2.f - 100.f,
+        windowSize.y / 2.f + 200.f);
+
+    deaths->setPosition(
+        windowSize.x / 2.f + 120.f,
         windowSize.y / 2.f + 200.f);
 }
 

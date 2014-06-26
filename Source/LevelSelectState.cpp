@@ -48,7 +48,7 @@ LevelSelectState::LevelSelectState(StateStack &stack, Context context) :
     GUI::Image::Ptr cross = std::make_shared<GUI::Image>(
         HUDTexture, sf::IntRect(0, 239, 30, 28));
     GUI::Number::Ptr numGems = std::make_shared<GUI::Number>(
-        *context.textureManager, getCollectedGems());
+        *context.textureManager, static_cast<unsigned int>(getCollectedGems()));
     GUI::Image::Ptr gem = std::make_shared<GUI::Image>(
         HUDTexture, sf::IntRect(98, 185, 46, 36));
     sf::Vector2f panelTopRight(
@@ -155,7 +155,7 @@ void LevelSelectState::addLevel(LevelData lData, const std::string &map, bool en
     }
 
     GUI::Number::Ptr numGems = std::make_shared<GUI::Number>(
-        *getContext().textureManager, lData.requiredGems);
+        *getContext().textureManager, static_cast<unsigned int>(lData.requiredGems));
 
     sf::Texture &HUDTexture = getContext().textureManager->get(TextureID::HUDSpriteSheet);
     sf::IntRect rect;

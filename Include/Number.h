@@ -11,6 +11,7 @@ public:
 
 public:
     Number(TextureManager &textureManager, unsigned int num);
+    Number(TextureManager &textureManager, float num);
     virtual void handleEvent(const sf::Event &event);
     virtual bool isSelectable();
     
@@ -21,5 +22,8 @@ private:
 private:
     sf::Sprite mOnesSprite;
     sf::Sprite mTensSprite;
+    sf::Sprite mTenthsSprite;
+    sf::Sprite mHundredthsSprite;
+    sf::Sprite mDecimalSprite;
 };
 }
