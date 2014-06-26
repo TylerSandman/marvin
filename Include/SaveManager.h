@@ -73,7 +73,7 @@ public:
         mLevelDataMap["easypeasy.json"] = LevelData("Easy Peasy", false, false, false, 2.5f, 0.0f, 0);
         mLevelDataMap["grasslands.json"] = LevelData("Grasslands", false, false, false, 3.5f, 0.0f, 1);
         mLevelDataMap["theclimb.json"] = LevelData("The Climb", false, false, false, 6.0f, 0.0f, 1);
-        mLevelDataMap["boing.json"] = LevelData("Boing", false, false,  false, 99.f, 3.2f, 3);
+        mLevelDataMap["boing.json"] = LevelData("Boing", false, false,  false, 3.2f, 0.0f, 3);
         mLevelDataMap["spelunking.json"] = LevelData("Spelunking", false, false, false, 6.0f, 0.0f, 3);
         mLevelDataMap["ohbarnacles.json"] = LevelData("Oh Barnacles", false, false, false, 12.5f, 0.0f, 3);
         mLevelDataMap["vertigo.json"] = LevelData("Vertigo", false, false,  false, 30.f, 0.f, 5);
