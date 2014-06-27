@@ -1,4 +1,5 @@
 #include "PlayState.h"
+#include "LevelManager.h"
 #include "SaveManager.h"
 
 PlayState::PlayState(StateStack &stack, Context context, const std::string &map) : 
@@ -19,7 +20,6 @@ bool PlayState::update(sf::Time deltaTime){
     if(!mWorld->isComplete())
         mWorld->update(deltaTime);
     else{
-        //TODO stats display etc
         requestStackPush(ID::LevelCompletion);
         SaveManager::getInstance().markLevelCompleted(mMapName, mWorld->getAttemptTime(), mWorld->getNumDeaths(), mWorld->isGemCollected());
     }

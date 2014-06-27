@@ -3,12 +3,10 @@
 #include "LevelManager.h"
 #include "World.h"
 
-LevelManager::LevelManager(sf::RenderWindow &window, SoundPlayer &soundPlayer) :
-    mWindow(window),
-    mSoundPlayer(soundPlayer){}
+LevelManager::LevelManager(){}
 
-void LevelManager::insert(const std::string &map){
-    mLevelMap[map] = new World(mWindow, mSoundPlayer, map);
+void LevelManager::insert(State::Context context, std::string &map){
+    mLevelMap[map] = new World(context, map);
 }
 
 void LevelManager::load(const std::string &map){

@@ -22,12 +22,9 @@
 #include "Bee.h"
 
 
-World::World(sf::RenderWindow &window, SoundPlayer &soundPlayer, const std::string &map) :
-        mWindow(window),
-        mWorldView(mWindow.getDefaultView()),
-        mTextureManager(TextureManager()),
-        mFontManager(FontManager()),
-        mSoundPlayer(soundPlayer),
+World::World(State::Context context, const std::string &map) :
+        mContext(context),
+        mWorldView(mContext.window->getDefaultView()),
         mMapLoader(TiledJSONLoader("Resources/Maps/", "Resources/Textures/Tileset/")),
         mWorldLoader(Box2DTiledLoader()),
         mCollisionHandler(CollisionHandler(*this)),
@@ -60,12 +57,11 @@ void World::initialize(){
     mBox2DWorld = std::unique_ptr<b2World>(mWorldLoader.getWorld());
     mBox2DWorld->SetContactListener(&mCollisionHandler);
     mGameObjectFactory = GameObjectFactory(mMapData, mBox2DWorld.get());
-    loadResources();
     buildScene();
     mTexturesLoaded = true;
 
     centerPlayerView();
-    mWindow.setView(mWorldView);
+    mContext.window->setView(mWorldView);
 }
 
 
@@ -145,7 +141,7 @@ void World::update(sf::Time deltaTime){
         mCompleted = true;
     }
 
-    mSoundPlayer.removeStoppedSounds();
+    mContext.soundPlayer->removeStoppedSounds();
 }
 
 void World::updateSeekers(){
@@ -227,25 +223,8 @@ void World::centerPlayerView(){
 }
 
 void World::draw(){
-    mWindow.setView(mWorldView);
-    mWindow.draw(mSceneGraph);  
-}
-
-void World::loadResources(){
-
-    //Load our backgrounds
-    mTextureManager.load(TextureID::GrasslandsBackground, "Resources/Textures/Background/bg.png");
-
-    //Load our player
-    mTextureManager.load(TextureID::PlayerSpriteSheet, "Resources/Textures/Player/player_spritesheet.png");
-    mTextureManager.load(TextureID::PlayerStanding, "Resources/Textures/Player/alienGreen_stand.png");
-
-    //Load entities
-    mTextureManager.load(TextureID::EnemiesSpriteSheet, "Resources/Textures/Enemy/enemies_spritesheet.png");
-    mTextureManager.load(TextureID::Boss, "Resources/Textures/Enemy/giant_slime.png");
-
-    //Load fonts
-    mFontManager.load(FontID::Thin, "Resources/Fonts/kenvector_future_thin.ttf");
+    mContext.window->setView(mWorldView);
+    mContext.window->draw(mSceneGraph);  
 }
 
 void World::buildScene(){
@@ -258,7 +237,7 @@ void World::buildScene(){
     }
 
     //Background layer
-    sf::Texture &texture = mTextureManager.get(TextureID::GrasslandsBackground);
+    sf::Texture &texture = mContext.textureManager->get(TextureID::Background);
     texture.setRepeated(true);
     std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(texture, sf::IntRect(0, 0, mMapData.mapWidth * 70, mMapData.mapHeight * 70)));
     mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
@@ -269,7 +248,7 @@ void World::buildScene(){
     mSceneLayers[Tilemap]->attachChild(std::move(tileMap));
 
     //Object layer (players, enemies, etc)
-    EntityFactory entityFactory = EntityFactory(mTextureManager, mMapData, mBox2DWorld.get());
+    EntityFactory entityFactory = EntityFactory(*mContext.textureManager, mMapData, mBox2DWorld.get());
     for(auto &objectGroup : mMapData.objectGroups){
         if (objectGroup.name == "Objects"){
             for (auto &object : objectGroup.objects){
@@ -293,20 +272,20 @@ void World::buildScene(){
     mSceneLayers[Object]->attachChild(std::move(std::unique_ptr<Marvin>(mPlayerCharacter)));
 
     //HUD Layer
-    sf::Font &timeFont = mFontManager.get(FontID::Thin);
+    sf::Font &timeFont = mContext.fontManager->get(FontID::Thin);
     std::unique_ptr<TextNode> timeText(new TextNode(timeFont));
     mTimeText = timeText.get();
     mTimeText->setColor(sf::Color::Black);
     mSceneLayers[HUD]->attachChild(std::move(timeText));
 
     //Sound Effects
-    std::unique_ptr<SoundNode> soundEffects(new SoundNode(mSoundPlayer));
+    std::unique_ptr<SoundNode> soundEffects(new SoundNode(*mContext.soundPlayer));
     mSceneLayers[Sounds]->attachChild(std::move(soundEffects));
 }
 
 void World::spawnPlayer(sf::Vector2f position){
 
-    sf::Sprite playerSprite(mTextureManager.get(TextureID::PlayerStanding));
+    sf::Sprite playerSprite(mContext.textureManager->get(TextureID::PlayerStanding));
     sf::FloatRect bounds = playerSprite.getGlobalBounds();
     sf::Vector2f renderPos = position + sf::Vector2f(0.f, bounds.height/2);
     sf::Vector2f centerPlayerPos = sf::Vector2f(
@@ -342,7 +321,7 @@ void World::spawnPlayer(sf::Vector2f position){
     footFixture.shape = &footShape;
     mPlayerBody->CreateFixture(&footFixture);
 
-    mPlayerCharacter = new Marvin(mTextureManager, mPlayerBody);
+    mPlayerCharacter = new Marvin(*mContext.textureManager, mPlayerBody);
     mPlayerCharacter->setRenderPosition(renderPos);
     mPlayerBody->SetUserData(mPlayerCharacter);
 }
@@ -367,7 +346,7 @@ void World::renderStaticBodyFixtures(){
                     lines.append(sf::Vertex(sf::Vector2f(v1.x * 70.f, (mMapData.mapHeight * 70) - v1.y * 70.f), sf::Color::Blue));
                     lines.append(sf::Vertex(sf::Vector2f(v2.x * 70.f, (mMapData.mapHeight * 70) - v2.y * 70.f), sf::Color::Blue));                
                 }
-                mWindow.draw(lines);
+                mContext.window->draw(lines);
             }
         }
     }
@@ -376,8 +355,8 @@ void World::renderStaticBodyFixtures(){
 void World::onResolutionChange(){
 
     mWorldView.setSize(sf::Vector2f(
-        mWindow.getSize().x,
-        mWindow.getSize().y));
+        mContext.window->getSize().x,
+        mContext.window->getSize().y));
     centerPlayerView();
     mTimeText->setPosition(
         mWorldView.getCenter().x + mWorldView.getSize().x / 2.f - 125.f,

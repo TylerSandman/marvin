@@ -100,3 +100,5 @@ void StateStack::applyPendingChanges(){
     }
     mPendingList.clear();
 }
+
+State::Context StateStack::getContext() const{ return mContext; }

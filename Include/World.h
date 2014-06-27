@@ -13,13 +13,14 @@
 #include "Command.h"
 #include "TextNode.h"
 #include "SoundPlayer.h"
+#include "State.h"
 
 class Marvin;
 
 class World{
 
 public:
-    World(sf::RenderWindow &window, SoundPlayer &soundPlayer, const std::string &map);
+    World(State::Context context, const std::string &map);
     CommandQueue& getCommandQueue();
     void initialize();
     void update(sf::Time deltaTime);
@@ -39,7 +40,6 @@ public:
     bool texturesLoaded();
 
 private:
-    void loadResources();
     void buildScene();
     void spawnPlayer(sf::Vector2f position);
     void renderStaticBodyFixtures(); //For debugging
@@ -58,12 +58,9 @@ private:
     };
     
 private:
-    sf::RenderWindow& mWindow;
+    State::Context mContext;
     sf::View mWorldView;
     CommandQueue mCommandQueue;
-    TextureManager mTextureManager;
-    FontManager mFontManager;
-    SoundPlayer &mSoundPlayer;
     TiledJSONLoader mMapLoader;
     Box2DTiledLoader mWorldLoader;
     GameObjectFactory mGameObjectFactory;

@@ -22,6 +22,7 @@ public:
     void clearStates();
     void onResolutionChange();
     bool isEmpty() const;
+    State::Context getContext() const;
 
 private:
     void applyPendingChanges();
@@ -34,7 +35,6 @@ private:
         State::ID stateID;
         std::string map;
     };
-
 
 private:
     std::vector<State::Ptr> mStack;

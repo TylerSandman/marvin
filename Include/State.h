@@ -1,13 +1,13 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 #include "ResourceManager.h"
-#include "LevelManager.h"
 #include "Player.h"
 #include "MusicPlayer.h"
 #include "SoundPlayer.h"
 
 class StateStack;
 class World;
+class LevelManager;
 
 class State{
 

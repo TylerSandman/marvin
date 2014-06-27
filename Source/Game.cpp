@@ -25,7 +25,7 @@ Game::Game() :
         mFontManager(),
         mMusicPlayer(),
         mSoundPlayer(),
-        mLevelManager(mWindow, mSoundPlayer),
+        mLevelManager(),
         mStateStack(State::Context(mWindow, mTextureManager, mFontManager, mLevelManager, mMusicPlayer, mSoundPlayer, mPlayer)){
 
     mWindow.setVerticalSyncEnabled(true);
@@ -48,6 +48,7 @@ Game::Game() :
     mTextureManager.load(TextureID::GreenContainerButtonPointer, "Resources/Textures/GUI/green_panel_button_pointer.png");
     mTextureManager.load(TextureID::ContainerButtonDisabled, "Resources/Textures/GUI/panel_button_disabled.png");
     mTextureManager.load(TextureID::PlayerSpriteSheet, "Resources/Textures/Player/player_spritesheet.png");
+    mTextureManager.load(TextureID::PlayerStanding, "Resources/Textures/Player/alienGreen_stand.png");
     mTextureManager.load(TextureID::EnemiesSpriteSheet, "Resources/Textures/Enemy/enemies_spritesheet.png");
     mTextureManager.load(TextureID::Boss, "Resources/Textures/Enemy/giant_slime.png");
     mTextureManager.load(TextureID::HUDSpriteSheet, "Resources/Textures/GUI/hud_spritesheet.png");
@@ -77,7 +78,6 @@ void Game::run(){
         }
         draw();
     }
-
 }
 
 void Game::handleInput(){
@@ -114,7 +114,6 @@ void Game::load(const std::string &saveFile, SaveManager &saveManager){
     if (ifs.good()){
         boost::archive::binary_iarchive ia(ifs);
         ia >> saveManager;
-        int test = 5;
     }
 
     //Create save file if nonexistant

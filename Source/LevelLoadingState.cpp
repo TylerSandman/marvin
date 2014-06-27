@@ -1,5 +1,6 @@
 #include "LevelLoadingState.h"
 #include "AnimatedSprite.h"
+#include "LevelManager.h"
 
 LevelLoadingState::LevelLoadingState(StateStack &stack, Context context, const std::string &map) : 
         State(stack, context),
@@ -38,7 +39,7 @@ LevelLoadingState::LevelLoadingState(StateStack &stack, Context context, const s
     mLoadingText.setPosition(
         context.window->getSize().x / 2.f,
         context.window->getSize().y / 2.f);
-    context.levelManager->insert(mMap);
+    context.levelManager->insert(context, mMap);
     mWorld = context.levelManager->get(mMap);
     mLoadingThread.launch();   
 
