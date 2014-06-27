@@ -37,7 +37,7 @@ Game::Game() :
     mTextureManager.load(TextureID::GrasslandsBackground, "Resources/Textures/Background/bg_grasslands.png");
     mTextureManager.load(TextureID::PauseScreenPanel, "Resources/Textures/GUI/grey_panel.png");
     mTextureManager.load(TextureID::OptionScreenPanel, "Resources/Textures/GUI/grey_panel_medium2.png");
-    mTextureManager.load(TextureID::HelpScreenPanel, "Resources/Textures/GUI/help_screen.png");
+    mTextureManager.load(TextureID::HelpScreenPanel, "Resources/Textures/Background/help_screen.png");
     mTextureManager.load(TextureID::LevelCompletionPanel, "Resources/Textures/GUI/grey_panel_medium.png");
     mTextureManager.load(TextureID::LevelSelectionPanel, "Resources/Textures/GUI/grey_panel_large.png");
     mTextureManager.load(TextureID::PlayerSpriteSheet, "Resources/Textures/Player/player_spritesheet.png");
@@ -46,7 +46,7 @@ Game::Game() :
     mTextureManager.load(TextureID::SpinnerSpriteSheet, "Resources/Textures/Enemy/spinner_spritesheet.png");
     mTextureManager.load(TextureID::Boss, "Resources/Textures/Enemy/giant_slime.png");
     mTextureManager.load(TextureID::GUISpriteSheet, "Resources/Textures/GUI/gui_spritesheet.png");
-    mTextureManager.load(TextureID::HUDSpriteSheet, "Resources/Textures/GUI/hud_spritesheet.png");
+    mTextureManager.load(TextureID::HUDSpriteSheet, "Resources/Textures/HUD/hud_spritesheet.png");
     mFontManager.load(FontID::Main, "Resources/Fonts/kenvector_future.ttf");
     mFontManager.load(FontID::Thin, "Resources/Fonts/kenvector_future_thin.ttf");
     mStateStack.pushState(State::ID::Menu);
