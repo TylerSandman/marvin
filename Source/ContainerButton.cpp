@@ -9,16 +9,18 @@ namespace GUI{
 
 ContainerButton::ContainerButton(TextureManager &textureManager) :
         Button(textureManager),
-        mChildren(),
-        mPointer(textureManager.get(TextureID::GreenContainerButtonPointer)){
+        mChildren(){
 
-    mTextureNormal = textureManager.get(TextureID::GreenContainerButton);
-    mTexturePressed = textureManager.get(TextureID::GreenContainerButtonPressed);
-    mTextureDisabled = textureManager.get(TextureID::ContainerButtonDisabled);
-    mSprite.setTexture(mTextureNormal);
+    mTextureNormalRect = sf::IntRect(0, 150, 725, 75);
+    mTexturePressedRect = sf::IntRect(0, 150, 725, 75);
+    mTextureDisabledRect = sf::IntRect(0, 225, 725, 75);
+    mSprite.setTexture(textureManager.get(TextureID::GUISpriteSheet));
+    mSprite.setTextureRect(mTextureNormalRect);
     sf::FloatRect bounds = mSprite.getLocalBounds();
     mSprite.setOrigin(bounds.width/2, bounds.height/2);
-    sf::FloatRect pointerBounds = mPointer.getLocalBounds();
+    mPointer.setTexture(textureManager.get(TextureID::GUISpriteSheet));
+    mPointer.setTextureRect(sf::IntRect(231, 1, 39, 31));
+    sf::FloatRect pointerBounds = mPointer.getLocalBounds();   
     mPointer.setOrigin(pointerBounds.width / 2.f, pointerBounds.height / 2.f);
     mPointer.move(-bounds.width / 2.f - pointerBounds.width / 2.f - 10.f, 0.f);
 }
@@ -101,13 +103,13 @@ void ContainerButton::changeTexture(Type buttonType){
 
     switch(buttonType){
     case(Type::Normal):
-        mSprite.setTexture(mTextureNormal);
+        mSprite.setTextureRect(mTextureNormalRect);
         break;
     case(Type::Pressed):
-        mSprite.setTexture(mTexturePressed);
+        mSprite.setTextureRect(mTexturePressedRect);
         break;
     case(Type::Disabled):
-        mSprite.setTexture(mTextureDisabled);
+        mSprite.setTextureRect(mTextureDisabledRect);
         break;
 
     }

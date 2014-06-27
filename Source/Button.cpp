@@ -8,21 +8,22 @@
 namespace GUI{
 
 Button::Button(TextureManager &textureManager) : 
-    mTextureNormal(textureManager.get(TextureID::GreenButton)),
-    mTexturePressed(textureManager.get(TextureID::GreenButtonPressed)),
-    mTextureDisabled(textureManager.get(TextureID::ButtonDisabled)),
+    mTextureNormalRect(sf::IntRect(1, 1, 228, 49)),
+    mTexturePressedRect(sf::IntRect(1, 51, 228, 49)),
+    mTextureDisabledRect(sf::IntRect(1, 101, 228, 49)),
     mIsToggle(false),
     mEnabled(true){}
 
 Button::Button(TextureManager &textureManager, FontManager &fontManager) :
-        mTextureNormal(textureManager.get(TextureID::GreenButton)),
-        mTexturePressed(textureManager.get(TextureID::GreenButtonPressed)),
-        mTextureDisabled(textureManager.get(TextureID::ButtonDisabled)),
+        mTextureNormalRect(sf::IntRect(1, 1, 228, 49)),
+        mTexturePressedRect(sf::IntRect(1, 51, 228, 49)),
+        mTextureDisabledRect(sf::IntRect(1, 101, 228, 49)),
         mText("", fontManager.get(FontID::Main), 24),
         mIsToggle(false),
         mEnabled(true){
 
-    mSprite.setTexture(mTextureNormal);
+    mSprite.setTexture(textureManager.get(TextureID::GUISpriteSheet));
+    mSprite.setTextureRect(mTextureNormalRect);
     sf::FloatRect bounds = mSprite.getLocalBounds();
     mSprite.setOrigin(bounds.width/2, bounds.height/2);
 }
@@ -111,13 +112,13 @@ void Button::changeTexture(Type buttonType){
 
     switch(buttonType){
     case(Type::Normal):
-        mSprite.setTexture(mTextureNormal);
+        mSprite.setTextureRect(mTextureNormalRect);
         break;
     case(Type::Pressed):
-        mSprite.setTexture(mTexturePressed);
+        mSprite.setTextureRect(mTexturePressedRect);
         break;
     case(Type::Disabled):
-        mSprite.setTexture(mTextureDisabled);
+        mSprite.setTextureRect(mTextureDisabledRect);
         break;
 
     }

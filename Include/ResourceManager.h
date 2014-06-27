@@ -17,6 +17,7 @@ enum TextureID{
     Boss,
     SpinnerSpriteSheet,
     HUDSpriteSheet,
+    GUISpriteSheet,
     PlayerStanding,
     ButtonDisabled,
     GreenButton,
