@@ -7,8 +7,8 @@
 class TilemapNode: public SceneNode{
 
 public:
-    explicit TilemapNode(const MapData& mapData, std::vector<b2Body*> contours);
-    virtual unsigned int getCategory();
+    TilemapNode(const MapData& mapData, std::vector<b2Body*> contours);
+    unsigned int getCategory() const;
     virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
 
 private:

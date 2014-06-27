@@ -87,6 +87,7 @@ void World::reset(){
     buildScene();
     centerPlayerView();
     mResetRequested = false;
+    mGemCollected = false;
     ++numDeaths;
 }
 
@@ -149,7 +150,7 @@ void World::update(sf::Time deltaTime){
 
 void World::updateSeekers(){
     Command seekCommand;
-    seekCommand.category = Category::Bee;
+    seekCommand.category = Category::Seeker;
     sf::Vector2f playerPos = mPlayerCharacter->getRenderPosition();
     seekCommand.action = [playerPos](SceneNode &node, sf::Time deltaTime){
         Bee &bee = static_cast<Bee&>(node);

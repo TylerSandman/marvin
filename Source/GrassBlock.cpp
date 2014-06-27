@@ -26,7 +26,7 @@ GrassBlock::GrassBlock(TextureManager &textureManager, b2Body *enemyBody, float 
     mSprite.setOrigin(bounds.width/2, bounds.height/2);
 }
 
-unsigned int GrassBlock::getCategory(){
+unsigned int GrassBlock::getCategory() const{
     return Category::GrassBlock;
 }
 

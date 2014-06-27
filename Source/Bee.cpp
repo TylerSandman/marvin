@@ -40,8 +40,8 @@ Bee::Bee(TextureManager &textureManager, b2Body *enemyBody, float moveVelocity, 
     }
 }
 
-unsigned int Bee::getCategory(){
-    return Category::Bee | Category::Enemy;
+unsigned int Bee::getCategory() const{
+    return Category::Seeker | Category::Enemy;
 }
 
 void Bee::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const{

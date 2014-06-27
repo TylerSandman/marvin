@@ -13,7 +13,7 @@ namespace Category{
         Enemy = 1 << 2, //Enemy
         GrassBlock = 1 << 3, //GrassBlock entity
         GrassPlatform = 1 << 4, //GrassPlatform entity
-        Bee = 1 << 5, //Bee entity
+        Seeker = 1 << 5, //For following player
         Gem = 1 << 6, //Level gem
         Exit = 1 << 7, //End of level
         Damager = 1 << 8, //Spikes, lava, etc

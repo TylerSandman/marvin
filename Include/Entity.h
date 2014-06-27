@@ -13,14 +13,17 @@ public:
         Right
     };
 
-    Entity(b2Body *entityBody);
     typedef std::unique_ptr<Entity> Ptr;
-    sf::Vector2f getRenderPosition();
+
+public:
+
+    explicit Entity(b2Body *entityBody);   
+    sf::Vector2f getRenderPosition() const;
     void setRenderPosition(sf::Vector2f position);
-    b2Vec2 getPosition();
+    b2Vec2 getPosition() const;
     void setVelocity(b2Vec2 velocity);
-    b2Vec2 getVelocity(); 
-    sf::FloatRect getBoundingBox();
+    b2Vec2 getVelocity() const; 
+    sf::FloatRect getBoundingBox() const;
 
 protected:
     b2Vec2 mVelocity;

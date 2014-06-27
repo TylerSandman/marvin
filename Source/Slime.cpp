@@ -28,7 +28,7 @@ Slime::Slime(TextureManager &textureManager, b2Body *enemyBody, float jumpHeight
     mSprite.setOrigin(bounds.width/2, bounds.height/2);
 }
 
-unsigned int Slime::getCategory(){
+unsigned int Slime::getCategory() const{
     return Category::Enemy;
 }
 

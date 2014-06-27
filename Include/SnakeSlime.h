@@ -10,7 +10,7 @@ class SnakeSlime : public Entity{
     
 public:
     SnakeSlime(TextureManager &textureManager, b2Body *enemyBody);
-    unsigned int getCategory();
+    unsigned int getCategory() const;
     virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
     virtual void updateCurrent(sf::Time deltaTime);
     void stopAnimation();

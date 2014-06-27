@@ -20,7 +20,7 @@ public:
     
 public:
     Marvin(TextureManager &textureManager, b2Body *playerBody);
-    unsigned int getCategory();
+    unsigned int getCategory() const;
     virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
     virtual void updateCurrent(sf::Time deltaTime);
     void setControlledVelocity(b2Vec2 velocity);

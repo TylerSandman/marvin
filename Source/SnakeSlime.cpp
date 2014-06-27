@@ -21,7 +21,7 @@ SnakeSlime::SnakeSlime(TextureManager &textureManager, b2Body *enemyBody) :
     mSprite.setOrigin(bounds.width/2, bounds.height/2);
 }
 
-unsigned int SnakeSlime::getCategory(){
+unsigned int SnakeSlime::getCategory() const{
     return Category::Enemy;
 }
 

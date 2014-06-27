@@ -8,7 +8,7 @@ class SoundNode : public SceneNode{
 public:
     explicit SoundNode(SoundPlayer &player);
     void play(SoundEffectID sound);
-    virtual unsigned int getCategory();
+    unsigned int getCategory() const;
 
 private:
     SoundPlayer &mSoundPlayer;

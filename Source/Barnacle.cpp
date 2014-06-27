@@ -25,7 +25,7 @@ Barnacle::Barnacle(TextureManager &textureManager, b2Body *enemyBody, bool flipp
     }
 }
 
-unsigned int Barnacle::getCategory(){
+unsigned int Barnacle::getCategory() const{
     return Category::Enemy;
 }
 

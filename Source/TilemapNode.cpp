@@ -12,7 +12,7 @@ TilemapNode::TilemapNode(const MapData &mapData, std::vector<b2Body*> contours) 
     }
 }
 
-unsigned int TilemapNode::getCategory(){
+unsigned int TilemapNode::getCategory() const{
     return Category::Type::Walkable;
 }
 

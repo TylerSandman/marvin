@@ -11,7 +11,7 @@ class Bee : public Entity{
     
 public:
     Bee(TextureManager &textureManager, b2Body *enemyBody, float moveVelocity, std::vector<sf::Vector2f> waypoints, float steering = 3.f);
-    unsigned int getCategory();
+    unsigned int getCategory() const;
     virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
     virtual void updateCurrent(sf::Time deltaTime);
     void seek(sf::Vector2f pos);

@@ -10,7 +10,7 @@ class BossSlime : public Entity{
     
 public:
     BossSlime(TextureManager &textureManager, b2Body *enemyBody, float velocity);
-    unsigned int getCategory();
+    unsigned int getCategory() const;
     virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
     virtual void updateCurrent(sf::Time deltaTime);
     void stopAnimation();

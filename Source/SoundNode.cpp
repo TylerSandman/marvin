@@ -7,6 +7,6 @@ void SoundNode::play(SoundEffectID sound){
     mSoundPlayer.play(sound);
 }
 
-unsigned int SoundNode::getCategory(){
+unsigned int SoundNode::getCategory() const{
     return Category::SoundEffect;
 }

@@ -11,7 +11,7 @@ SceneNode::SceneNode():
     mParent(nullptr),
     mFlaggedForRemoval(false){}
 
-unsigned int SceneNode::getCategory(){
+unsigned int SceneNode::getCategory() const{
     return Category::None;
 }
 

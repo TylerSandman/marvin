@@ -5,6 +5,7 @@
 #include "Logger.h"
 #include "World.h"
 #include "SoundNode.h"
+#include "Marvin.h"
 
 CollisionHandler::CollisionHandler(World &world) : 
     mWorld(world){}

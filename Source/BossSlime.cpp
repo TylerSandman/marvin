@@ -24,7 +24,7 @@ BossSlime::BossSlime(TextureManager &textureManager, b2Body *enemyBody, float ve
     setVelocity(b2Vec2(velocity, 0.f));
 }
 
-unsigned int BossSlime::getCategory(){
+unsigned int BossSlime::getCategory() const{
     return Category::Enemy;
 }
 

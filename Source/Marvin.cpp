@@ -48,7 +48,7 @@ Marvin::Marvin(TextureManager &textureManager, b2Body *playerBody) :
     numFootContacts = 0;
 }
 
-unsigned int Marvin::getCategory(){
+unsigned int Marvin::getCategory() const{
     return Category::Player;
 }
 

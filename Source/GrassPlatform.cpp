@@ -35,7 +35,7 @@ GrassPlatform::GrassPlatform(TextureManager &textureManager, b2Body *enemyBody, 
     mCurrentWaypoint = mWaypoints.begin();
 }
 
-unsigned int GrassPlatform::getCategory(){
+unsigned int GrassPlatform::getCategory() const{
     return Category::GrassPlatform;
 }
 
