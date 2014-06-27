@@ -35,18 +35,11 @@ Game::Game() :
     mTextureManager.load(TextureID::MenuGround, "Resources/Textures/Tileset/ground_repeat_texture.png");
     mTextureManager.load(TextureID::CastleBackground, "Resources/Textures/Background/bg_castle.png");
     mTextureManager.load(TextureID::GrasslandsBackground, "Resources/Textures/Background/bg_grasslands.png");
-    mTextureManager.load(TextureID::GreenButton, "Resources/Textures/GUI/green_button.png");
-    mTextureManager.load(TextureID::ButtonDisabled, "Resources/Textures/GUI/button_disabled.png");
-    mTextureManager.load(TextureID::GreenButtonPressed, "Resources/Textures/GUI/green_button_pressed.png");
     mTextureManager.load(TextureID::PauseScreenPanel, "Resources/Textures/GUI/grey_panel.png");
     mTextureManager.load(TextureID::OptionScreenPanel, "Resources/Textures/GUI/grey_panel_medium2.png");
     mTextureManager.load(TextureID::HelpScreenPanel, "Resources/Textures/GUI/help_screen.png");
     mTextureManager.load(TextureID::LevelCompletionPanel, "Resources/Textures/GUI/grey_panel_medium.png");
     mTextureManager.load(TextureID::LevelSelectionPanel, "Resources/Textures/GUI/grey_panel_large.png");
-    mTextureManager.load(TextureID::GreenContainerButton, "Resources/Textures/GUI/green_panel_button.png");
-    mTextureManager.load(TextureID::GreenContainerButtonPressed, "Resources/Textures/GUI/green_panel_button_pressed.png");
-    mTextureManager.load(TextureID::GreenContainerButtonPointer, "Resources/Textures/GUI/green_panel_button_pointer.png");
-    mTextureManager.load(TextureID::ContainerButtonDisabled, "Resources/Textures/GUI/panel_button_disabled.png");
     mTextureManager.load(TextureID::PlayerSpriteSheet, "Resources/Textures/Player/player_spritesheet.png");
     mTextureManager.load(TextureID::PlayerStanding, "Resources/Textures/Player/alienGreen_stand.png");
     mTextureManager.load(TextureID::EnemiesSpriteSheet, "Resources/Textures/Enemy/enemies_spritesheet.png");
