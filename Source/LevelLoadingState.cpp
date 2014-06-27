@@ -14,7 +14,6 @@ LevelLoadingState::LevelLoadingState(StateStack &stack, Context context, const s
         mObjectsLoaded(false),
         mTexturesLoaded(false){
 
-    context.textureManager->load(TextureID::SpinnerSpriteSheet, "Resources/Textures/Enemy/spinner_spritesheet.png");
     sf::Texture &bgTexture = context.textureManager->get(TextureID::CastleBackground);
     sf::Texture &spriteSheet = context.textureManager->get(TextureID::SpinnerSpriteSheet);
     bgTexture.setRepeated(true);

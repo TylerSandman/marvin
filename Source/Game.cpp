@@ -50,6 +50,7 @@ Game::Game() :
     mTextureManager.load(TextureID::PlayerSpriteSheet, "Resources/Textures/Player/player_spritesheet.png");
     mTextureManager.load(TextureID::PlayerStanding, "Resources/Textures/Player/alienGreen_stand.png");
     mTextureManager.load(TextureID::EnemiesSpriteSheet, "Resources/Textures/Enemy/enemies_spritesheet.png");
+    mTextureManager.load(TextureID::SpinnerSpriteSheet, "Resources/Textures/Enemy/spinner_spritesheet.png");
     mTextureManager.load(TextureID::Boss, "Resources/Textures/Enemy/giant_slime.png");
     mTextureManager.load(TextureID::HUDSpriteSheet, "Resources/Textures/GUI/hud_spritesheet.png");
     mFontManager.load(FontID::Main, "Resources/Fonts/kenvector_future.ttf");
