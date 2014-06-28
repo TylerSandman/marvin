@@ -153,8 +153,6 @@ bool MenuState::update(sf::Time deltaTime){
     if (mGrass.getPosition().x <= repeatGroundPos){
         mGrass.setPosition(0, mGrass.getPosition().y);
     }
-    float test = -MAX_RUN_SPEED * PX_PER_M * deltaTime.asSeconds();
-    float test2 = -MAX_RUN_SPEED * 70.f * deltaTime.asSeconds();
     mGrass.move(-MAX_RUN_SPEED * PX_PER_M * deltaTime.asSeconds(), 0.f);
 
     //Same logic as above for the backdrop

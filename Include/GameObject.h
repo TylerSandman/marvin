@@ -10,7 +10,7 @@ class GameObject : public SceneNode{
 public:
     typedef std::unique_ptr<GameObject> Ptr;
     GameObject(Category::Type category, sf::Sprite sprite, b2Body *objectBody);
-    virtual unsigned int getCategory();
+    unsigned int getCategory() const;
     virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
     virtual void updateCurrent(sf::Time deltaTime);
     virtual void remove();

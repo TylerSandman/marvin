@@ -5,7 +5,7 @@
 GameObject::GameObject(Category::Type category, sf::Sprite sprite, b2Body *objectBody) :
     mCategory(category), mSprite(sprite), mBody(objectBody){}
 
-unsigned int GameObject::getCategory(){
+unsigned int GameObject::getCategory() const{
     return mCategory;
 }
 
