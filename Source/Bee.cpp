@@ -33,7 +33,7 @@ Bee::Bee(TextureManager &textureManager, b2Body *enemyBody, float moveVelocity, 
         for (auto &waypoint : waypoints){
             sf::Vector2f platformWaypoint(
                 waypoint.x + 35.f,
-                waypoint.y + 70.f - bounds.height / 2.f);
+                waypoint.y + PX_PER_M - bounds.height / 2.f);
             mWaypoints.push_back(platformWaypoint);
         }
         mCurrentWaypoint = mWaypoints.begin();
@@ -53,8 +53,8 @@ void Bee::updateCurrent(sf::Time deltaTime){
     //Move sprite according to Box2D's World step
     b2Vec2 physPos = mB2Body->GetPosition();
     sf::Vector2f previousRenderPos = mSprite.getPosition();
-    float mapHeight = previousRenderPos.y + mPreviousPosition.y * 70.f;
-    mSprite.setPosition(physPos.x * 70.f, mapHeight - physPos.y * 70.f);
+    float mapHeight = previousRenderPos.y + mPreviousPosition.y * PX_PER_M;
+    mSprite.setPosition(physPos.x * PX_PER_M, mapHeight - physPos.y * PX_PER_M);
     mPreviousPosition = physPos;
     mSprite.update(deltaTime);
 
@@ -81,11 +81,11 @@ void Bee::seek(sf::Vector2f pos){
     b2Vec2 physPos = mB2Body->GetPosition();
     b2Vec2 currentVelocity = getVelocity();
     sf::Vector2f previousRenderPos = mSprite.getPosition();
-    float mapHeight = previousRenderPos.y + mPreviousPosition.y * 70.f;
+    float mapHeight = previousRenderPos.y + mPreviousPosition.y * PX_PER_M;
 
     b2Vec2 differenceVector(
-            pos.x / 70.f - physPos.x,
-            mapHeight / 70.f - pos.y / 70.f - physPos.y);
+            pos.x / PX_PER_M - physPos.x,
+            mapHeight / PX_PER_M - pos.y / PX_PER_M - physPos.y);
 
     //Vector normalization
     float mag = sqrt(pow(differenceVector.x, 2) + pow(differenceVector.y, 2));
@@ -113,7 +113,7 @@ void Bee::followWaypoints(){
 
     b2Vec2 physPos = mB2Body->GetPosition();
     sf::Vector2f previousRenderPos = mSprite.getPosition();
-    float mapHeight = previousRenderPos.y + mPreviousPosition.y * 70.f;
+    float mapHeight = previousRenderPos.y + mPreviousPosition.y * PX_PER_M;
 
     //If close enough to its next waypoint advance to the next one
     sf::Vector2f distanceVector = mSprite.getPosition() - *mCurrentWaypoint;
@@ -127,8 +127,8 @@ void Bee::followWaypoints(){
     
     else{
         b2Vec2 differenceVector(
-            (*mCurrentWaypoint).x / 70.f - physPos.x,
-            mapHeight / 70.f - (*mCurrentWaypoint).y / 70.f - physPos.y);
+            (*mCurrentWaypoint).x / PX_PER_M - physPos.x,
+            mapHeight / PX_PER_M - (*mCurrentWaypoint).y / PX_PER_M - physPos.y);
 
         //Vector normalization
         float mag = sqrt(pow(differenceVector.x, 2) + pow(differenceVector.y, 2));

@@ -185,7 +185,7 @@ void LevelSelectState::addLevel(LevelData lData, const std::string &map, bool en
     float posY = static_cast<float>(firstButtonPadding + 100 * numLevels);
     levelButton->setPosition(posX, posY);
     
-    levelLabel->move(-270.f, -10);
+    levelLabel->move(-270, -10);
     timeLabel->move(0, -10);
     timeLabel->move(280, 0);
     numGems->move(-330, 0);

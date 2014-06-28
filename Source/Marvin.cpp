@@ -3,6 +3,7 @@
 #include "Marvin.h"
 #include "ResourceManager.h"
 #include "Command.h"
+#include "Constants.h"
 
 Marvin::Marvin(TextureManager &textureManager, b2Body *playerBody) : 
     Entity(playerBody),
@@ -64,8 +65,8 @@ void Marvin::updateCurrent(sf::Time deltaTime){
     //Move sprite according to Box2D's World step
     b2Vec2 physPos = mB2Body->GetPosition();
     sf::Vector2f previousRenderPos = mSprite.getPosition();
-    float mapHeight = previousRenderPos.y + mPreviousPosition.y * 70.f;
-    mSprite.setPosition(physPos.x * 70.f, mapHeight - physPos.y * 70.f);
+    float mapHeight = previousRenderPos.y + mPreviousPosition.y * PX_PER_M;
+    mSprite.setPosition(physPos.x * PX_PER_M, mapHeight - physPos.y * PX_PER_M);
     mPreviousPosition = physPos;
     if (isOnGround() && !mFading)
         mSprite.play(mAnimationMap[Marvin::AnimationID::Walk]);
@@ -150,11 +151,11 @@ void Marvin::debugDraw(sf::RenderTarget &target, sf::RenderStates states) const{
     b2Vec2 v4 = footShape->GetVertex(3);
 
     sf::Vector2f previousRenderPos = mSprite.getPosition();
-    float mapHeight = previousRenderPos.y + mPreviousPosition.y * 70.f;
-    sf::Vertex renderV1(sf::Vector2f(position.x * 70.f + v1.x * 70.f, mapHeight - (position.y * 70.f + v1.y * 70.f)), sf::Color::Blue); 
-    sf::Vertex renderV2(sf::Vector2f(position.x * 70.f + v2.x * 70.f, mapHeight - (position.y * 70.f + v2.y * 70.f)), sf::Color::Blue); 
-    sf::Vertex renderV3(sf::Vector2f(position.x * 70.f + v3.x * 70.f, mapHeight - (position.y * 70.f + v3.y * 70.f)), sf::Color::Blue); 
-    sf::Vertex renderV4(sf::Vector2f(position.x * 70.f + v4.x * 70.f, mapHeight - (position.y * 70.f + v4.y * 70.f)), sf::Color::Blue); 
+    float mapHeight = previousRenderPos.y + mPreviousPosition.y * PX_PER_M;
+    sf::Vertex renderV1(sf::Vector2f(position.x * PX_PER_M + v1.x * PX_PER_M, mapHeight - (position.y * PX_PER_M + v1.y * PX_PER_M)), sf::Color::Blue); 
+    sf::Vertex renderV2(sf::Vector2f(position.x * PX_PER_M + v2.x * PX_PER_M, mapHeight - (position.y * PX_PER_M + v2.y * PX_PER_M)), sf::Color::Blue); 
+    sf::Vertex renderV3(sf::Vector2f(position.x * PX_PER_M + v3.x * PX_PER_M, mapHeight - (position.y * PX_PER_M + v3.y * PX_PER_M)), sf::Color::Blue); 
+    sf::Vertex renderV4(sf::Vector2f(position.x * PX_PER_M + v4.x * PX_PER_M, mapHeight - (position.y * PX_PER_M + v4.y * PX_PER_M)), sf::Color::Blue); 
     sf::VertexArray lines(sf::PrimitiveType::Lines);
     lines.append(renderV1);
     lines.append(renderV2);

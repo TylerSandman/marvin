@@ -3,6 +3,7 @@
 #include "BossSlime.h"
 #include "ResourceManager.h"
 #include "Command.h"
+#include "Constants.h"
 
 BossSlime::BossSlime(TextureManager &textureManager, b2Body *enemyBody, float velocity) : 
     Entity(enemyBody){
@@ -37,8 +38,8 @@ void BossSlime::updateCurrent(sf::Time deltaTime){
     //Move sprite according to Box2D's World step
     b2Vec2 physPos = mB2Body->GetPosition();
     sf::Vector2f previousRenderPos = mSprite.getPosition();
-    float mapHeight = previousRenderPos.y + mPreviousPosition.y * 70.f;
-    mSprite.setPosition(physPos.x * 70.f, mapHeight - physPos.y * 70.f);
+    float mapHeight = previousRenderPos.y + mPreviousPosition.y * PX_PER_M;
+    mSprite.setPosition(physPos.x * PX_PER_M, mapHeight - physPos.y * PX_PER_M);
     mPreviousPosition = physPos;
     mSprite.update(deltaTime);
 }

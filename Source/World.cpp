@@ -203,8 +203,8 @@ void World::centerPlayerView(){
     float viewHeight = mWorldView.getSize().y;
     sf::Vector2f viewCenter = mWorldView.getCenter();
     sf::Vector2f playerPos = mPlayerCharacter->getRenderPosition();
-    float mMapWidthPixels = mMapData.mapWidth * 70.f;
-    float mMapHeightPixels = mMapData.mapHeight * 70.f;
+    float mMapWidthPixels = mMapData.mapWidth * PX_PER_M;
+    float mMapHeightPixels = mMapData.mapHeight * PX_PER_M;
 
     float xOffset = 0;
     float yOffset = 0;
@@ -290,18 +290,18 @@ void World::spawnPlayer(sf::Vector2f position){
     sf::Vector2f renderPos = position + sf::Vector2f(0.f, bounds.height/2);
     sf::Vector2f centerPlayerPos = sf::Vector2f(
         renderPos.x,
-        mMapData.mapHeight*70.f - renderPos.y);
+        mMapData.mapHeight*PX_PER_M - renderPos.y);
 
     //Create our box2D body
     b2BodyDef playerDef;
     playerDef.fixedRotation = true;
     playerDef.type = b2_dynamicBody;
-    playerDef.position.Set(centerPlayerPos.x / 70.f, centerPlayerPos.y / 70.f);
+    playerDef.position.Set(centerPlayerPos.x / PX_PER_M, centerPlayerPos.y / PX_PER_M);
     mPlayerBody = mBox2DWorld->CreateBody(&playerDef);
 
     //Bounding box with no friction to prevent sticking to static body walls
     b2PolygonShape boundingBox;
-    boundingBox.SetAsBox(bounds.width / 70.f / 2 - 0.1f, bounds.height / 70.f / 2); 
+    boundingBox.SetAsBox(bounds.width / PX_PER_M / 2 - 0.1f, bounds.height / PX_PER_M / 2); 
     b2FixtureDef playerFixture;
     playerFixture.friction = 0.f;
     playerFixture.shape = &boundingBox;
@@ -310,10 +310,10 @@ void World::spawnPlayer(sf::Vector2f position){
     //Special foot sensor to manage jumping/movement
     b2PolygonShape footShape; 
     b2Vec2 footVertices[4];
-    footVertices[0] = b2Vec2(-bounds.width / 70.f / 2 + 0.15f, -bounds.height / 70.f / 2 - 0.04f);
-    footVertices[1] = b2Vec2(-bounds.width / 70.f / 2 + 0.15f, -bounds.height / 70.f / 2 + 0.05f);
-    footVertices[2] = b2Vec2(bounds.width / 70.f / 2 - 0.15f, -bounds.height / 70.f / 2 + 0.05f);
-    footVertices[3] = b2Vec2(bounds.width / 70.f / 2 - 0.15f, -bounds.height / 70.f / 2 - 0.04f);
+    footVertices[0] = b2Vec2(-bounds.width / PX_PER_M / 2 + 0.15f, -bounds.height / PX_PER_M / 2 - 0.04f);
+    footVertices[1] = b2Vec2(-bounds.width / PX_PER_M / 2 + 0.15f, -bounds.height / PX_PER_M / 2 + 0.05f);
+    footVertices[2] = b2Vec2(bounds.width / PX_PER_M / 2 - 0.15f, -bounds.height / PX_PER_M / 2 + 0.05f);
+    footVertices[3] = b2Vec2(bounds.width / PX_PER_M / 2 - 0.15f, -bounds.height / PX_PER_M / 2 - 0.04f);
     footShape.Set(footVertices,4);
     b2FixtureDef footFixture;
     footFixture.isSensor = true;
@@ -343,8 +343,8 @@ void World::renderStaticBodyFixtures(){
                     chain->GetChildEdge(&edge, i);
                     b2Vec2 v1 = edge.m_vertex1;
                     b2Vec2 v2 = edge.m_vertex2;   
-                    lines.append(sf::Vertex(sf::Vector2f(v1.x * 70.f, (mMapData.mapHeight * 70) - v1.y * 70.f), sf::Color::Blue));
-                    lines.append(sf::Vertex(sf::Vector2f(v2.x * 70.f, (mMapData.mapHeight * 70) - v2.y * 70.f), sf::Color::Blue));                
+                    lines.append(sf::Vertex(sf::Vector2f(v1.x * PX_PER_M, (mMapData.mapHeight * 70) - v1.y * PX_PER_M), sf::Color::Blue));
+                    lines.append(sf::Vertex(sf::Vector2f(v2.x * PX_PER_M, (mMapData.mapHeight * 70) - v2.y * PX_PER_M), sf::Color::Blue));                
                 }
                 mContext.window->draw(lines);
             }

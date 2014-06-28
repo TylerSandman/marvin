@@ -3,6 +3,7 @@
 #include "Container.h"
 #include "Image.h"
 #include "Button.h"
+#include "Constants.h"
 
 MenuState::MenuState(StateStack &stack, Context context) : 
         State(stack, context),
@@ -152,14 +153,16 @@ bool MenuState::update(sf::Time deltaTime){
     if (mGrass.getPosition().x <= repeatGroundPos){
         mGrass.setPosition(0, mGrass.getPosition().y);
     }
-    mGrass.move(-MAX_RUN_SPEED * 70.f * deltaTime.asSeconds(), 0.f);
+    float test = -MAX_RUN_SPEED * PX_PER_M * deltaTime.asSeconds();
+    float test2 = -MAX_RUN_SPEED * 70.f * deltaTime.asSeconds();
+    mGrass.move(-MAX_RUN_SPEED * PX_PER_M * deltaTime.asSeconds(), 0.f);
 
     //Same logic as above for the backdrop
     float repeatBackdropPos = (-1) * mBackdrop.getGlobalBounds().width / 2.f;
     if (mBackdrop.getPosition().x <= repeatBackdropPos){
         mBackdrop.setPosition(0, mBackdrop.getPosition().y);
     }
-    mBackdrop.move(-MAX_RUN_SPEED * 70.f * deltaTime.asSeconds(), 0.f);
+    mBackdrop.move(-MAX_RUN_SPEED * PX_PER_M * deltaTime.asSeconds(), 0.f);
     mCharacter.update(deltaTime);
     return false;
 }

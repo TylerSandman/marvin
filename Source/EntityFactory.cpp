@@ -15,6 +15,7 @@
 #include "GrassPlatform.h"
 #include "Bee.h"
 #include "BossSlime.h"
+#include "Constants.h"
 
 EntityFactory::EntityFactory(TextureManager &textureManager, MapData data, b2World *world) : 
         mTextureManager(textureManager), mMapData(data), mWorld(world){}
@@ -97,8 +98,8 @@ Entity* EntityFactory::createEntity(tiled::Object &object){
         for (auto &waypoint : waypointsArray){
             json_spirit::mObject waypointObj = waypoint.get_obj();
             sf::Vector2f waypoint(
-                waypointObj["x"].get_real() * 70.f,
-                waypointObj["y"].get_real() * 70.f);
+                waypointObj["x"].get_real() * PX_PER_M,
+                waypointObj["y"].get_real() * PX_PER_M);
             waypoints.push_back(waypoint);
         }
         if (type.compare("GrassPlatform") == 0)
@@ -121,8 +122,8 @@ Entity* EntityFactory::createEntity(tiled::Object &object){
             for (auto &waypoint : waypointsArray){
                 json_spirit::mObject waypointObj = waypoint.get_obj();
                 sf::Vector2f waypoint(
-                    waypointObj["x"].get_real() * 70.f,
-                    waypointObj["y"].get_real() * 70.f);
+                    waypointObj["x"].get_real() * PX_PER_M,
+                    waypointObj["y"].get_real() * PX_PER_M);
                 waypoints.push_back(waypoint);
             }
         }
@@ -211,7 +212,7 @@ b2Body* EntityFactory::createPhysicsBody(tiled::Object &object){
     }
     sf::Vector2f centerEntityPos = sf::Vector2f(
         renderPos.x,
-        mMapData.mapHeight*70.f - renderPos.y);
+        mMapData.mapHeight*PX_PER_M - renderPos.y);
 
     b2BodyDef entityDef;
     entityDef.fixedRotation = true;
@@ -219,12 +220,12 @@ b2Body* EntityFactory::createPhysicsBody(tiled::Object &object){
         entityDef.type = b2_dynamicBody;
     else
         entityDef.type = b2_kinematicBody;
-    entityDef.position.Set(centerEntityPos.x / 70.f, centerEntityPos.y / 70.f);
+    entityDef.position.Set(centerEntityPos.x / PX_PER_M, centerEntityPos.y / PX_PER_M);
     b2Body *entityBody = mWorld->CreateBody(&entityDef);
 
     //Bounding box with no friction to prevent sticking to static body walls
     b2PolygonShape boundingBox;
-    boundingBox.SetAsBox(bounds.width / 70.f / 2 - 0.1f, bounds.height / 70.f / 2); 
+    boundingBox.SetAsBox(bounds.width / PX_PER_M / 2 - 0.1f, bounds.height / PX_PER_M / 2); 
     b2FixtureDef playerFixture;
     playerFixture.friction = 1.f;
     playerFixture.restitution = 0.f;
@@ -235,10 +236,10 @@ b2Body* EntityFactory::createPhysicsBody(tiled::Object &object){
     if (type == "GrassBlock"){
         b2PolygonShape blockSensor; 
         b2Vec2 footVertices[4];
-        footVertices[0] = b2Vec2(-bounds.width / 70.f / 2 + 0.2f, -bounds.height / 70.f / 2 - 0.01f);
-        footVertices[1] = b2Vec2(-bounds.width / 70.f / 2 + 0.2f, -bounds.height / 70.f / 2 + 0.05f);
-        footVertices[2] = b2Vec2(bounds.width / 70.f / 2 - 0.2f, -bounds.height / 70.f / 2 + 0.05f);
-        footVertices[3] = b2Vec2(bounds.width / 70.f / 2 - 0.2f, -bounds.height / 70.f / 2 - 0.04f);
+        footVertices[0] = b2Vec2(-bounds.width / PX_PER_M / 2 + 0.2f, -bounds.height / PX_PER_M / 2 - 0.01f);
+        footVertices[1] = b2Vec2(-bounds.width / PX_PER_M / 2 + 0.2f, -bounds.height / PX_PER_M / 2 + 0.05f);
+        footVertices[2] = b2Vec2(bounds.width / PX_PER_M / 2 - 0.2f, -bounds.height / PX_PER_M / 2 + 0.05f);
+        footVertices[3] = b2Vec2(bounds.width / PX_PER_M / 2 - 0.2f, -bounds.height / PX_PER_M / 2 - 0.04f);
         blockSensor.Set(footVertices,4);
         b2FixtureDef footFixture;
         footFixture.isSensor = true;

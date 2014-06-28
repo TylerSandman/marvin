@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "Command.h"
 #include "GameObjectFactory.h"
+#include "Constants.h"
 
 
 GameObjectFactory::GameObjectFactory(){}
@@ -60,16 +61,16 @@ b2Body* GameObjectFactory::createPhysicsBody(tiled::Object &object){
     b2Vec2 objectSize = getObjectSize(object);
    
     bodyDef.position = b2Vec2(
-        position.x / 70.f, 
-        (mapHeightPixels - position.y) / 70.f - objectSize.y/2); 
+        position.x / PX_PER_M, 
+        (mapHeightPixels - position.y) / PX_PER_M - objectSize.y/2); 
     
     b2Body *objectBody = mWorld->CreateBody(&bodyDef);
 
     //Exits are only activated at the bottom of the object (i.e. exit sign)
     b2PolygonShape boundingBox;
     boundingBox.SetAsBox(
-        bounds.width / 70.f / 2,
-        bounds.height / 70.f / 2*objectSize.y);
+        bounds.width / PX_PER_M / 2,
+        bounds.height / PX_PER_M / 2*objectSize.y);
     
     b2FixtureDef objectFixture;
     objectFixture.shape = &boundingBox;

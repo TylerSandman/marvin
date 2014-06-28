@@ -16,3 +16,4 @@ namespace phys{
 }
 
 const sf::Time FRAME_RATE = sf::seconds(1.f/60.f);
+const float PX_PER_M = 70.f;
