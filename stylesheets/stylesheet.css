@@ -333,7 +333,7 @@ Full-Width Styles
   background: url(../images/sprite_download.png) no-repeat bottom left;
 }
 
-.tar_download_link {
+.zip_download_link_64 {
   display: block;
   float: right;
   width: 90px;
