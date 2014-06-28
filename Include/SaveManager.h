@@ -77,7 +77,7 @@ public:
         mLevelDataMap["spelunking.json"] = LevelData("Spelunking", false, false, false, 6.0f, 0.0f, 3);
         mLevelDataMap["ohbarnacles.json"] = LevelData("Oh Barnacles", false, false, false, 12.5f, 0.0f, 3);
         mLevelDataMap["vertigo.json"] = LevelData("Vertigo", false, false,  false, 30.f, 0.f, 5);
-        mLevelDataMap["landdownunder.json"] = LevelData("Land Down Under", false, false, false, 15.f, 0.0f, 7);       
+        mLevelDataMap["landdownunder.json"] = LevelData("Land Down Under", false, false, false, 15.f, 0.0f, 6);       
         mLevelDataMap["hivemind.json"] = LevelData("Hivemind", false, false, false, 28.f,  0.0f, 7);
         mLevelDataMap["hotpursuit.json"] = LevelData("Hot Pursuit", false, false, false, 12.5f, 0.0f, 8);
     }
