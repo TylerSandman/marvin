@@ -348,7 +348,7 @@ Full-Width Styles
   background: url(../images/sprite_download.png) no-repeat top left;
 }
 
-.tar_download_link:hover {
+.zip_download_link_64:hover {
   background: url(../images/sprite_download.png) no-repeat top right;
 }
 
