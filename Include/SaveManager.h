@@ -2,8 +2,9 @@
 #include <memory>
 #include <map>
 #include <iostream>
-#include <boost/archive/binary_oarchive.hpp>
-#include <boost/archive/binary_iarchive.hpp>
+#include <fstream>
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
 #include <boost/serialization/map.hpp>
 
 struct LevelData{
@@ -62,7 +63,10 @@ public:
         mLastCompletedData.deaths = deaths;
         mLastCompletedData.map = map;
         mLastCompletedData.time = time;
-
+        std::string saveFile = "save.marv";
+        std::ofstream ofs(saveFile.c_str());
+        boost::archive::text_oarchive oa(ofs);
+        oa << *this;
     }
 
     bool isLevelCompleted(const std::string &map){

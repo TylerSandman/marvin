@@ -5,8 +5,8 @@
 #include <iostream>
 #include <cmath>
 #include <string>
-#include <boost/archive/binary_oarchive.hpp>
-#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
 #include "TiledJSONLoader.h"
 #include "Box2DTiledLoader.h"
 #include "ResourceManager.h"
@@ -29,6 +29,7 @@ Game::Game() :
         mStateStack(State::Context(mWindow, mTextureManager, mFontManager, mLevelManager, mMusicPlayer, mSoundPlayer, mPlayer)){
 
     mWindow.setVerticalSyncEnabled(true);
+    mWindow.setFramerateLimit(60);
 
     //Load necessary textures and fonts
     mTextureManager.load(TextureID::Background, "Resources/Textures/Background/bg.png");
@@ -52,7 +53,7 @@ Game::Game() :
     mStateStack.pushState(State::ID::Menu);
 
     //Load game data    
-    load("save.bin", SaveManager::getInstance());
+    load("save.marv", SaveManager::getInstance());
 }
 
 void Game::run(){
@@ -98,30 +99,21 @@ void Game::draw(){
 }
 
 void Game::exit(){
-
-    //Save data
-    save("save.bin", SaveManager::getInstance());
     mWindow.close();
 }
 
 void Game::load(const std::string &saveFile, SaveManager &saveManager){
-    std::ifstream ifs(saveFile.c_str(), std::ios::binary);
+    std::ifstream ifs(saveFile.c_str());
     if (ifs.good()){
-        boost::archive::binary_iarchive ia(ifs);
+        boost::archive::text_iarchive ia(ifs);
         ia >> saveManager;
     }
 
     //Create save file if nonexistant
     else{
-        std::ofstream ofs(saveFile.c_str(), std::ios::binary);
-        boost::archive::binary_oarchive oa(ofs);
+        std::ofstream ofs(saveFile.c_str());
+        boost::archive::text_oarchive oa(ofs);
         saveManager.makeNewSave();
         oa << saveManager;
     }
-}
-
-void Game::save(const std::string &saveFile, SaveManager &saveManager){
-    std::ofstream ofs(saveFile.c_str(), std::ios::binary);
-    boost::archive::binary_oarchive oa(ofs);
-    oa << saveManager;
 }

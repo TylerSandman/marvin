@@ -21,7 +21,6 @@ private:
     void draw();
     void exit();
     void load(const std::string &saveFile, SaveManager &saveManager);
-    void save(const std::string &saveFile, SaveManager &saveManager);
 
 private:
     sf::RenderWindow mWindow;
